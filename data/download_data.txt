@@ -1,0 +1,2 @@
+Download OpenAlex data from: https://docs.google.com/spreadsheets/d/1v-MAq64x4YjhO7RWcB-yrKV5D_2vOOsxl4u6GBKEXY8/edit?gid=983250122#gid=983250122
+Recommended to download in csv, and shorten its name to OpenAlex_topic_mapping_table.csv
