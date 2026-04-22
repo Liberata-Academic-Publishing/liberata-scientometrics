@@ -1,4 +1,4 @@
-# liberata-metrics
+# liberata-scientometrics
 
 A comprehensive Python package for computing different metrics in the Liberata System.
 
@@ -9,7 +9,7 @@ In development module for Liberata metrics compuation functions, currently writt
 ### Install & Use
 
 ```bash
-cd liberata-metrics
+cd liberata-scientometrics
 pip install -e .
 python test_scripts/matrix_generators_test.py
 python test_scripts/portfolio_metrics_test.py #(need to change the BASE_DIR to point to the right location)
