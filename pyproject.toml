@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "liberata-metrics"
+version = "0.0.1"
+description = "Liberata graph metrics library"
+readme = "README.md"
+authors = [
+    { name = "Derek Wang", email = "xiran.wang@duke.edu" },
+    { name = "Anshuman Sabath", email = "anshuman.sabath@duke.edu" },
+    { name = "Aarsh Roongta", email = "aarsh.roongta@duke.edu" }
+]
+
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+supabase = ["supabase", "python-dotenv"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["test_scripts"]
+markers = [
+    "large: tests requiring pre-generated large matrix files on disk",
+]
