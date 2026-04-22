@@ -133,6 +133,7 @@ cython_debug/
 /openalex_datasets
 /test_scripts/output/*.npz
 /test_scripts/output
+/data/*.csv
 
 # logs
 /logs

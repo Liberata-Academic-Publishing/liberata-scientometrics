@@ -1,0 +1,34 @@
+output_dir: test_scripts/output
+# seed: 501
+seed: 105
+
+matrices:
+
+  start_date: 
+    year: 2020
+    month: 1
+    day: 1
+  end_date:
+    year: 2025
+    month: 1
+    day: 1
+
+  # num_manuscripts: 100
+  # num_contributors: 200
+
+  num_manuscripts: 800
+  num_contributors: 1200
+
+  references:
+    citation_density: 0.5
+  
+  shares: 
+    avg_contributors_per_man: 10
+    std_contributors_per_man: 7
+    contributor_shares_dist: pareto # current options are 'pareto', 'uniform', 'dirichlet'
+    pareto_alpha: 1
+
+time_series:
+
+  time_step: 1 # in days
+
