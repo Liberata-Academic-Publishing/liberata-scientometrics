@@ -7,7 +7,7 @@ A comprehensive Python package for computing different metrics in the Liberata S
 In development module for Liberata metrics compuation functions, currently written under the assumption that the capital matrix in COO, plus the ID-index mapping for contributors and manuscripts, are available as input.
 
 ### Install & Use
-We highly recommend using a virtual env, either `conda` or `uv`, or any of your choice. Ecxample showing conda environment creation
+We highly recommend using a virtual env, either `conda` or `uv`, or any of your choice. Example showing conda environment creation
 
 ```bash
 conda create -n liberata python=3.11
