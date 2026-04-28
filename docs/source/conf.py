@@ -7,9 +7,9 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 
-project = 'liberata_metrics'
+project = 'Liberata Scientometrics'
 copyright = '2025, Liberata'
-author = 'Derek Wang, Chuying Huo, Anshuman Sabath'
+author = 'Derek Wang, Chuying Huo, Anshuman Sabath, Hanlin Wang, Arjun'
 
 import os
 import sys
@@ -43,3 +43,4 @@ exclude_patterns = []
 # html_theme = 'alabaster'
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
+html_baseurl = 'https://www.liberata.info/'
