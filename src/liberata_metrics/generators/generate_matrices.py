@@ -60,7 +60,12 @@ def generate_references_matrix(
     rng = _rng(seed)
 
     # Load OpenAlex topics document
-    openalex_topics = pd.read_csv(OPEN_ALEX_TOPICS_CSV_PATH)
+    if OPEN_ALEX_TOPICS_CSV_PATH.exists():
+        openalex_topics = pd.read_csv(OPEN_ALEX_TOPICS_CSV_PATH)
+    else:
+        openalex_topics = pd.DataFrame({
+            'topic_name': [f'Topic_{i}' for i in range(100)]
+        })
     num_topics = num_manuscripts // 10 if num_manuscripts >= 10 else 1
     # choose num_topics unique topics randomly
     unique_topics = openalex_topics['topic_name'].unique()
