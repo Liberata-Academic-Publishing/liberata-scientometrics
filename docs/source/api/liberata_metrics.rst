@@ -13,6 +13,14 @@ Subpackages
    liberata_metrics.utils
    liberata_metrics.visualizations
 
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   liberata_metrics.logging
+
 Module contents
 ---------------
 

@@ -1,5 +1,5 @@
 liberata\_metrics.metrics.system\_health\_metrics module
-=========================================================
+========================================================
 
 .. automodule:: liberata_metrics.metrics.system_health_metrics
    :members:

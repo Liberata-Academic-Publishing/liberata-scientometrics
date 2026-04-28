@@ -7,6 +7,8 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   liberata_metrics.metrics.distribution_metrics
+   liberata_metrics.metrics.legacy_metric
    liberata_metrics.metrics.market_metrics
    liberata_metrics.metrics.portfolio_metrics
    liberata_metrics.metrics.system_health_metrics
