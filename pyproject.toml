@@ -4,15 +4,27 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "liberata-metrics"
-version = "0.0.1"
-description = "Liberata graph metrics library"
+version = "0.15.1"
+description = "Liberata metrics library"
 readme = "README.md"
 authors = [
-    { name = "Derek Wang", email = "xiran.wang@duke.edu" },
-    { name = "Anshuman Sabath", email = "anshuman.sabath@duke.edu" },
-    { name = "Aarsh Roongta", email = "aarsh.roongta@duke.edu" }
+    {name = "Hanlin Wang", email = "hanlin.wang@duke.edu"},
+    {name = "Arjun Saha Choudhury", email = "arjun.sahachoudhury@duke.edu"},
+    {name = "Derek Wang", email = "xiran.wang@duke.edu"},
+    {name = "Anshuman Sabath", email = "anshuman.sabath@duke.edu"},
+    {name = "Aarsh Roongta", email = "aarsh.roongta@duke.edu"}
 ]
-
+maintainers = [
+    {name = "Hanlin Wang", email = "hanlin.wang@duke.edu"}
+]
+dependencies = [
+    "numpy",
+    "pandas",
+    "matplotlib",
+    "scipy",
+    "pyyaml",
+    "pytest",
+]
 requires-python = ">=3.8"
 
 [project.optional-dependencies]

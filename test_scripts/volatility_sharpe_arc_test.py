@@ -1,70 +1,16 @@
 """
 Tests for get_volatility, get_sharpe_ratio, and get_arc.
-
-Two-tier test strategy
------------------------
-SMALL (correctness)
-    Tiny 2x4 synthetic matrices where every intermediate value is
-    computable by hand.  Exact numeric assertions with derivations
-    in each docstring.
-
-LARGE (scalability & invariants)
-    Real 800x1200 sparse matrices loaded from disk.
-    Ground truth is unavailable; we assert mathematical properties
-    that hold analytically for *any* non-negative sparse matrix:
-
-    Volatility
-      - Uniform per-step growth (all returns equal) -> vol = 0
-      - Two-entry history (single return, no spread) -> vol = 0
-      - Vol >= 0 always
-      - expected_returns parameter: known value gives same result
-
-    Sharpe ratio
-      - Uniform growth -> vol = 0 -> Sharpe = 0
-      - [C, 2C, 2.5C] -> Sharpe = 5/3  (matrix-independent identity)
-
-    ARC
-      - Growth history  -> ARC > 0
-      - Shrinkage history -> ARC < 0
-      - Zero recent return -> ARC = 0
-      - Only last two entries matter
-
-Run only correctness tests:
-    pytest test_scripts/volatility_sharpe_arc_test.py -m "not large"
-
-Run everything (requires large data on disk):
-    pytest test_scripts/volatility_sharpe_arc_test.py
 """
 import time
 
 import numpy as np
 import pytest
-from scipy import sparse
 
-# Import directly from the module; these are not yet re-exported via
-# metrics/__init__.py
 from liberata_metrics.metrics.portfolio_metrics import (
     get_arc,
     get_sharpe_ratio,
     get_volatility,
 )
-
-
-# -----------------------------------------------------------------------
-# SMALL MATRIX - Correctness
-# -----------------------------------------------------------------------
-#
-# Capital totals used throughout:
-#   cap_t0 = 30,  cap_t1 = 45,  cap_t2 = 22.5,  cap_new = 90
-#
-# Period returns:
-#   r(t0->t1) = (45-30)/30  =  0.5
-#   r(t1->t2) = (22.5-45)/45 = -0.5
-#   r(t1->new) = (90-45)/45  =  1.0
-#
-# Volatility formula: sqrt( sum((r_i - mean)^2) / n_periods )
-#   n_periods = len(history) - 1
-# -----------------------------------------------------------------------
 
 
 class TestGetVolatilityCorrectness:
@@ -78,10 +24,8 @@ class TestGetVolatilityCorrectness:
         sse = 0.25 + 0.25 = 0.5
         vol = sqrt(0.5 / 2) = sqrt(0.25) = 0.5
         """
-        result = get_volatility(
-            [cap_t0, cap_t1, cap_t2], small_params["contributor_map"]
-        )
-        assert result == pytest.approx(0.5, rel=1e-6)
+        result = get_volatility([cap_t0, cap_t1, cap_t2], small_params["contributor_map"])[0]
+        assert result == 0.5
 
     def test_steady_growth_history(
         self, cap_t0, cap_t1, cap_new, small_params
@@ -91,48 +35,20 @@ class TestGetVolatilityCorrectness:
         sse = (-0.25)^2 + (0.25)^2 = 0.125
         vol = sqrt(0.125 / 2) = sqrt(0.0625) = 0.25
         """
-        result = get_volatility(
-            [cap_t0, cap_t1, cap_new], small_params["contributor_map"]
-        )
-        assert result == pytest.approx(0.25, rel=1e-6)
+        result = get_volatility([cap_t0, cap_t1, cap_new], small_params["contributor_map"])[0]
+        assert result == 0.25
 
     def test_two_entry_history_zero_vol(
         self, cap_t0, cap_t1, small_params
     ):
         """Single-period history: one return -> sse = 0 -> vol = 0."""
-        result = get_volatility(
-            [cap_t0, cap_t1], small_params["contributor_map"]
-        )
-        assert result == pytest.approx(0.0, abs=1e-9)
+        result = get_volatility([cap_t0, cap_t1], small_params["contributor_map"])[0]
+        assert result == 0
 
     def test_constant_returns_zero_vol(self, cap_t0, small_params):
         """All returns identical -> no spread -> vol = 0."""
-        result = get_volatility(
-            [cap_t0, cap_t0, cap_t0], small_params["contributor_map"]
-        )
-        assert result == pytest.approx(0.0, abs=1e-9)
-
-    def test_non_negative(self, cap_t0, cap_t1, cap_t2, small_params):
-        """Volatility must always be >= 0."""
-        result = get_volatility(
-            [cap_t0, cap_t1, cap_t2], small_params["contributor_map"]
-        )
-        assert result >= 0.0
-
-    def test_precomputed_expected_returns_consistent(
-        self, cap_t0, cap_t1, cap_t2, small_params
-    ):
-        """
-        Passing expected_returns explicitly must match the default.
-        For [t0, t1, t2] the mean return is 0.0 (known analytically),
-        so we can pass it without calling get_expected_returns.
-        """
-        history = [cap_t0, cap_t1, cap_t2]
-        cmap = small_params["contributor_map"]
-        vol_default = get_volatility(history, cmap)
-        # mean return of [+0.5, -0.5] = 0.0  (hand-computed)
-        vol_pre = get_volatility(history, cmap, expected_returns=0.0)
-        assert vol_default == pytest.approx(vol_pre, rel=1e-9)
+        result = get_volatility([cap_t0, cap_t0, cap_t0], small_params["contributor_map"])[0]
+        assert result == 0
 
     def test_insufficient_history_raises(self, cap_t0, small_params):
         """Fewer than 2 entries must raise ValueError."""
@@ -147,10 +63,7 @@ class TestGetVolatilityCorrectness:
     def test_non_sparse_element_raises(self, cap_t0, small_params):
         """Non-sparse element in history must raise TypeError."""
         with pytest.raises(TypeError):
-            get_volatility(
-                [cap_t0, np.array([[1, 0, 0, 0]])],
-                small_params["contributor_map"],
-            )
+            get_volatility([cap_t0, np.array([[1, 0, 0, 0]])], small_params["contributor_map"])
 
 
 class TestGetSharpeRatioCorrectness:
@@ -166,7 +79,7 @@ class TestGetSharpeRatioCorrectness:
         result = get_sharpe_ratio(
             [cap_t0, cap_t1, cap_t2], small_params["contributor_map"]
         )
-        assert result == pytest.approx(0.0, abs=1e-9)
+        assert result == 0
 
     def test_positive_sharpe(
         self, cap_t0, cap_t1, cap_new, small_params
@@ -175,26 +88,20 @@ class TestGetSharpeRatioCorrectness:
         History [t0, t1, new]: expected = 0.75, vol = 0.25.
         Sharpe = 0.75 / 0.25 = 3.0
         """
-        result = get_sharpe_ratio(
-            [cap_t0, cap_t1, cap_new], small_params["contributor_map"]
-        )
-        assert result == pytest.approx(3.0, rel=1e-6)
+        result = get_sharpe_ratio([cap_t0, cap_t1, cap_new], small_params["contributor_map"])
+        assert result == 3
 
     def test_zero_volatility_returns_zero(self, cap_t0, small_params):
         """vol = 0 (constant returns) -> Sharpe = 0 by the guard."""
-        result = get_sharpe_ratio(
-            [cap_t0, cap_t0, cap_t0], small_params["contributor_map"]
-        )
-        assert result == 0.0
+        result = get_sharpe_ratio([cap_t0, cap_t0, cap_t0], small_params["contributor_map"])
+        assert result == 0
 
     def test_two_entry_history_zero_vol(
         self, cap_t0, cap_t1, small_params
     ):
         """Single-period history -> vol = 0 -> Sharpe = 0."""
-        result = get_sharpe_ratio(
-            [cap_t0, cap_t1], small_params["contributor_map"]
-        )
-        assert result == 0.0
+        result = get_sharpe_ratio([cap_t0, cap_t1], small_params["contributor_map"])
+        assert result == 0
 
     def test_insufficient_history_raises(self, cap_t0, small_params):
         """Fewer than 2 entries must raise ValueError."""
@@ -209,10 +116,7 @@ class TestGetSharpeRatioCorrectness:
     def test_non_sparse_element_raises(self, cap_t0, small_params):
         """Non-sparse element in history must raise TypeError."""
         with pytest.raises(TypeError):
-            get_sharpe_ratio(
-                [cap_t0, np.array([[1, 0, 0, 0]])],
-                small_params["contributor_map"],
-            )
+            get_sharpe_ratio([cap_t0, np.array([[1, 0, 0, 0]])],small_params["contributor_map"])
 
 
 class TestGetArcCorrectness:
@@ -224,10 +128,8 @@ class TestGetArcCorrectness:
             recent_return = 0.5, current_capital = 45.0
             ARC = 0.5 / 45 = 1/90
         """
-        result = get_arc(
-            [cap_t0, cap_t1], small_params["contributor_map"]
-        )
-        assert result == pytest.approx(0.5 / 45.0, rel=1e-6)
+        result = get_arc([cap_t0, cap_t1], small_params["contributor_map"])
+        assert result == 0.5/45
 
     def test_decline_arc(self, cap_t1, cap_t2, small_params):
         """
@@ -235,10 +137,8 @@ class TestGetArcCorrectness:
             recent_return = -0.5, current_capital = 22.5
             ARC = -0.5 / 22.5  (negative)
         """
-        result = get_arc(
-            [cap_t1, cap_t2], small_params["contributor_map"]
-        )
-        assert result == pytest.approx(-0.5 / 22.5, rel=1e-6)
+        result = get_arc([cap_t1, cap_t2], small_params["contributor_map"])
+        assert result == -0.5/22.5
 
     def test_uses_only_last_two_entries(
         self, cap_t0, cap_t2, cap_t1, small_params
@@ -249,26 +149,20 @@ class TestGetArcCorrectness:
             current_capital = 45.0
             ARC = 1.0 / 45.0
         """
-        result = get_arc(
-            [cap_t0, cap_t2, cap_t1], small_params["contributor_map"]
-        )
-        assert result == pytest.approx(1.0 / 45.0, rel=1e-6)
+        result = get_arc([cap_t0, cap_t2, cap_t1], small_params["contributor_map"])
+        assert result == 1/45
 
     def test_zero_current_capital_returns_zero(
         self, cap_t0, cap_zero, small_params
     ):
         """ARC = 0 when current capital is zero (divide-by-zero guard)."""
-        result = get_arc(
-            [cap_t0, cap_zero], small_params["contributor_map"]
-        )
+        result = get_arc([cap_t0, cap_zero], small_params["contributor_map"])
         assert result == 0.0
 
     def test_identical_matrices_zero_arc(self, cap_t0, small_params):
         """Zero recent return -> ARC = 0."""
-        result = get_arc(
-            [cap_t0, cap_t0], small_params["contributor_map"]
-        )
-        assert result == pytest.approx(0.0, abs=1e-9)
+        result = get_arc([cap_t0, cap_t0], small_params["contributor_map"])
+        assert result == 0
 
     def test_insufficient_history_raises(self, cap_t0, small_params):
         """Fewer than 2 entries must raise ValueError."""
@@ -288,18 +182,7 @@ class TestGetArcCorrectness:
                 small_params["contributor_map"],
             )
 
-
-# -----------------------------------------------------------------------
-# LARGE MATRIX - Scalability & mathematical invariants
-#
-# All assertions are derived from algebra and must hold for any
-# non-negative sparse capital matrix.
-#
-# Large tests auto-skip when the data directory is absent.
-# Run explicitly with:  pytest -m large
-# -----------------------------------------------------------------------
-
-TIMING_BUDGET_S = 5.0  # seconds; generous to avoid CI flakiness
+TIMING_BUDGET_S = 5.0  # seconds
 
 
 @pytest.mark.large
@@ -309,10 +192,7 @@ class TestGetVolatilityLarge:
     def test_result_is_finite(self, large_data, large_contributor_subset):
         """Must return a finite float on a real large matrix."""
         cap = large_data.capital
-        result = get_volatility(
-            [cap, cap.multiply(1.5), cap.multiply(0.8)],
-            large_contributor_subset,
-        )
+        result = get_volatility([cap, cap.multiply(1.5), cap.multiply(0.8)],large_contributor_subset)[0]
         assert np.isfinite(result)
 
     def test_result_is_non_negative(
@@ -320,10 +200,7 @@ class TestGetVolatilityLarge:
     ):
         """Volatility is a standard deviation: always >= 0."""
         cap = large_data.capital
-        result = get_volatility(
-            [cap, cap.multiply(1.5), cap.multiply(0.8)],
-            large_contributor_subset,
-        )
+        result = get_volatility([cap, cap.multiply(1.5), cap.multiply(0.8)],large_contributor_subset)[0]
         assert result >= 0.0
 
     def test_completes_within_time_budget(
@@ -352,7 +229,7 @@ class TestGetVolatilityLarge:
         cap = large_data.capital
         k = 1.3
         history = [cap, cap.multiply(k), cap.multiply(k ** 2)]
-        result = get_volatility(history, large_contributor_subset)
+        result = get_volatility(history, large_contributor_subset)[0]
         assert result == pytest.approx(0.0, abs=1e-9)
 
     def test_two_entry_history_zero_vol(
@@ -363,28 +240,8 @@ class TestGetVolatilityLarge:
         -> vol = 0, regardless of matrix size.
         """
         cap = large_data.capital
-        result = get_volatility(
-            [cap, cap.multiply(1.5)], large_contributor_subset
-        )
+        result = get_volatility([cap, cap.multiply(1.5)], large_contributor_subset)[0]
         assert result == pytest.approx(0.0, abs=1e-9)
-
-    def test_precomputed_expected_returns_consistent(
-        self, large_data, large_contributor_subset
-    ):
-        """
-        For uniform growth by factor k, mean return = k-1 (known exactly).
-        Passing this value explicitly must give the same vol as the default.
-        Both paths must yield 0 since all returns equal k-1.
-        """
-        cap = large_data.capital
-        k = 1.3
-        history = [cap, cap.multiply(k), cap.multiply(k ** 2)]
-        cmap = large_contributor_subset
-        vol_default = get_volatility(history, cmap)
-        vol_pre = get_volatility(
-            history, cmap, expected_returns=k - 1.0
-        )
-        assert vol_default == pytest.approx(vol_pre, rel=1e-9)
 
 
 @pytest.mark.large

@@ -15,6 +15,8 @@ from liberata_metrics.metrics import academic_capital, allocation_weights, portf
                                         portfolio_normalized_entropy, query_portfolio_mix, get_per_manuscript_cap, \
                                         role_based_proportional_loss
 
+
+###======= CHANGE THIS TO RUN========
 # BASE_DIR = 'test_scripts/output/m50_c100_20251126_224706'
 # BASE_DIR = 'test_scripts/output/m50_c100_20251201_180948'
 BASE_DIR = 'test_scripts/output/m800_c1200_20260120_205627'

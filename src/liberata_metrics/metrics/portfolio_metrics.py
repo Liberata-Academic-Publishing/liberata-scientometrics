@@ -4,19 +4,6 @@ Portfolio metrics computation module.
 This module provides classes and functions for computing and analyzing
 portfolio performance metrics, including returns, risk, correlation,
 and spectral properties.
-
-Classes:
-    PortfolioMetrics: Main interface for portfolio analysis.
-
-Functions:
-    compute_returns: Calculate returns from price series.
-    compute_covariance: Estimate covariance matrix.
-    compute_correlation: Compute correlation matrix.
-
-Example:
-    >>> from liberata_metrics.metrics import academic_capital
-    >>> pm = PortfolioMetrics(adjacency_matrix=adj)
-    >>> print(pm.summary())
 """
 from typing import Dict, Iterable, List, Union, Tuple, Optional
 from typing import Dict, Iterable, List, Union, Tuple, Optional
@@ -905,9 +892,9 @@ def get_expected_returns(
     Raises
     ------
     TypeError
-        If any element in `capital_history` is not a scipy sparse matrix.
+        If any element in capital_history is not a scipy sparse matrix.
     ValueError
-        If `capital_history` contains fewer than 2 entries, or if any time interval is not positive.
+        If capital_history contains fewer than 2 entries, or if any time interval is not positive.
     """
     
     if len(capital_history) < 2:
@@ -920,21 +907,15 @@ def get_expected_returns(
         if not sparse.issparse(cap):
             raise TypeError('All elements in capital_history must be scipy sparse matrices')
 
-    returns_per_time = []
-    for i in range(len(capital_history) - 1):
-        r = get_returns(capital_history[i], capital_history[i+1], contributor_index_map_subset, time_history[i+1] - time_history[i])
-        returns_per_time.append(r)
-    
-    if not returns_per_time:
-        return 0.0
+    caps = np.array([academic_capital(matrixattime, contributor_index_map_subset) for matrixattime in capital_history])
+    returns = np.diff(caps) / np.diff(time_history)
 
-    return float(np.mean(returns_per_time))
+    return np.mean(returns)
 
 def get_volatility(
     capital_history: List[sparse.spmatrix],
     contributor_index_map_subset: Dict[str, int],
-    expected_returns: Optional[float] = None,
-) -> float:
+) -> tuple[float, float]:
     """
     Compute the volatility of portfolio returns, defined as the population 
     standard deviation of returns, from a historical sequence of sparse 
@@ -948,20 +929,19 @@ def get_volatility(
     contributor_index_map_subset : Dict[str, int]
         Mapping from contributor identifiers to their corresponding column
         indices in the capital matrices.
-    expected_returns : Optional[float], default None
-        Precomputed expected return. If None, the expected return is computed
-        from `capital_history`.
 
     Returns
     -------
-    float
-        The population standard deviation of portfolio returns.
-        Returns 0.0 if `capital_history` contains fewer than two entries.
+    tuple[float, float]
+        A tuple of (volatility, expected_returns) where volatility is the
+        population standard deviation of portfolio returns.
 
     Raises
     ------
     TypeError
         If any element in `capital_history` is not a scipy sparse matrix.
+    ValueError
+        If capital_history contains fewer than 2 entries
     """
     if len(capital_history) < 2:
         raise ValueError('At least two capital states are required to compute volatility')
@@ -970,15 +950,12 @@ def get_volatility(
         if not sparse.issparse(cap):
             raise TypeError('All elements in capital_history must be scipy sparse matrices')
     
-    if expected_returns is None:
-        expected_returns = get_expected_proportional_returns(capital_history, contributor_index_map_subset)
+    caps = np.array([academic_capital(m, contributor_index_map_subset) for m in capital_history])
+    returns = np.diff(caps) / caps[:-1]
 
-    sse = 0.0
-    for i in range(len(capital_history)-1):
-        r = get_proportional_return(capital_history[i], capital_history[i+1], contributor_index_map_subset)
-        sse += (r-expected_returns)**2
+    expected_returns = float(returns.mean())
 
-    return float(np.sqrt(sse/(len(capital_history)-1)))
+    return np.sqrt(np.sum((returns - expected_returns) ** 2) / (len(capital_history) - 1)), expected_returns
 
 def get_sharpe_ratio(
     capital_history: List[sparse.spmatrix],
@@ -1015,13 +992,12 @@ def get_sharpe_ratio(
         if not sparse.issparse(cap):
             raise TypeError('All elements in capital_history must be scipy sparse matrices')
 
-    expected_return = get_expected_proportional_returns(capital_history, contributor_index_map_subset)
-    volatility = get_volatility(capital_history, contributor_index_map_subset, expected_return)
+    volatility, expected_returns = get_volatility(capital_history, contributor_index_map_subset)
 
     if abs(volatility) < 1e-10:
         return 0.0
 
-    return expected_return/volatility
+    return expected_returns/volatility
 
 def get_arc(
     capital_history: List[sparse.spmatrix],

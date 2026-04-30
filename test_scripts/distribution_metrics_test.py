@@ -21,14 +21,15 @@ def main():
         [0.25, 0.25, 0.25, 0.25],
     ])
     portfolio = sparse.csr_matrix(portfolio_dense)
+    print(portfolio_dense)
     print('Portfolio shape:', portfolio.shape, 'nnz:', portfolio.nnz)
 
     mean_hhi = share_splits_inequality(portfolio)
     print('share_splits_inequality:', mean_hhi)
 
     field_hhi = 0.4
-    discrepancy = hhi_discrepancy(field_hhi, mean_hhi)
-    print(f'hhi_discrepancy(field={field_hhi}, portfolio={mean_hhi}):', discrepancy)
+    discrepancy = hhi_discrepancy(portfolio, [1])
+    print(f'hhi_discrepancy(manuscript={1}):', discrepancy)
 
     # Ensure function enforces sparse input
     try:

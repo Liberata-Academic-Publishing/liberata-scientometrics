@@ -1,13 +1,5 @@
 """
 pytest configuration and shared fixtures for liberata-metrics tests.
-
-Fixture strategy
-----------------
-- Small synthetic matrices: 2 manuscripts × 2 contributors, hand-verifiable values.
-  Used for correctness / exact-value unit tests.
-- Large pre-generated matrices: 800 manuscripts × 1200 contributors, loaded from disk.
-  Used for scalability, invariant, and property-based tests.
-  Skipped automatically when the data directory is absent.
 """
 import sys
 from pathlib import Path
@@ -18,20 +10,18 @@ from scipy import sparse
 
 # Make data_loading importable from this directory without installation
 sys.path.insert(0, str(Path(__file__).parent))
-from data_loading import load_data, select_contributor_subset  # noqa: E402
+from data_loading import load_data, select_contributor_subset
 
-# Most recent large dataset; update when a new run is generated
+# Most recent large dataset. REPLACE THIS WITH THE NAME OF YOUR OWN DATA
 LARGE_DATA_DIR = (
-    Path(__file__).parent / "output" / "m800_c1200_20260213_154126"
+    Path(__file__).parent / "output" / "m800_c1200_20260412_051528"
 )
 
-
-# ── Helpers ────────────────────────────────────────────────────────────────────
 
 def _csr(M: int, total_cols: int, data, rows, cols) -> sparse.csr_matrix:
     return sparse.csr_matrix((data, (rows, cols)), shape=(M, total_cols))
 
-# ── Small synthetic fixtures ───────────────────────────────────────────────────
+#Small matrix fixtures
 
 @pytest.fixture(scope="session")
 def small_params():
@@ -39,7 +29,7 @@ def small_params():
     Shape parameters for 2-manuscript, 2-contributor synthetic matrices.
 
     Capital matrix layout (shape = (2, 4)):
-        column 0-1: manuscript zero-block (unused in simple case)
+        column 0-1: manuscript zero-block
         column 2:   Alice's capital
         column 3:   Bob's capital
     """
@@ -84,21 +74,6 @@ def cap_zero(small_params):
     p = small_params
     return sparse.csr_matrix((p["M"], p["total_cols"]))
 
-
-# ── Small three-role fixtures ──────────────────────────────────────────────────
-#
-# Shape: (M=2, total_cols=5)
-# Column layout:
-#   [0-1] manuscript zero-block
-#   [2]   author capital for C0
-#   [3]   reviewer capital for C0
-#   [4]   replicator capital for C0
-#
-# Fixture values (cap_role):
-#   Author:     m0=10, m1=5  -> total 15
-#   Reviewer:   m0=3,  m1=2  -> total  5
-#   Replicator: 0            -> total  0
-#   Grand total = 20
 
 @pytest.fixture(scope="session")
 def role_params():
@@ -145,17 +120,10 @@ def cap_role_t1(role_params):
     )
 
 
-# ── Large matrix fixtures ──────────────────────────────────────────────────────
+#Large matrix fixtures
 
 @pytest.fixture(scope="session")
 def large_data():
-    """
-    Load the pre-generated 800x1200 capital matrix from disk.
-
-    Session-scoped so the expensive IO happens at most once per test run.
-    Tests that depend on this fixture are automatically skipped when the
-    data directory does not exist (CI environments without large assets).
-    """
     if not LARGE_DATA_DIR.exists():
         pytest.skip(f"Large matrix data not found: {LARGE_DATA_DIR}")
     return load_data(str(LARGE_DATA_DIR))

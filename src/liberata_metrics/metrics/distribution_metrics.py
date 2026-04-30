@@ -3,7 +3,7 @@ import numpy as np
 
 def hhi_discrepancy(
     shares_matrix: sparse.spmatrix,
-    indices: np.array,
+    mask_portfolio: slice,
 ) -> float:
     """
     Compute the discrepancy between the HHI of the field and that of the manuscript or portfolio.
@@ -27,8 +27,8 @@ def hhi_discrepancy(
     """
     hhi_field = share_splits_inequality(shares_matrix)
 
-    #Take submatrix of shares_matrix corresponding to the given indices
-    hhi_portfolio = share_splits_inequality(shares_matrix[indices, :])
+    #Take submatrix of shares_matrix corresponding to the given slice
+    hhi_portfolio = share_splits_inequality(shares_matrix[mask_portfolio, :])
     
     return abs(hhi_field - hhi_portfolio)
 

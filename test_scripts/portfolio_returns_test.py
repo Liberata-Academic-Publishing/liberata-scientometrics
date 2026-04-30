@@ -1,22 +1,6 @@
 """
 Tests for get_returns and get_expected_returns.
 
-Two-tier test strategy
------------------------
-SMALL (correctness)
-    Tiny 2x4 synthetic matrices where the answer is computed by hand.
-    Goal: Exact numeric assertions
-
-LARGE (scalability & invariants)
-    Real 800x1200 sparse matrices loaded from disk.
-    Ground truth is unavailable at this scale, so we assert mathematical
-    properties that hold analytically regardless of matrix size or content:
-      - Finiteness (no NaN / Inf)
-      - Linearity: scale all capital by k -> return = (k-1) * total_cap / dt
-      - Monotonicity: larger end capital -> larger return
-      - Sign: shrinkage -> negative return
-      - Timing: must complete within a generous wall-clock budget
-
 Run only correctness tests:
     pytest test_scripts/portfolio_returns_test.py -m "not large"
 
@@ -29,8 +13,7 @@ import numpy as np
 import pytest
 from scipy import sparse
 
-# Import directly from the module; get_returns / get_expected_returns are not
-# yet re-exported via metrics/__init__.py
+
 from liberata_metrics.metrics.portfolio_metrics import (
     academic_capital,
     get_expected_returns,
@@ -180,18 +163,6 @@ class TestGetExpectedReturnsCorrectness:
 
 # -----------------------------------------------------------------------
 # LARGE MATRIX - Scalability & mathematical invariants
-#
-# Ground truth is unavailable at this scale. Every assertion below is
-# derived from algebra and must hold for *any* non-negative sparse matrix:
-#
-#   Scaling by k, dt=1  ->  return = (k-1) * total_cap  (linear in capital)
-#   Identical matrices  ->  return = 0                   (trivial identity)
-#   Larger end capital  ->  larger return                 (monotonicity)
-#   Shrinking capital   ->  negative return               (sign correctness)
-#   Any real matrix     ->  finite output                 (numerical stability)
-#
-# Large tests are automatically skipped when the data directory is absent.
-# Run them explicitly with:  pytest -m large
 # -----------------------------------------------------------------------
 
 # Wall-clock budgets - generous to avoid CI flakiness
