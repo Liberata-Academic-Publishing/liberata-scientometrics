@@ -1,12 +1,12 @@
 # liberata-scientometrics
 
-Liberata Scientometrics is a Python package for computing metrics on academic knowledge graphs and analyzing how academic capital flows through citation systems.
+Liberata Scientometrics is a Python package for computing metrics on academic knowledge graphs and analyzing how academic impact flows through citation systems.
 
 Version: `0.15.1` (development)
 
 ## Overview
 
-Liberata models academic publishing as a capital allocation system:
+Liberata models academic publishing as a marketplace with contribution shares based credit attribution and provides computational tools to analyze how knowledge and influence flow through citation networks:
 
 - Papers (manuscripts) cite other papers, creating a network of influence.
 - Contributors accrue academic capital from authored, reviewed, and replicated work.

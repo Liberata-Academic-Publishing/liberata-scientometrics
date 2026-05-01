@@ -12,7 +12,9 @@ authors = [
     {name = "Arjun Saha Choudhury", email = "arjun.sahachoudhury@duke.edu"},
     {name = "Derek Wang", email = "xiran.wang@duke.edu"},
     {name = "Anshuman Sabath", email = "anshuman.sabath@duke.edu"},
-    {name = "Aarsh Roongta", email = "aarsh.roongta@duke.edu"}
+    {name = "Aarsh Roongta", email = "aarsh.roongta@duke.edu"},
+    {name = "Arjun Saha Choudhury", email = "as1572@duke.edu"},
+    {name = "Clayton Knittel", email = "cknit1999@gmail.com"}
 ]
 maintainers = [
     {name = "Hanlin Wang", email = "hanlin.wang@duke.edu"}

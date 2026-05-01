@@ -17,14 +17,17 @@ Liberata Scientometrics: Academic Knowledge Graph Analysis
 
 Welcome to the **Liberata Scientometrics** library documentation.
 
-Liberata models academic publishing as a capital allocation system and provides computational tools to analyze how knowledge and influence flow through citation networks.
+Liberata models academic publishing as a marketplace with contribution shares based credit attribution and provides computational tools to analyze how knowledge and influence flow through citation networks.
 
 .. raw:: html
 
     <div style="background: #f0f7ff; padding: 15px; margin: 20px 0; border-radius: 5px; border-left: 4px solid #0066cc;">
         <strong>What is Liberata?</strong><br/>
-        A framework for analyzing research impact as a capital system where researchers accrue influence from papers, 
-        and citations determine how that capital flows through the network.
+        Liberata is an Open Access publishing platform with incentivized quality controls.
+        Liberata metrics provide methods for quantifying research impact across all research roles, 
+        including peer reviewing and replication by using a shares-based credit attribution system, and a marketplace 
+        for these academic services where researchers accrue impact from papers in the form of citations in proportion to
+        their contributions.
     </div>
 
 
@@ -45,10 +48,10 @@ Getting Started
 What is Liberata Scientometrics?
 --------------------------------
 
-The Liberata Scientometrics library provides tools for analyzing academic knowledge systems as networks of capital flow:
+The Liberata Scientometrics library provides tools for analyzing academic knowledge systems as networks of academic impact flow:
 
 - **Papers** are nodes that produce citations
-- **Researchers** accrue capital (influence) from papers
+- **Researchers** accrue capital (influence/impact) from papers
 - **Citations** are edges showing how capital flows between papers
 - **Metrics** quantify capital concentration, returns, risk, and system health
 
