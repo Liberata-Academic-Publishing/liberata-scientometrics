@@ -1,0 +1,1317 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>liberata_metrics.metrics package &mdash; Liberata Scientometrics  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+
+  
+    <link rel="canonical" href="https://www.liberata.info/api/generated/liberata_metrics.metrics.html" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="liberata_metrics.metrics.distribution_metrics module" href="liberata_metrics.metrics.distribution_metrics.html" />
+    <link rel="prev" title="liberata_metrics.integrations.supabase module" href="liberata_metrics.integrations.supabase.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Liberata Scientometrics
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Liberata Scientometrics: Academic Knowledge Graph Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../liberata_metrics.html">liberata_metrics package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#core-modules">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#quick-reference">Quick Reference</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#full-api-documentation">Full API Documentation</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../modules.html">liberata_metrics</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="modules.html">liberata_metrics</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="liberata_metrics.html">liberata_metrics package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Liberata Scientometrics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="modules.html">liberata_metrics</a></li>
+          <li class="breadcrumb-item"><a href="liberata_metrics.html">liberata_metrics package</a></li>
+      <li class="breadcrumb-item active">liberata_metrics.metrics package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api/generated/liberata_metrics.metrics.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="liberata-metrics-metrics-package">
+<h1>liberata_metrics.metrics package<a class="headerlink" href="#liberata-metrics-metrics-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="liberata_metrics.metrics.distribution_metrics.html">liberata_metrics.metrics.distribution_metrics module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.distribution_metrics.html#liberata_metrics.metrics.distribution_metrics.hhi_discrepancy"><code class="docutils literal notranslate"><span class="pre">hhi_discrepancy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.distribution_metrics.html#liberata_metrics.metrics.distribution_metrics.share_splits_inequality"><code class="docutils literal notranslate"><span class="pre">share_splits_inequality()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="liberata_metrics.metrics.graph.html">liberata_metrics.metrics.graph module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="liberata_metrics.metrics.legacy_metric.html">liberata_metrics.metrics.legacy_metric module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.legacy_metric.html#liberata_metrics.metrics.legacy_metric.get_author_citations"><code class="docutils literal notranslate"><span class="pre">get_author_citations()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.legacy_metric.html#liberata_metrics.metrics.legacy_metric.get_citation_counts"><code class="docutils literal notranslate"><span class="pre">get_citation_counts()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.legacy_metric.html#liberata_metrics.metrics.legacy_metric.get_g_index"><code class="docutils literal notranslate"><span class="pre">get_g_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.legacy_metric.html#liberata_metrics.metrics.legacy_metric.get_h_index"><code class="docutils literal notranslate"><span class="pre">get_h_index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.legacy_metric.html#liberata_metrics.metrics.legacy_metric.get_i10_index"><code class="docutils literal notranslate"><span class="pre">get_i10_index()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="liberata_metrics.metrics.market_metrics.html">liberata_metrics.metrics.market_metrics module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.market_metrics.html#liberata_metrics.metrics.market_metrics.compute_fair_marketprice"><code class="docutils literal notranslate"><span class="pre">compute_fair_marketprice()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.market_metrics.html#liberata_metrics.metrics.market_metrics.compute_relative_performance"><code class="docutils literal notranslate"><span class="pre">compute_relative_performance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.market_metrics.html#liberata_metrics.metrics.market_metrics.compute_risk_adjusted_excess_return"><code class="docutils literal notranslate"><span class="pre">compute_risk_adjusted_excess_return()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.market_metrics.html#liberata_metrics.metrics.market_metrics.compute_risk_adjusted_relative_performance"><code class="docutils literal notranslate"><span class="pre">compute_risk_adjusted_relative_performance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.market_metrics.html#liberata_metrics.metrics.market_metrics.compute_risk_premiums"><code class="docutils literal notranslate"><span class="pre">compute_risk_premiums()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.market_metrics.html#liberata_metrics.metrics.market_metrics.compute_sensitivity"><code class="docutils literal notranslate"><span class="pre">compute_sensitivity()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.market_metrics.html#liberata_metrics.metrics.market_metrics.compute_utility_function"><code class="docutils literal notranslate"><span class="pre">compute_utility_function()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html">liberata_metrics.metrics.portfolio_metrics module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.academic_capital"><code class="docutils literal notranslate"><span class="pre">academic_capital()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.allocation_weights"><code class="docutils literal notranslate"><span class="pre">allocation_weights()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.get_arc"><code class="docutils literal notranslate"><span class="pre">get_arc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.get_col_indices"><code class="docutils literal notranslate"><span class="pre">get_col_indices()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.get_diversification_ratio"><code class="docutils literal notranslate"><span class="pre">get_diversification_ratio()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.get_expected_proportional_returns"><code class="docutils literal notranslate"><span class="pre">get_expected_proportional_returns()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.get_expected_returns"><code class="docutils literal notranslate"><span class="pre">get_expected_returns()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.get_funding_efficiency"><code class="docutils literal notranslate"><span class="pre">get_funding_efficiency()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.get_manuscript_memberships_matrix"><code class="docutils literal notranslate"><span class="pre">get_manuscript_memberships_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.get_per_manuscript_cap"><code class="docutils literal notranslate"><span class="pre">get_per_manuscript_cap()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.get_proportional_return"><code class="docutils literal notranslate"><span class="pre">get_proportional_return()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.get_proportional_split"><code class="docutils literal notranslate"><span class="pre">get_proportional_split()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.get_returns"><code class="docutils literal notranslate"><span class="pre">get_returns()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.get_risk_asymmetry"><code class="docutils literal notranslate"><span class="pre">get_risk_asymmetry()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.get_sharpe_ratio"><code class="docutils literal notranslate"><span class="pre">get_sharpe_ratio()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.get_time_efficiency"><code class="docutils literal notranslate"><span class="pre">get_time_efficiency()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.get_volatility"><code class="docutils literal notranslate"><span class="pre">get_volatility()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.mix_by_role"><code class="docutils literal notranslate"><span class="pre">mix_by_role()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.mix_by_tag"><code class="docutils literal notranslate"><span class="pre">mix_by_tag()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.portfolio_gini"><code class="docutils literal notranslate"><span class="pre">portfolio_gini()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.portfolio_hhi"><code class="docutils literal notranslate"><span class="pre">portfolio_hhi()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.portfolio_normalized_entropy"><code class="docutils literal notranslate"><span class="pre">portfolio_normalized_entropy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.query_portfolio_mix"><code class="docutils literal notranslate"><span class="pre">query_portfolio_mix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html#liberata_metrics.metrics.portfolio_metrics.role_based_proportional_loss"><code class="docutils literal notranslate"><span class="pre">role_based_proportional_loss()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="liberata_metrics.metrics.system_health_metrics.html">liberata_metrics.metrics.system_health_metrics module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_academic_capital_growth_rate"><code class="docutils literal notranslate"><span class="pre">get_academic_capital_growth_rate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_field_capital_shares"><code class="docutils literal notranslate"><span class="pre">get_field_capital_shares()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_funding_efficiency"><code class="docutils literal notranslate"><span class="pre">get_funding_efficiency()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_gdp_efficiency"><code class="docutils literal notranslate"><span class="pre">get_gdp_efficiency()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_gini_per_capita"><code class="docutils literal notranslate"><span class="pre">get_gini_per_capita()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_gini_per_contributor"><code class="docutils literal notranslate"><span class="pre">get_gini_per_contributor()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_gini_per_gdp"><code class="docutils literal notranslate"><span class="pre">get_gini_per_gdp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_ppp_efficiency"><code class="docutils literal notranslate"><span class="pre">get_ppp_efficiency()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_regional_academic_capital"><code class="docutils literal notranslate"><span class="pre">get_regional_academic_capital()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_regional_hhi"><code class="docutils literal notranslate"><span class="pre">get_regional_hhi()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_replicator_fmp_volatility"><code class="docutils literal notranslate"><span class="pre">get_replicator_fmp_volatility()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_replicator_shrinkage_rate"><code class="docutils literal notranslate"><span class="pre">get_replicator_shrinkage_rate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_reviewer_fmp_volatility"><code class="docutils literal notranslate"><span class="pre">get_reviewer_fmp_volatility()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_reviewer_shrinkage_rate"><code class="docutils literal notranslate"><span class="pre">get_reviewer_shrinkage_rate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_time_efficiency"><code class="docutils literal notranslate"><span class="pre">get_time_efficiency()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.total_fair_market_price"><code class="docutils literal notranslate"><span class="pre">total_fair_market_price()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-liberata_metrics.metrics">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-liberata_metrics.metrics" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.academic_capital">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">academic_capital</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map_subset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/portfolio_metrics.html#academic_capital"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.academic_capital" title="Link to this definition"></a></dt>
+<dd><p>Compute total academic capital for a subset of contributors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> (<em>scipy.sparse.spmatrix</em>) – Sparse matrix where each row is a manuscript and each column is a contributor.
+Entries represent capital allocated from a contributor to a manuscript.</p></li>
+<li><p><strong>contributor_index_map_subset</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from contributor identifier to the corresponding column index in <cite>capital</cite>.
+Only columns referenced by this mapping are included in the total.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Total academic capital aggregated across the specified contributor columns.
+Returns 0.0 if the mapping is empty.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If <cite>capital</cite> is not a scipy sparse matrix.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The function sums the selected columns of the sparse matrix and returns the scalar total.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.allocation_weights">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">allocation_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map_subset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/portfolio_metrics.html#allocation_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.allocation_weights" title="Link to this definition"></a></dt>
+<dd><p>Compute allocation weights for each manuscript in a portfolio, i.e., the fraction of total portfolio capital
+contributed due to each manuscript.
+:param capital: Sparse matrix where each row represents a manuscript and each column represents a contributor.</p>
+<blockquote>
+<div><p>Entries represent the amount of capital allocated from a contributor to a manuscript. This
+function requires a scipy sparse matrix input and will raise TypeError if given a non-sparse array.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>contributor_index_map_subset</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from contributor identifier to the corresponding column index in <cite>capital</cite>. Only the
+columns specified by the values of this mapping are considered. If this mapping is empty, the
+function returns an empty dictionary.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary mapping manuscript row indices (int) to their allocation weight (float). Each weight
+equals the manuscript’s aggregated capital from the selected contributors divided by the total
+capital across the portfolio. Manuscripts with zero aggregated capital are omitted. If the total
+portfolio capital is zero, an empty dictionary is returned.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[int, float]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If <cite>capital</cite> is not a scipy sparse matrix.</p></li>
+<li><p><strong>IndexError</strong><strong>, </strong><strong>ValueError</strong><strong>, or </strong><strong>other slicing-related exceptions</strong> – May be raised if provided column indices are out of bounds or otherwise invalid. The function
+    attempts a direct column slice and falls back to constructing the submatrix by stacking individual
+    columns.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The returned weights sum to 1.0 up to floating-point precision when non-empty.</p></li>
+<li><p>Implementation details: the function first tries to slice <cite>capital</cite> using the provided column indices.
+If slicing fails, it falls back to horizontally stacking individual columns via <cite>capital.getcol</cite>.</p></li>
+<li><p>Output contains only manuscripts with non-zero aggregated capital.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># capital: scipy CSR matrix with shape (num_manuscripts, num_contributors)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># contributor_index_map_subset = {&#39;alice&#39;: 0, &#39;bob&#39;: 2}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">allocation_weights</span><span class="p">(</span><span class="n">capital</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;alice&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;bob&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+<span class="go">{0: 0.5, 3: 0.25, 7: 0.25}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.compute_fair_marketprice">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">compute_fair_marketprice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_reviewers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">slice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_replicators</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">slice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscript_memberships</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map_subset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_contributors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">spmatrix</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/market_metrics.html#compute_fair_marketprice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.compute_fair_marketprice" title="Link to this definition"></a></dt>
+<dd><p>Compute tag-level fair market prices (FMP) for reviewers and replicators based on
+the capital allocated to these roles across all manuscripts. The function performs the following steps:
+1. Masks the global capital allocation by reviewer and replicator roles using the provided</p>
+<blockquote>
+<div><p>mask matrices (mask_reviewers and mask_replicators).</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><dl class="simple">
+<dt>Computes the per-manuscript capital allocated to reviewers and replicators using</dt><dd><p>get_per_manuscript_cap, restricted to the specified subset of contributors.</p>
+</dd>
+</dl>
+</li>
+<li><p>Aggregates the per-manuscript capital up to tags using the manuscript_memberships matrix.</p></li>
+<li><dl class="simple">
+<dt>Divides the aggregated capital per tag by the number of manuscripts associated with each tag</dt><dd><p>to yield the fair market price (FMP) for reviewers and replicators per tag.</p>
+</dd>
+</dl>
+</li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> (<em>sparse.spmatrix</em>) – Contributor-level capital matrix. Shape: (n_manuscripts, n_contributors).</p></li>
+<li><p><strong>mask_reviewers</strong> (<em>sparse.spmatrix</em>) – Manuscript-by-contributor mask indicating reviewer involvement. Shape:
+(n_manuscripts, n_contributors). Used to select reviewers’ share of capital per manuscript.</p></li>
+<li><p><strong>mask_replicators</strong> (<em>sparse.spmatrix</em>) – Manuscript-by-contributor mask indicating replicator involvement. Shape:
+(n_manuscripts, n_contributors). Used to select replicators’ share of capital per manuscript.</p></li>
+<li><p><strong>manuscript_memberships</strong> (<em>sparse.spmatrix</em>) – Tag-by-manuscript membership matrix (shape: n_tags x n_manuscripts). Used to aggregate
+per-manuscript capital up to tags. Membership entries may be binary or weighted.</p></li>
+<li><p><strong>contributor_index_map_subset</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from contributor identifier (string) to column index in the mask matrices
+for the subset of contributors of interest. The function uses the mapped indices to
+select columns from mask_reviewers and mask_replicators.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing two sparse arrays (each of length n_tags):
+- reviewer_fmp: tagwise fair market price for reviewers.
+- replicator_fmp: tagwise fair market price for replicators.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[sparse.spmatrix, sparse.spmatrix]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If input matrix/vector shapes are incompatible (e.g., contributor counts, manuscript
+    counts, or tag counts do not align) the function may raise errors propagated from
+    underlying sparse operations or from get_per_manuscript_cap.</p></li>
+<li><p><strong>KeyError</strong> – If contributor_index_map_subset contains indices that do not correspond to columns
+    in the provided mask matrices, column selection may fail.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>The function attempts a fast column-slicing of mask_reviewers and mask_replicators</dt><dd><p>for the contributor subset and falls back to an explicit hstack/getcol approach if slicing is not supported.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Elementwise multiplications and sums assume broadcasting consistent with sparse matrix</dt><dd><p>shapes: reviewer/replicator masks are treated as per-manuscript indicators and are multiplied with
+per-manuscript capital vectors produced by get_per_manuscript_cap.</p>
+</dd>
+</dl>
+</li>
+<li><p>manuscript_memberships is expected to map manuscripts to tags (rows correspond to tags).</p></li>
+<li><dl class="simple">
+<dt>The returned fair market price values are not normalized by the number of reviewers</dt><dd><p>or replicators unless such normalization is performed earlier (e.g., in get_per_manuscript_cap).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>All inputs are expected to be sparse-compatible to avoid dense expansion; be mindful of</dt><dd><p>memory usage when converting between sparse and dense formats.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p class="rubric">Examples</p>
+<p>Shape conventions (illustrative):
+- mask_reviewers / mask_replicators: (n_manuscripts, n_contributors)
+- capital: (n_manuscripts, n_contributors)
+- contributor_index_map_subset: subset of contributor -&gt; column index mappings
+- get_per_manuscript_cap(masked_capital, subset_map) -&gt; returns array of length n_manuscripts
+- manuscript_memberships: (n_tags, n_manuscripts)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.compute_relative_performance">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">compute_relative_performance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shares</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capital_history</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">spmatrix</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_history</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscript_memberships</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map_subset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/market_metrics.html#compute_relative_performance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.compute_relative_performance" title="Link to this definition"></a></dt>
+<dd><p>Compute portfolio relative performance against manuscript-domain benchmarks.</p>
+<p>This metric evaluates the weighted quality/performance of manuscripts held by
+a contributor-defined portfolio. For each manuscript in the portfolio, the
+manuscript expected return is divided by the expected return of its domain
+(as defined by manuscript tag memberships), then aggregated using portfolio
+manuscript weights.</p>
+<p>Conceptually, the function computes:</p>
+<blockquote>
+<div><p>rho_Pi = (1 / sum_{m in Pi} s_m) * sum_{m in Pi} s_m * (mu_m / mu_d(m))</p>
+</div></blockquote>
+<p>where:
+- <code class="docutils literal notranslate"><span class="pre">Pi</span></code> is the set of manuscripts held by the portfolio,
+- <code class="docutils literal notranslate"><span class="pre">s_m</span></code> is the portfolio weight/share in manuscript <code class="docutils literal notranslate"><span class="pre">m</span></code>,
+- <code class="docutils literal notranslate"><span class="pre">mu_m</span></code> is the manuscript expected return,
+- <code class="docutils literal notranslate"><span class="pre">mu_d(m)</span></code> is the expected return of manuscript <code class="docutils literal notranslate"><span class="pre">m</span></code>’s domain/tag.</p>
+<section id="processing-overview">
+<h3>Processing overview<a class="headerlink" href="#processing-overview" title="Link to this heading"></a></h3>
+<p>1. Infer portfolio manuscript weights with <code class="docutils literal notranslate"><span class="pre">allocation_weights</span></code> using the
+provided <code class="docutils literal notranslate"><span class="pre">shares</span></code> matrix and contributor subset.
+2. For each manuscript in the inferred portfolio:
+- Estimate manuscript expected return from manuscript-level slices of</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">capital_history</span></code> via <code class="docutils literal notranslate"><span class="pre">get_expected_returns</span></code>.</p>
+</div></blockquote>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Identify the manuscript’s tag/domain membership from</dt><dd><p><code class="docutils literal notranslate"><span class="pre">manuscript_memberships</span></code>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Build domain-level capital history using <code class="docutils literal notranslate"><span class="pre">mix_by_tag</span></code> and estimate</dt><dd><p>domain expected return via <code class="docutils literal notranslate"><span class="pre">get_expected_returns</span></code>.</p>
+</dd>
+</dl>
+</li>
+<li><p>Accumulate the weighted ratio <code class="docutils literal notranslate"><span class="pre">s_m</span> <span class="pre">*</span> <span class="pre">(mu_m</span> <span class="pre">/</span> <span class="pre">mu_d(m))</span></code>.</p></li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p>Normalize by total portfolio shares/weights.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">param shares<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sparse manuscript-by-contributor matrix of shares/weights used to infer
+the portfolio composition for <code class="docutils literal notranslate"><span class="pre">contributor_index_map_subset</span></code>. Must be
+compatible with <code class="docutils literal notranslate"><span class="pre">allocation_weights</span></code> indexing conventions.</p>
+</dd>
+<dt class="field-even">type shares<span class="colon">:</span></dt>
+<dd class="field-even"><p>scipy.sparse.spmatrix</p>
+</dd>
+<dt class="field-odd">param capital_history<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Chronological sequence of sparse capital matrices used to estimate
+returns over time. Each entry should be aligned to the same manuscript
+and contributor indexing scheme.</p>
+</dd>
+<dt class="field-even">type capital_history<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[scipy.sparse.spmatrix]</p>
+</dd>
+<dt class="field-odd">param time_history<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Time points corresponding to <code class="docutils literal notranslate"><span class="pre">capital_history</span></code>. Must be the same
+length as <code class="docutils literal notranslate"><span class="pre">capital_history</span></code> and strictly increasing for return-per-time
+calculations in <code class="docutils literal notranslate"><span class="pre">get_expected_returns</span></code>.</p>
+</dd>
+<dt class="field-even">type time_history<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[float]</p>
+</dd>
+<dt class="field-odd">param manuscript_memberships<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sparse tag-by-manuscript membership matrix of shape
+<code class="docutils literal notranslate"><span class="pre">(n_tags,</span> <span class="pre">n_manuscripts)</span></code> where entry <code class="docutils literal notranslate"><span class="pre">[t,</span> <span class="pre">m]</span></code> indicates membership
+of manuscript <code class="docutils literal notranslate"><span class="pre">m</span></code> in tag/domain <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p>
+</dd>
+<dt class="field-even">type manuscript_memberships<span class="colon">:</span></dt>
+<dd class="field-even"><p>scipy.sparse.spmatrix</p>
+</dd>
+<dt class="field-odd">param contributor_index_map_subset<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Mapping from contributor identifier to contributor column index for the
+portfolio entity being evaluated.</p>
+</dd>
+<dt class="field-even">type contributor_index_map_subset<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, int]</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Relative performance score for the selected portfolio. Values above 1.0
+indicate average outperformance versus domain baselines, while values
+below 1.0 indicate underperformance.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+<dt class="field-odd">raises TypeError<span class="colon">:</span></dt>
+<dd class="field-odd"><p>If <code class="docutils literal notranslate"><span class="pre">shares</span></code> is not a scipy sparse matrix.</p>
+</dd>
+<dt class="field-even">raises ValueError<span class="colon">:</span></dt>
+<dd class="field-even"><p>If <code class="docutils literal notranslate"><span class="pre">contributor_index_map_subset</span></code> is empty, or if called helper
+    functions reject invalid input shapes/history lengths.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Portfolio manuscript membership is inferred from non-zero allocation</p></li>
+</ul>
+<p>weights returned by <code class="docutils literal notranslate"><span class="pre">allocation_weights</span></code>.
+- Domain return extraction depends on <code class="docutils literal notranslate"><span class="pre">manuscript_memberships</span></code> and assumes
+consistent manuscript row indexing across all inputs.
+- The implementation currently propagates edge-case behavior from helper
+functions (for example, domain-return zero handling) rather than
+explicitly applying a zero-safe division at this level.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rp</span> <span class="o">=</span> <span class="n">compute_relative_performance</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">shares</span><span class="o">=</span><span class="n">shares</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">capital_history</span><span class="o">=</span><span class="n">capital_history</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">time_history</span><span class="o">=</span><span class="n">time_history</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">manuscript_memberships</span><span class="o">=</span><span class="n">manuscript_memberships</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">contributor_index_map_subset</span><span class="o">=</span><span class="n">subset_map</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">rp</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.compute_risk_adjusted_excess_return">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">compute_risk_adjusted_excess_return</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital_history</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">spmatrix</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_history</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscript_memberships</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map_subset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscript_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/market_metrics.html#compute_risk_adjusted_excess_return"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.compute_risk_adjusted_excess_return" title="Link to this definition"></a></dt>
+<dd><p>Compute manuscript-level risk-adjusted excess return (alpha).</p>
+<p>For the selected manuscript, this function estimates:</p>
+<blockquote>
+<div><p>alpha_m = mu_m - beta_m * mu_d(m)</p>
+</div></blockquote>
+<p>where manuscript and domain expected returns are derived from
+<code class="docutils literal notranslate"><span class="pre">capital_history</span></code> and <code class="docutils literal notranslate"><span class="pre">time_history</span></code> using <code class="docutils literal notranslate"><span class="pre">get_expected_returns</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">beta_m</span></code> is computed via <code class="docutils literal notranslate"><span class="pre">compute_sensitivity</span></code>.</p>
+<p>Domain returns are constructed by:
+1. extracting the manuscript’s tag/domain memberships from
+<code class="docutils literal notranslate"><span class="pre">manuscript_memberships</span></code>;
+2. aggregating capital history by tag with <code class="docutils literal notranslate"><span class="pre">mix_by_tag</span></code>; and
+3. selecting/summing the relevant domain rows for the manuscript.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital_history</strong> (<em>List</em><em>[</em><em>scipy.sparse.spmatrix</em><em>]</em>) – Chronological list of sparse capital matrices. Each matrix should use
+consistent manuscript and contributor indexing.</p></li>
+<li><p><strong>time_history</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – Time points corresponding to <code class="docutils literal notranslate"><span class="pre">capital_history</span></code> used to compute
+expected returns per unit time.</p></li>
+<li><p><strong>manuscript_memberships</strong> (<em>scipy.sparse.spmatrix</em>) – Sparse tag-by-manuscript matrix indicating manuscript-domain
+membership.</p></li>
+<li><p><strong>contributor_index_map_subset</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from contributor identifier to contributor column index for the
+portfolio subset used in return calculations.</p></li>
+<li><p><strong>manuscript_index</strong> (<em>int</em>) – Row index of the manuscript for which to compute risk-adjusted excess
+return.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Risk-adjusted excess return (alpha) for the specified manuscript.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>IndexError</strong> – If <code class="docutils literal notranslate"><span class="pre">manuscript_index</span></code> is out of bounds for any matrix in
+    <code class="docutils literal notranslate"><span class="pre">capital_history</span></code> or for <code class="docutils literal notranslate"><span class="pre">manuscript_memberships</span></code>.</p></li>
+<li><p><strong>ValueError</strong> – Propagated from helper functions when histories are invalid (for
+    example, length mismatches or insufficient points).</p></li>
+<li><p><strong>TypeError</strong> – Propagated from helper functions when non-sparse inputs are supplied
+    where sparse matrices are expected.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This routine computes alpha for a single manuscript index.</p></li>
+<li><p>If domain expected returns are constant/degenerate, sensitivity estimation</p></li>
+</ul>
+<p>may be unstable depending on NumPy behavior.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">alpha</span> <span class="o">=</span> <span class="n">compute_risk_adjusted_excess_return</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">capital_history</span><span class="o">=</span><span class="n">capital_history</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">time_history</span><span class="o">=</span><span class="n">time_history</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">manuscript_memberships</span><span class="o">=</span><span class="n">manuscript_memberships</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">contributor_index_map_subset</span><span class="o">=</span><span class="n">subset_map</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">manuscript_index</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.compute_risk_adjusted_relative_performance">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">compute_risk_adjusted_relative_performance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital_history</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">spmatrix</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_history</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscript_memberships</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map_subset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/market_metrics.html#compute_risk_adjusted_relative_performance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.compute_risk_adjusted_relative_performance" title="Link to this definition"></a></dt>
+<dd><p>Compute risk-adjusted relative performance for an entire portfolio.</p>
+<p>This function extends manuscript-level risk-adjusted excess return to a
+portfolio-level quantity by evaluating every manuscript row in the first
+capital matrix. For each manuscript, it computes the risk-adjusted excess
+return <code class="docutils literal notranslate"><span class="pre">alpha_m</span></code> and then normalizes it by the manuscript’s domain-level
+expected return <code class="docutils literal notranslate"><span class="pre">mu_d(m)</span></code>. The final result is the sum of these
+manuscript-wise contributions.</p>
+<p>Conceptually, the metric follows:</p>
+<blockquote>
+<div><p>RARP = sum_{m in Pi} lpha_m / mu_d(m)</p>
+</div></blockquote>
+<p>where:
+- <code class="docutils literal notranslate"><span class="pre">Pi</span></code> is the set of manuscripts in the portfolio,
+- <code class="docutils literal notranslate"><span class="pre">alpha_m</span></code> is the risk-adjusted excess return for manuscript <code class="docutils literal notranslate"><span class="pre">m</span></code>,
+- <code class="docutils literal notranslate"><span class="pre">mu_d(m)</span></code> is the expected return of the manuscript’s domain/tag.</p>
+<p>The manuscript-level <code class="docutils literal notranslate"><span class="pre">alpha_m</span></code> values are computed by calling
+<code class="docutils literal notranslate"><span class="pre">compute_risk_adjusted_excess_return</span></code> for each manuscript index. Domain returns
+are then reconstructed from <code class="docutils literal notranslate"><span class="pre">capital_history</span></code> using <code class="docutils literal notranslate"><span class="pre">mix_by_tag</span></code> and
+the manuscript’s tag membership in <code class="docutils literal notranslate"><span class="pre">manuscript_memberships</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital_history</strong> (<em>List</em><em>[</em><em>scipy.sparse.spmatrix</em><em>]</em>) – Chronological sequence of sparse capital matrices. The first matrix is
+used to determine the manuscript rows iterated over, and all matrices
+should share the same manuscript indexing convention.</p></li>
+<li><p><strong>time_history</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – Time points corresponding to <code class="docutils literal notranslate"><span class="pre">capital_history</span></code>. These are passed to
+<code class="docutils literal notranslate"><span class="pre">get_expected_returns</span></code> when computing manuscript and domain expected
+returns.</p></li>
+<li><p><strong>manuscript_memberships</strong> (<em>scipy.sparse.spmatrix</em>) – Sparse tag-by-manuscript membership matrix of shape
+<code class="docutils literal notranslate"><span class="pre">(n_tags,</span> <span class="pre">n_manuscripts)</span></code>. Entry <code class="docutils literal notranslate"><span class="pre">[t,</span> <span class="pre">m]</span></code> indicates whether
+manuscript <code class="docutils literal notranslate"><span class="pre">m</span></code> belongs to tag/domain <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p></li>
+<li><p><strong>contributor_index_map_subset</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from contributor identifier to contributor column index for the
+subset of contributors used in the portfolio calculation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Risk-adjusted relative performance score for the portfolio.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If <code class="docutils literal notranslate"><span class="pre">contributor_index_map_subset</span></code> is empty.</p></li>
+<li><p><strong>TypeError</strong> – May be raised by helper functions if the provided histories are not
+    sparse-compatible.</p></li>
+<li><p><strong>IndexError</strong> – May be raised if manuscript indices are out of bounds for the supplied
+    matrices.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The loop iterates over <code class="docutils literal notranslate"><span class="pre">range(capital_history[0].shape[0])</span></code>.</p></li>
+<li><p>The current implementation accumulates <code class="docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">/</span> <span class="pre">domain_returns</span></code> for</p></li>
+</ul>
+<p>every manuscript and returns the total.
+- Division by zero is not handled explicitly here; any zero-domain-return
+behavior is inherited from the underlying arithmetic and helper calls.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rarp</span> <span class="o">=</span> <span class="n">compute_risk_adjusted_relative_performance</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">capital_history</span><span class="o">=</span><span class="n">capital_history</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">time_history</span><span class="o">=</span><span class="n">time_history</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">manuscript_memberships</span><span class="o">=</span><span class="n">manuscript_memberships</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">contributor_index_map_subset</span><span class="o">=</span><span class="n">subset_map</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">rarp</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.compute_risk_premiums">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">compute_risk_premiums</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_authors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">slice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_reviewers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">slice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_replicators</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">slice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map_subset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reviewer_fmp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">sparray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replicator_fmp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">sparray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscript_memberships</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">sparray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">sparray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/market_metrics.html#compute_risk_premiums"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.compute_risk_premiums" title="Link to this definition"></a></dt>
+<dd><p>Compute tag-level risk premiums for reviewers and replicators corresponding to manuscripts
+authored by a given subset of contributors.
+This function calculates, for each tag, the difference between the capital that reviewers
+(or replicators) have obtained from manuscripts authored by the specified contributor subset
+and the fair market price (FMP) for that tag. The computation proceeds in these steps:
+1. Select the subset of author columns from mask_authors and create a per-manuscript mask</p>
+<blockquote>
+<div><p>indicating which manuscripts were authored by selected contributors.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><dl class="simple">
+<dt>Mask the global capital allocation by reviewer/replicator role (mask_reviewers</dt><dd><p>/ mask_replicators) and compute the per-manuscript capital given for QC services, i.e.,
+peer review and replication.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Restrict reviewer/replicator per-manuscript capital to manuscripts authored by the</dt><dd><p>selected contributors.</p>
+</dd>
+</dl>
+</li>
+<li><p>Aggregate per-manuscript capital up to tags via manuscript_memberships (tags x manuscripts).</p></li>
+<li><dl class="simple">
+<dt>Subtract the provided tag-level fair market price vectors (reviewer_fmp, replicator_fmp)</dt><dd><p>to produce tag-level risk premiums.</p>
+</dd>
+</dl>
+</li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> (<em>sparse.spmatrix</em>) – Contributor-level capital vector or sparse column matrix. Expected length (or number
+of rows) equals the number of contributors (n_contributors). This represents the
+capital each contributor has available/allocated (units consistent with FMP).</p></li>
+<li><p><strong>mask_authors</strong> (<em>sparse.spmatrix</em>) – Manuscript-by-contributor binary (or weighted) mask indicating authorship. Shape:
+(n_manuscripts, n_contributors). Nonzero entry indicates that the contributor
+authored (or contributed to) the manuscript.</p></li>
+<li><p><strong>mask_reviewers</strong> (<em>sparse.spmatrix</em>) – Manuscript-by-contributor mask indicating reviewer involvement. Shape:
+(n_manuscripts, n_contributors). Used to select reviewers’ share of capital per manuscript.</p></li>
+<li><p><strong>mask_replicators</strong> (<em>sparse.spmatrix</em>) – Manuscript-by-contributor mask indicating replicator involvement. Shape:
+(n_manuscripts, n_contributors). Used to select replicators’ share of capital per manuscript.</p></li>
+<li><p><strong>contributor_index_map_subset</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from contributor identifier (string) to column index in the mask matrices
+for the subset of contributors of interest. The function uses the mapped indices to
+select columns from mask_authors, mask_reviewers and mask_replicators.</p></li>
+<li><p><strong>reviewer_fmp</strong> (<em>sparse.sparray</em>) – Tag-level fair market price vector for reviewers. Shape: (n_tags,). Units must match
+those of capital after aggregation.</p></li>
+<li><p><strong>replicator_fmp</strong> (<em>sparse.sparray</em>) – Tag-level fair market price vector for replicators. Shape: (n_tags,). Units must match
+those of capital after aggregation.</p></li>
+<li><p><strong>manuscript_memberships</strong> (<em>sparse.spmatrix</em>) – Tag-by-manuscript membership matrix (shape: n_tags x n_manuscripts). Used to aggregate
+per-manuscript capital up to tags. Membership entries may be binary or weighted.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing two sparse arrays (each of length n_tags):
+- reviewer_risk_premium: tagwise (aggregated) reviewer capital on manuscripts authored
+by the selected contributors minus reviewer_fmp.
+- replicator_risk_premium: tagwise (aggregated) replicator capital on manuscripts authored
+by the selected contributors minus replicator_fmp.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[sparse.sparray, sparse.sparray]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If input matrix/vector shapes are incompatible (e.g., contributor counts, manuscript
+    counts, or tag counts do not align) the function may raise errors propagated from
+    underlying sparse operations or from get_per_manuscript_cap.</p></li>
+<li><p><strong>KeyError</strong> – If contributor_index_map_subset contains indices that do not correspond to columns
+    in the provided mask matrices, column selection may fail.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>The function attempts a fast column-slicing of mask_authors for the contributor subset</dt><dd><p>and falls back to an explicit hstack/getcol approach if slicing is not supported.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Elementwise multiplications and sums assume broadcasting consistent with sparse matrix</dt><dd><p>shapes: author masks are treated as per-manuscript indicators and are multiplied with
+per-manuscript capital vectors produced by get_per_manuscript_cap.</p>
+</dd>
+</dl>
+</li>
+<li><p>manuscript_memberships is expected to map manuscripts to tags (rows correspond to tags).</p></li>
+<li><dl class="simple">
+<dt>The returned risk premium values are not normalized by the number of authors, reviewers,</dt><dd><p>or replicators unless such normalization is performed earlier (e.g., in get_per_manuscript_cap).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>All inputs are expected to be sparse-compatible to avoid dense expansion; be mindful of</dt><dd><p>memory usage when converting between sparse and dense formats.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p class="rubric">Examples</p>
+<p>Shape conventions (illustrative):
+- mask_authors: (n_manuscripts, n_contributors)
+- mask_reviewers / mask_replicators: (n_manuscripts, n_contributors)
+- capital: (n_contributors,) or (n_contributors, 1)
+- contributor_index_map_subset: subset of contributor -&gt; column index mappings
+- get_per_manuscript_cap(masked_capital, subset_map) -&gt; returns array of length n_manuscripts
+- manuscript_memberships: (n_tags, n_manuscripts)
+- reviewer_fmp / replicator_fmp: (n_tags,)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.compute_sensitivity">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">compute_sensitivity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manuscript_expected_returns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_expected_returns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/market_metrics.html#compute_sensitivity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.compute_sensitivity" title="Link to this definition"></a></dt>
+<dd><p>Compute sensitivity (beta) of manuscript returns to domain returns.</p>
+<p>This function returns the ratio of covariance between manuscript expected
+returns and corresponding domain expected returns to the variance of domain
+expected returns:</p>
+<blockquote>
+<div><p>beta = Cov(mu_m, mu_d(m)) / Var(mu_d(m))</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>manuscript_expected_returns</strong> (<em>float</em>) – Manuscript expected return value(s). While typed as <code class="docutils literal notranslate"><span class="pre">float</span></code> in the
+current signature, this implementation delegates to NumPy covariance and
+variance routines and is typically meaningful when array-like values are
+provided.</p></li>
+<li><p><strong>domain_expected_returns</strong> (<em>float</em>) – Domain expected return value(s) aligned with
+<code class="docutils literal notranslate"><span class="pre">manuscript_expected_returns</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Sensitivity (beta) estimate. Returns 0.0 if domain variance is zero or
+very close to zero (within numerical epsilon).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The implementation uses <code class="docutils literal notranslate"><span class="pre">np.var(...,</span> <span class="pre">ddof=0)</span></code>, i.e., population variance.</p></li>
+</ul>
+<p>This is appropriate when working with return series.
+- Returns 0.0 when domain variance is near zero to avoid division by zero.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">beta</span> <span class="o">=</span> <span class="n">compute_sensitivity</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.compute_utility_function">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">compute_utility_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital_history</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">spmatrix</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_history</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map_subset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">risk_willingness</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/market_metrics.html#compute_utility_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.compute_utility_function" title="Link to this definition"></a></dt>
+<dd><p>Compute mean-variance utility for a contributor subset over time.</p>
+<p>This function derives expected returns from the provided capital history,
+estimates volatility over the same history, and combines the two using a
+standard quadratic utility formulation.</p>
+<p>The computation proceeds in these steps:
+1. Compute expected returns for the selected contributors using
+<code class="docutils literal notranslate"><span class="pre">get_expected_returns</span></code>.
+2. Compute volatility for the same contributor subset using
+<code class="docutils literal notranslate"><span class="pre">get_volatility</span></code>.
+3. Combine expected return and volatility with the risk willingness
+coefficient to produce a utility vector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital_history</strong> (<em>List</em><em>[</em><em>sparse.spmatrix</em><em>]</em>) – Sequence of sparse capital matrices, ordered over time. Each matrix is
+expected to contain manuscript-by-contributor capital allocations for a
+single time point.</p></li>
+<li><p><strong>time_history</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – Time values corresponding to <code class="docutils literal notranslate"><span class="pre">capital_history</span></code>. These are passed to
+<code class="docutils literal notranslate"><span class="pre">get_expected_returns</span></code> when computing the expected return series.</p></li>
+<li><p><strong>contributor_index_map_subset</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from contributor identifier to the corresponding column index in
+the capital matrices. Only the contributors in this subset are included
+in the utility calculation.</p></li>
+<li><p><strong>risk_willingness</strong> (<em>float</em>) – Risk preference coefficient used in the mean-variance utility formula.
+Larger values penalize volatility more strongly.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>A 1D NumPy array containing utility values for the selected
+contributors. The result is computed as:</p>
+<p><code class="docutils literal notranslate"><span class="pre">utility</span> <span class="pre">=</span> <span class="pre">expected_returns</span> <span class="pre">-</span> <span class="pre">0.5</span> <span class="pre">*</span> <span class="pre">risk_willingness</span> <span class="pre">*</span> <span class="pre">volatility</span></code></p>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If the input histories are incompatible in length or if the expected
+    return / volatility helpers reject the provided data.</p></li>
+<li><p><strong>TypeError</strong> – If any history element is not sparse-compatible in a way that the
+    downstream helper functions can process.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The function assumes the helper routines return aligned vectors for the</p></li>
+</ul>
+<p>same contributor subset.
+- No normalization is performed here beyond the risk-adjusted utility
+expression.
+- The returned values are higher when expected returns increase and lower
+when volatility increases.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">utility</span> <span class="o">=</span> <span class="n">compute_utility_function</span><span class="p">(</span><span class="n">capital_history</span><span class="p">,</span> <span class="n">time_history</span><span class="p">,</span> <span class="n">contributor_index_map_subset</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">utility</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(n_contributors,)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.get_author_citations">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">get_author_citations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/legacy_metric.html#get_author_citations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.get_author_citations" title="Link to this definition"></a></dt>
+<dd><p>For a contributor, returns authored manuscripts and corresponding citations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> – Sparse matrix of shape (M, M + 3*C). Used to find which
+manuscripts this author contributed to.</p></li>
+<li><p><strong>references</strong> – Sparse citation matrix of shape (M, M).</p></li>
+<li><p><strong>contributor_col</strong> – Column index of the author in the contributor space
+(0-indexed, before the M offset). Pass contributor_index_map[id]
+at the call site.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict mapping each manuscript index to its citation count.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.get_citation_counts">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">get_citation_counts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscript_rows</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/legacy_metric.html#get_citation_counts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.get_citation_counts" title="Link to this definition"></a></dt>
+<dd><p>Returns the number of incoming citations for each manuscript in the subset.</p>
+<p>references[i, j] encodes a citation from paper j (citing) to paper i (cited),
+so the number of papers citing manuscript i is the number of non-zero entries
+in row i.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>references</strong> – Sparse citation matrix of shape (M, M).</p></li>
+<li><p><strong>manuscript_row</strong> – List of row indices.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict mapping each manuscript index to its incoming citation count (int).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.get_g_index">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">get_g_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/legacy_metric.html#get_g_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.get_g_index" title="Link to this definition"></a></dt>
+<dd><p>Computes the g-index</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> – Sparse matrix of shape (M, M + 3*C). Used to find which
+manuscripts this author contributed to (author block: cols M to M+C).</p></li>
+<li><p><strong>references</strong> – Sparse citation matrix of shape (M, M).</p></li>
+<li><p><strong>contributor_col</strong> – Column index of the author in the contributor space
+(0-indexed, before the M offset). Pass contributor_index_map[id]
+at the call site.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The g-index as an integer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.get_h_index">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">get_h_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/legacy_metric.html#get_h_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.get_h_index" title="Link to this definition"></a></dt>
+<dd><p>Computes the h-index for a single author.</p>
+<p>h is the largest integer such that h of the author’s papers each have
+at least h incoming citations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> – Sparse matrix of shape (M, M + 3*C). Used to find which
+manuscripts this author contributed to (author block: cols M to M+C).</p></li>
+<li><p><strong>references</strong> – Sparse citation matrix of shape (M, M).</p></li>
+<li><p><strong>contributor_col</strong> – Column index of the author in the contributor space
+(0-indexed, before the M offset). Pass contributor_index_map[id]
+at the call site.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The h-index as an integer.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.get_i10_index">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">get_i10_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/legacy_metric.html#get_i10_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.get_i10_index" title="Link to this definition"></a></dt>
+<dd><p>Computes the i-10 index</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> – Sparse matrix of shape (M, M + 3*C). Used to find which
+manuscripts this author contributed to.
+The author block are the cols M to M+C because the capital matrix
+columns are blocked by author, peer reviewer, and replicator, with each
+contributor located in indentical indices within each block.</p></li>
+<li><p><strong>references</strong> – Sparse citation matrix of shape (M, M).</p></li>
+<li><p><strong>contributor_col</strong> – Column index of the author in the contributor space
+(0-indexed, before the M offset). Pass contributor_index_map[id]
+at the call site.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The i-10 index as an integer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.get_manuscript_memberships_matrix">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">get_manuscript_memberships_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manuscript_tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">sparray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">spmatrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/portfolio_metrics.html#get_manuscript_memberships_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.get_manuscript_memberships_matrix" title="Link to this definition"></a></dt>
+<dd><p>Build a stacked membership matrix from a tag-to-membership mapping.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>manuscript_tags</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>sparse.sparray</em><em>]</em>) – Mapping from tag name to a sparse one-hot row array of length
+num_manuscripts indicating which manuscripts belong to that tag.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>manuscript_memberships</strong> (<em>scipy.sparse.spmatrix</em>) – CSR matrix of shape (num_tags, num_manuscripts) where rows are tags
+and columns are manuscripts. Entry [i, j] is 1 if manuscript j
+belongs to tag i.</p></li>
+<li><p><strong>keys</strong> (<em>List[str]</em>) – Ordered list of tag names corresponding to the rows of the matrix.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.get_per_manuscript_cap">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">get_per_manuscript_cap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map_subset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/portfolio_metrics.html#get_per_manuscript_cap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.get_per_manuscript_cap" title="Link to this definition"></a></dt>
+<dd><p>Extract per-manuscript capital for a subset of contributors.
+:param capital: Sparse matrix where each row represents a manuscript and each column represents a contributor.</p>
+<blockquote>
+<div><p>Entries represent the amount of capital allocated from a contributor to a manuscript.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>contributor_index_map_subset</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from contributor identifier to the corresponding column index in <cite>capital</cite>.
+Only the columns specified by the values of this mapping are considered.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Sparse matrix containing the per-manuscript capital aggregated over the specified contributor columns.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>scipy.sparse.spmatrix</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If <cite>capital</cite> is not a scipy sparse matrix.</p></li>
+<li><p><strong>ValueError</strong> – If <cite>contributor_index_map_subset</cite> is empty.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>The returned matrix has the same number of rows as <cite>capital</cite> and a single column,</dt><dd><p>where each entry represents the total capital for that manuscript from the specified contributors.</p>
+</dd>
+</dl>
+</li>
+<li><p>Implementation details: the function first tries to slice <cite>capital</cite> using the provided column indices.
+If slicing fails, it falls back to horizontally stacking individual columns via <cite>capital.getcol</cite>.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># capital: scipy CSR matrix with shape (num_manuscripts, num_contributors)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># contributor_index_map_subset = {&#39;alice&#39;: 0, &#39;bob&#39;: 2}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_per_manuscript_cap</span><span class="p">(</span><span class="n">capital</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;alice&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;bob   : 2})</span>
+<span class="go">&lt;2x1 sparse matrix of type &#39;&lt;class &#39;numpy.float64&#39;&gt;&#39;</span>
+<span class="go">    with 3 stored elements in Compressed Sparse Row format&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.hhi_discrepancy">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">hhi_discrepancy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shares_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_portfolio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">slice</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/distribution_metrics.html#hhi_discrepancy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.hhi_discrepancy" title="Link to this definition"></a></dt>
+<dd><p>Compute the discrepancy between the HHI of the field and that of the manuscript or portfolio.
+:param shares_matrix: Sparse matrix where each row represents a manuscript and each column represents an author.</p>
+<blockquote>
+<div><p>Entries are the shares each author has for each given manuscript.
+This matrix should have all manuscripts in the field/discipline.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>indices</strong> (<em>np.array</em>) – Array of indices of manuscripts in the shares_matrix that are to be considered in the HHI calculation.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The HHID value, a measure of discrepancy between a portfolio and the industry. Higher values indicate an anomaly that
+should be further investigated.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">hhi_discrepancy</span><span class="p">(</span><span class="n">shares_matrix</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span>
+<span class="go">0.375</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.mix_by_role">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">mix_by_role</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map_subset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_by_role</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscript_memberships</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/portfolio_metrics.html#mix_by_role"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.mix_by_role" title="Link to this definition"></a></dt>
+<dd><p>Compute total capital and tag-wise capital mix for a specific role.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> (<em>scipy.sparse.spmatrix</em>) – Full capital matrix</p></li>
+<li><p><strong>contributor_index_map_subset</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from contributor identifier to column index</p></li>
+<li><p><strong>mask_by_role</strong> (<em>slice</em>) – Slice selecting the columns in the capital matrix that correspond to the role
+(Example: np.s_[:, 10:60] selects all rows and columns 10-59)</p></li>
+<li><p><strong>manuscript_memberships</strong> (<em>scipy.sparse.spmatrix</em><em> (</em><em>num_tags</em><em>, </em><em>num_manuscripts</em><em>)</em>) – Entry [t, i] is 1 if manuscript i belongs to tag t</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>rolewise_cap_tot</strong> (<em>float</em>) – Total capital attributed to this role across all manuscripts and contributors</p></li>
+<li><p><strong>rolewise_capmix_by_tag</strong> (<em>sparse.sparray (num_tags, num_contributors)</em>) – Entry [t, j] is the total capital of contributor j in manuscripts belonging to tag t</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.mix_by_tag">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">mix_by_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital_sub</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">sparray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscript_memberships</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">sparray</span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/portfolio_metrics.html#mix_by_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.mix_by_tag" title="Link to this definition"></a></dt>
+<dd><p>Find capital by tag and contributor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital_sub</strong> (<em>sparse.sparray</em><em> (</em><em>num_manuscripts</em><em>, </em><em>num_contributors</em><em>)</em>) – A capital matrix where entry [i, j] is the capital of contributor j on manuscript i</p></li>
+<li><p><strong>manuscript_memberships</strong> (<em>scipy.sparse.spmatrix</em><em> (</em><em>num_tags</em><em>, </em><em>num_manuscripts</em><em>)</em>) – Matrix where entry [t, i] is 1 if manuscript i belongs to tag t and 0 otherwise</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Entry [t, j] is the total capital of contributor j across all manuscripts belonging to tag t</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sparse.sparray (num_tags, num_contributors)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.portfolio_gini">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">portfolio_gini</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map_subset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/portfolio_metrics.html#portfolio_gini"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.portfolio_gini" title="Link to this definition"></a></dt>
+<dd><p>Compute the Gini coefficient of a portfolio.
+:param capital: Sparse matrix where each row represents a manuscript and each column represents a contributor.</p>
+<blockquote>
+<div><p>Entries represent the amount of capital allocated from a contributor to a manuscript.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>contributor_index_map_subset</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from contributor identifier to the corresponding column index in <cite>capital</cite>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Gini coefficient, a measure of inequality in the portfolio. Returns 0.0 if the portfolio is empty
+or if there is only one manuscript.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If <cite>capital</cite> is not a scipy sparse matrix.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The Gini coefficient is calculated based on the allocation weights.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">portfolio_gini</span><span class="p">(</span><span class="n">capital</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;alice&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;bob&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+<span class="go">0.25</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.portfolio_hhi">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">portfolio_hhi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map_subset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/portfolio_metrics.html#portfolio_hhi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.portfolio_hhi" title="Link to this definition"></a></dt>
+<dd><p>Compute the Herfindahl-Hirschman Index (HHI) of a portfolio.
+:param capital: Sparse matrix where each row represents a manuscript and each column represents a contributor.</p>
+<blockquote>
+<div><p>Entries represent the amount of capital allocated from a contributor to a manuscript.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>contributor_index_map_subset</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from contributor identifier to the corresponding column index in <cite>capital</cite>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The HHI value, a measure of concentration in the portfolio. Returns 0.0 if the portfolio is empty
+or if all weights are zero.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If <cite>capital</cite> is not a scipy sparse matrix.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The HHI is calculated as the sum of the squares of the allocation weights.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">portfolio_hhi</span><span class="p">(</span><span class="n">capital</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;alice&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;bob&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+<span class="go">0.375</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.portfolio_normalized_entropy">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">portfolio_normalized_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map_subset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/portfolio_metrics.html#portfolio_normalized_entropy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.portfolio_normalized_entropy" title="Link to this definition"></a></dt>
+<dd><p>Compute the normalized entropy of a portfolio.
+:param capital: Sparse matrix where each row represents a manuscript and each column represents a contributor.</p>
+<blockquote>
+<div><p>Entries represent the amount of capital allocated from a contributor to a manuscript.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>contributor_index_map_subset</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from contributor identifier to the corresponding column index in <cite>capital</cite>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The normalized entropy, a measure of diversity in the portfolio. Returns 0.0 if the portfolio is empty
+or if there is only one manuscript.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If <cite>capital</cite> is not a scipy sparse matrix.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The normalized entropy is calculated based on the allocation weights.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">portfolio_normalized_entropy</span><span class="p">(</span><span class="n">capital</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;alice&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;bob&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+<span class="go">0.85</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.query_portfolio_mix">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">query_portfolio_mix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_authors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">slice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_reviewers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">slice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_replicators</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">slice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscript_memberships</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map_subset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'role'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">sparray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/portfolio_metrics.html#query_portfolio_mix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.query_portfolio_mix" title="Link to this definition"></a></dt>
+<dd><p>Query the portfolio mix by specified criteria.
+This function computes allocation weights across a portfolio of manuscripts
+and aggregates them based on the specified grouping criterion (by role or by tag).
+:param capital: A scipy sparse matrix representing capital allocation.
+:type capital: sparse.spmatrix
+:param contributor_index_map_subset: A dictionary mapping contributor names</p>
+<blockquote>
+<div><p>to their indices, representing a subset of all contributors.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>manuscript_index_map</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – A dictionary mapping manuscript names to their indices.</p></li>
+<li><p><strong>manuscript_tags</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>sparse.spmatrix</em><em>]</em>) – A dictionary mapping tag names to sparse
+binary matrices indicating manuscript membership in each tag.</p></li>
+<li><p><strong>by</strong> (<em>str</em><em>, </em><em>optional</em>) – The criterion for grouping the portfolio mix. Either ‘role’ or ‘tag’.
+Defaults to ‘role’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A dictionary mapping role or tag names to their corresponding</dt><dd><p>allocation weights in the portfolio.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, float]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If capital is not a scipy sparse matrix.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>When by=’tag’: For each tag, a sparse mask identifies manuscripts belonging to that tag,
+and weights are intersected with the mask.</p></li>
+<li><p>When by=’role’: Capital is subsampled by role, and allocation weights are computed
+for each role separately.</p></li>
+<li><p>Returns an empty dictionary if no weights can be computed or if n &lt;= 1.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.role_based_proportional_loss">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">role_based_proportional_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retractions_capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_by_role</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">slice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map_subset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/portfolio_metrics.html#role_based_proportional_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.role_based_proportional_loss" title="Link to this definition"></a></dt>
+<dd><p>Compute the proportion of capital loss for a specific role in the portfolio.
+:param capital: Sparse matrix where each row represents a manuscript and each column represents a contributor.</p>
+<blockquote>
+<div><p>Entries represent the amount of capital accrued from a manuscript by a contributor.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>retraction_capital</strong> (<em>scipy.sparse.spmatrix</em>) – Sparse matrix of the same shape as <cite>capital</cite>, representing capital associated with retracted manuscripts.</p></li>
+<li><p><strong>mask_by_role</strong> (<em>scipy.sparse.spmatrix</em>) – Sparse binary matrix indicating which entries in <cite>capital</cite> correspond to the specified role.</p></li>
+<li><p><strong>contributor_index_map_subset</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from contributor identifier to the corresponding column index in <cite>capital</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The proportion of capital loss for the specified role in the portfolio.
+Returns 0.0 if the total capital is zero.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If <cite>capital</cite> or <cite>mask_by_role</cite> is not a scipy sparse matrix.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The function computes the total capital for the specified role and compares it to the overall
+total capital to determine the proportion of loss.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.share_splits_inequality">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.</span></span><span class="sig-name descname"><span class="pre">share_splits_inequality</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portfolio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../../_modules/liberata_metrics/metrics/distribution_metrics.html#share_splits_inequality"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.share_splits_inequality" title="Link to this definition"></a></dt>
+<dd><p>Compute the Herfindahl-Hirschman Index (HHI) of a portfolio of manuscripts.
+:param portfolio: Sparse matrix where each row represents a manuscript and each column represents an author.</p>
+<blockquote>
+<div><p>Entries are the shares each author has for each given manuscript.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><em>float</em> – The mean HHI value, a measure of the typical concentration in the portfolio. Returns 0.0 if the portfolio is empty.</p></li>
+<li><p><em>——</em></p></li>
+<li><p><em>TypeError</em> – If <cite>portfolio</cite> is not a scipy sparse matrix.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The share splits inequality is calculated as the mean HHI of all provided manuscripts.</p></li>
+<li><p>The HHI for a single manuscript is calculated as the sum of the squares of the share splits for that manuscript.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">share_splits_inequality</span><span class="p">(</span><span class="n">portfolio</span><span class="p">)</span>
+<span class="go">0.375</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="liberata_metrics.integrations.supabase.html" class="btn btn-neutral float-left" title="liberata_metrics.integrations.supabase module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="liberata_metrics.metrics.distribution_metrics.html" class="btn btn-neutral float-right" title="liberata_metrics.metrics.distribution_metrics module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Liberata.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

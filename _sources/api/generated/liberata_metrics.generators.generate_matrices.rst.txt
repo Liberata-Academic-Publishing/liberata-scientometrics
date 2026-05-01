@@ -1,0 +1,7 @@
+liberata\_metrics.generators.generate\_matrices module
+======================================================
+
+.. automodule:: liberata_metrics.generators.generate_matrices
+   :members:
+   :show-inheritance:
+   :undoc-members:

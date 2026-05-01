@@ -1,0 +1,7 @@
+liberata\_metrics.metrics.portfolio\_metrics module
+===================================================
+
+.. automodule:: liberata_metrics.metrics.portfolio_metrics
+   :members:
+   :undoc-members:
+   :show-inheritance:

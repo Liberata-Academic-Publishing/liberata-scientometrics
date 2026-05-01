@@ -1,0 +1,216 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Reference &mdash; Liberata Scientometrics  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+    <link rel="canonical" href="https://www.liberata.info/api/index.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="liberata_metrics" href="modules.html" />
+    <link rel="prev" title="liberata_metrics.integrations.supabase module" href="liberata_metrics.integrations.supabase.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Liberata Scientometrics
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Liberata Scientometrics: Academic Knowledge Graph Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../liberata_metrics.html">liberata_metrics package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#core-modules">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quick-reference">Quick Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#full-api-documentation">Full API Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules.html">liberata_metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/modules.html">liberata_metrics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Liberata Scientometrics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h1>
+<p>The Liberata Scientometrics library provides a comprehensive set of modules for analyzing and computing metrics on academic knowledge graphs and portfolios. This section documents the complete API.</p>
+<section id="core-modules">
+<h2>Core Modules<a class="headerlink" href="#core-modules" title="Link to this heading"></a></h2>
+<p>The library is organized into four main components:</p>
+<dl class="simple">
+<dt><strong>Metrics</strong> (<a class="reference internal" href="generated/liberata_metrics.metrics.html"><span class="doc">liberata_metrics.metrics package</span></a>)</dt><dd><p>Compute various scientometric metrics on your data:</p>
+<ul class="simple">
+<li><p><strong>Portfolio Metrics</strong>: Analyze manuscript portfolios, including returns, risk, correlations, and spectral properties</p></li>
+<li><p><strong>Market Metrics</strong>: Evaluate market dynamics and portfolio performance in the academic capital system</p></li>
+<li><p><strong>Distribution Metrics</strong>: Analyze distributions of contributors and capital allocation</p></li>
+<li><p><strong>Graph Metrics</strong>: Compute network-based metrics on citation and collaboration graphs</p></li>
+<li><p><strong>System Health Metrics</strong>: Monitor the overall health of the academic capital system</p></li>
+</ul>
+</dd>
+<dt><strong>Generators</strong> (<a class="reference internal" href="generated/liberata_metrics.generators.html"><span class="doc">liberata_metrics.generators package</span></a>)</dt><dd><p>Create synthetic data for testing and analysis:</p>
+<ul class="simple">
+<li><p>Generate reference matrices from scratch</p></li>
+<li><p>Build contributor-manuscript relationships</p></li>
+<li><p>Create topic assignments based on OpenAlex topics</p></li>
+<li><p>Produce COO-format sparse matrices for efficient computation</p></li>
+</ul>
+</dd>
+<dt><strong>Utilities</strong> (<a class="reference internal" href="generated/liberata_metrics.utils.html"><span class="doc">liberata_metrics.utils package</span></a>)</dt><dd><p>Helper functions for common tasks:</p>
+<ul class="simple">
+<li><p>Data loading from Supabase and local sources</p></li>
+<li><p>Data wrangling and transformation</p></li>
+<li><p>Matrix operations and utilities</p></li>
+<li><p>Sparse matrix utilities</p></li>
+</ul>
+</dd>
+<dt><strong>Visualizations</strong> (<a class="reference internal" href="generated/liberata_metrics.visualizations.html"><span class="doc">liberata_metrics.visualizations package</span></a>)</dt><dd><p>Create visual representations of your data:</p>
+<ul class="simple">
+<li><p>Matrix visualizations (heatmaps, sparsity plots)</p></li>
+<li><p>Time series visualizations</p></li>
+<li><p>Network and graph visualizations</p></li>
+<li><p>Portfolio analysis plots</p></li>
+</ul>
+</dd>
+<dt><strong>Integrations</strong> (<a class="reference internal" href="generated/liberata_metrics.integrations.html"><span class="doc">liberata_metrics.integrations package</span></a>)</dt><dd><p>Connect to external systems:</p>
+<ul class="simple">
+<li><p>Supabase integration for production data access</p></li>
+<li><p>Logging and configuration</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="quick-reference">
+<h2>Quick Reference<a class="headerlink" href="#quick-reference" title="Link to this heading"></a></h2>
+<p>Common workflows:</p>
+<ol class="arabic">
+<li><p><strong>Generate test data</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.generators</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_references_matrix</span>
+
+<span class="n">matrices</span> <span class="o">=</span> <span class="n">generate_references_matrix</span><span class="p">(</span>
+    <span class="n">num_manuscripts</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">citation_density</span><span class="o">=</span><span class="mf">0.05</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Compute portfolio metrics</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">PortfolioMetrics</span>
+
+<span class="n">pm</span> <span class="o">=</span> <span class="n">PortfolioMetrics</span><span class="p">(</span><span class="n">capital_matrix</span><span class="p">)</span>
+<span class="n">returns</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">compute_returns</span><span class="p">()</span>
+<span class="n">risk</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">compute_risk</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Analyze system dynamics</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">MarketMetrics</span>
+
+<span class="n">mm</span> <span class="o">=</span> <span class="n">MarketMetrics</span><span class="p">(</span><span class="n">references</span><span class="p">,</span> <span class="n">capital</span><span class="p">)</span>
+<span class="n">efficiency</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">compute_efficiency</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="full-api-documentation">
+<h2>Full API Documentation<a class="headerlink" href="#full-api-documentation" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Complete Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">liberata_metrics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.html">liberata_metrics package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="generated/modules.html">liberata_metrics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/liberata_metrics.html">liberata_metrics package</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="liberata_metrics.integrations.supabase.html" class="btn btn-neutral float-left" title="liberata_metrics.integrations.supabase module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="modules.html" class="btn btn-neutral float-right" title="liberata_metrics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Liberata.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

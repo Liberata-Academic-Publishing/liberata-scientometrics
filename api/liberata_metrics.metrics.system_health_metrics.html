@@ -1,0 +1,565 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>liberata_metrics.metrics.system_health_metrics module &mdash; Liberata Scientometrics  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+    <link rel="canonical" href="https://www.liberata.info/api/liberata_metrics.metrics.system_health_metrics.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="liberata_metrics.utils package" href="liberata_metrics.utils.html" />
+    <link rel="prev" title="liberata_metrics.metrics.portfolio_metrics module" href="liberata_metrics.metrics.portfolio_metrics.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Liberata Scientometrics
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Liberata Scientometrics: Academic Knowledge Graph Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../liberata_metrics.html">liberata_metrics package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#core-modules">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#quick-reference">Quick Reference</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#full-api-documentation">Full API Documentation</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="modules.html">liberata_metrics</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="liberata_metrics.html">liberata_metrics package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="generated/modules.html">liberata_metrics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Liberata Scientometrics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="modules.html">liberata_metrics</a></li>
+          <li class="breadcrumb-item"><a href="liberata_metrics.html">liberata_metrics package</a></li>
+          <li class="breadcrumb-item"><a href="liberata_metrics.metrics.html">liberata_metrics.metrics package</a></li>
+      <li class="breadcrumb-item active">liberata_metrics.metrics.system_health_metrics module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/liberata_metrics.metrics.system_health_metrics.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-liberata_metrics.metrics.system_health_metrics">
+<span id="liberata-metrics-metrics-system-health-metrics-module"></span><h1>liberata_metrics.metrics.system_health_metrics module<a class="headerlink" href="#module-liberata_metrics.metrics.system_health_metrics" title="Link to this heading"></a></h1>
+<p>System health metrics computation module.</p>
+<p>This module provides classes and functions for computing and analyzing
+system health metrics, such as growth rates and shrinkage rates, and various
+properties related to the health of a portfiolio.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.system_health_metrics.get_academic_capital_growth_rate">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.system_health_metrics.</span></span><span class="sig-name descname"><span class="pre">get_academic_capital_growth_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital_history</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">spmatrix</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map_subset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/system_health_metrics.html#get_academic_capital_growth_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.system_health_metrics.get_academic_capital_growth_rate" title="Link to this definition"></a></dt>
+<dd><p>Compute the average Academic Capital Growth Rate of a portfolio. This is the
+rate at which the academic capital of a portfolio has grown over a historical
+sequence of capital matrices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital_history</strong> (<em>List</em><em>[</em><em>scipy.sparse.spmatrix</em><em>]</em>) – A chronological list of at least two sparse capital matrices
+representing portfolio states over time. Consecutive entries are
+should be a year apart</p></li>
+<li><p><strong>contributor_index_map_subset</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from contributor identifier to the corresponding column
+index in the capital matrices.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The compound growth rate per time period.
+Returns 0.0 if the starting capital is zero</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If any element in capital_history is not a scipy sparse matrix.</p></li>
+<li><p><strong>ValueError</strong> – If capital_history contains fewer than two entries.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.system_health_metrics.get_field_capital_shares">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.system_health_metrics.</span></span><span class="sig-name descname"><span class="pre">get_field_capital_shares</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_contributor_index_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_contributor_index_maps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/system_health_metrics.html#get_field_capital_shares"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.system_health_metrics.get_field_capital_shares" title="Link to this definition"></a></dt>
+<dd><p>Compute the proportionate contribution of each academic field to the total
+academic capital of a region.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> (<em>scipy.sparse.spmatrix</em>) – Sparse capital matrix.</p></li>
+<li><p><strong>region_contributor_index_map</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Contributor index map for the full region.</p></li>
+<li><p><strong>field_contributor_index_maps</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em><em>]</em>) – Mapping from field identifier to contributor index map for that field
+within the region.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Mapping from field identifier to its proportionate share of regional academic capital.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, float]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If capital is not a scipy sparse matrix.</p></li>
+<li><p><strong>ValueError</strong> – If total regional academic capital is zero.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.system_health_metrics.get_funding_efficiency">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.system_health_metrics.</span></span><span class="sig-name descname"><span class="pre">get_funding_efficiency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_spending</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/system_health_metrics.html#get_funding_efficiency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.system_health_metrics.get_funding_efficiency" title="Link to this definition"></a></dt>
+<dd><p>Compute global research funding efficiency, which is the academic capital produced per unit of research spending.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> (<em>scipy.sparse.spmatrix</em>) – Sparse capital matrix covering all manuscripts globally.</p></li>
+<li><p><strong>total_spending</strong> (<em>float</em>) – Total global research spending ($Θ).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns the funding efficiency.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If capital is not a scipy sparse matrix.</p></li>
+<li><p><strong>ValueError</strong> – If total_spending is not positive.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.system_health_metrics.get_gdp_efficiency">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.system_health_metrics.</span></span><span class="sig-name descname"><span class="pre">get_gdp_efficiency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_spending</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gdp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/system_health_metrics.html#get_gdp_efficiency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.system_health_metrics.get_gdp_efficiency" title="Link to this definition"></a></dt>
+<dd><p>Compute global research GDP efficiency, which is funding efficiency scaled by GDP.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> (<em>scipy.sparse.spmatrix</em>) – Sparse capital matrix covering all manuscripts globally.</p></li>
+<li><p><strong>total_spending</strong> (<em>float</em>) – Total global research spending ($Θ).</p></li>
+<li><p><strong>gdp</strong> (<em>float</em>) – Global GDP (GDP_Θ).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns the GDP efficiency.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If capital is not a scipy sparse matrix.</p></li>
+<li><p><strong>ValueError</strong> – If total_spending or gdp is not positive.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.system_health_metrics.get_gini_per_capita">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.system_health_metrics.</span></span><span class="sig-name descname"><span class="pre">get_gini_per_capita</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_contributor_index_maps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regional_populations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/system_health_metrics.html#get_gini_per_capita"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.system_health_metrics.get_gini_per_capita" title="Link to this definition"></a></dt>
+<dd><p>Compute the Gini coefficient of per capita academic capital inequality
+across regions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> (<em>scipy.sparse.spmatrix</em>) – Sparse capital matrix covering all manuscripts globally.</p></li>
+<li><p><strong>region_contributor_index_maps</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em><em>]</em>) – Mapping from region identifier to contributor index map for that region.</p></li>
+<li><p><strong>regional_populations</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>float</em><em>]</em>) – Mapping from region identifier to population.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Gini coefficient in [0, 1].</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If capital is not a scipy sparse matrix.</p></li>
+<li><p><strong>ValueError</strong> – If a region present in region_contributor_index_maps is missing from regional_populations.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.system_health_metrics.get_gini_per_contributor">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.system_health_metrics.</span></span><span class="sig-name descname"><span class="pre">get_gini_per_contributor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_contributor_index_maps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regional_contributor_counts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/system_health_metrics.html#get_gini_per_contributor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.system_health_metrics.get_gini_per_contributor" title="Link to this definition"></a></dt>
+<dd><p>Compute the Gini coefficient of per contributor academic capital inequality across regions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> (<em>scipy.sparse.spmatrix</em>) – Sparse capital matrix covering all manuscripts globally.</p></li>
+<li><p><strong>region_contributor_index_maps</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em><em>]</em>) – Mapping from region identifier to contributor index map for that region.</p></li>
+<li><p><strong>regional_contributor_counts</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from region identifier to number of contributors in that region.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Gini coefficient in [0, 1].</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If capital is not a scipy sparse matrix.</p></li>
+<li><p><strong>ValueError</strong> – If a region present in region_contributor_index_maps is missing from regional_contributor_counts.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.system_health_metrics.get_gini_per_gdp">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.system_health_metrics.</span></span><span class="sig-name descname"><span class="pre">get_gini_per_gdp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_contributor_index_maps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regional_gdps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/system_health_metrics.html#get_gini_per_gdp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.system_health_metrics.get_gini_per_gdp" title="Link to this definition"></a></dt>
+<dd><p>Compute the Gini coefficient of per GDP academic capital inequality across regions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> (<em>scipy.sparse.spmatrix</em>) – Sparse capital matrix covering all manuscripts globally.</p></li>
+<li><p><strong>region_contributor_index_maps</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em><em>]</em>) – Mapping from region identifier to contributor index map for that region.</p></li>
+<li><p><strong>regional_gdps</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>float</em><em>]</em>) – Mapping from region identifier to GDP.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Gini coefficient in [0, 1].</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If capital is not a scipy sparse matrix.</p></li>
+<li><p><strong>ValueError</strong> – If a region present in region_contributor_index_maps is missing from regional_gdps.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.system_health_metrics.get_ppp_efficiency">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.system_health_metrics.</span></span><span class="sig-name descname"><span class="pre">get_ppp_efficiency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_spending</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ppp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/system_health_metrics.html#get_ppp_efficiency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.system_health_metrics.get_ppp_efficiency" title="Link to this definition"></a></dt>
+<dd><p>Compute global research PPP efficiency, which is funding efficiency scaled by PPP.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> (<em>scipy.sparse.spmatrix</em>) – Sparse capital matrix covering all manuscripts globally.</p></li>
+<li><p><strong>total_spending</strong> (<em>float</em>) – Total global research spending ($Θ).</p></li>
+<li><p><strong>ppp</strong> (<em>float</em>) – Global purchasing power parity (PPP_Θ).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns the PPP efficiency.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If capital is not a scipy sparse matrix.</p></li>
+<li><p><strong>ValueError</strong> – If total_spending or ppp is not positive.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.system_health_metrics.get_regional_academic_capital">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.system_health_metrics.</span></span><span class="sig-name descname"><span class="pre">get_regional_academic_capital</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_contributor_index_maps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/system_health_metrics.html#get_regional_academic_capital"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.system_health_metrics.get_regional_academic_capital" title="Link to this definition"></a></dt>
+<dd><p>Compute total academic capital per geographic region.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> (<em>scipy.sparse.spmatrix</em>) – Sparse capital matrix covering all manuscripts globally.</p></li>
+<li><p><strong>region_contributor_index_maps</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em><em>]</em>) – Mapping from region identifier to contributor index map for that region.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Mapping from region identifier to total academic capital.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, float]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If capital is not a scipy sparse matrix.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.system_health_metrics.get_regional_hhi">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.system_health_metrics.</span></span><span class="sig-name descname"><span class="pre">get_regional_hhi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_contributor_index_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_contributor_index_maps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/system_health_metrics.html#get_regional_hhi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.system_health_metrics.get_regional_hhi" title="Link to this definition"></a></dt>
+<dd><p>Compute the HHI of academic capital concentration across fields for a region.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> (<em>scipy.sparse.spmatrix</em>) – Sparse capital matrix.</p></li>
+<li><p><strong>region_contributor_index_map</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Contributor index map for the full region.</p></li>
+<li><p><strong>field_contributor_index_maps</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em><em>]</em>) – Mapping from field identifier to contributor index map for that field
+within the region.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>HHI value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If capital is not a scipy sparse matrix.</p></li>
+<li><p><strong>ValueError</strong> – If total regional academic capital is zero.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.system_health_metrics.get_replicator_fmp_volatility">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.system_health_metrics.</span></span><span class="sig-name descname"><span class="pre">get_replicator_fmp_volatility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital_history</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">spmatrix</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/system_health_metrics.html#get_replicator_fmp_volatility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.system_health_metrics.get_replicator_fmp_volatility" title="Link to this definition"></a></dt>
+<dd><p>Compute the volatility of the global fair market price for replicators
+over a time period of n steps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital_history</strong> (<em>List</em><em>[</em><em>scipy.sparse.spmatrix</em><em>]</em>) – A chronological list of at least two sparse capital matrices.</p></li>
+<li><p><strong>contributor_index_map</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Full contributor map (all contributors, not a subset).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Volatility of replicator FMP.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If any element in capital_history is not a scipy sparse matrix.</p></li>
+<li><p><strong>ValueError</strong> – If capital_history contains fewer than two entries.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.system_health_metrics.get_replicator_shrinkage_rate">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.system_health_metrics.</span></span><span class="sig-name descname"><span class="pre">get_replicator_shrinkage_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital_history</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">spmatrix</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/system_health_metrics.html#get_replicator_shrinkage_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.system_health_metrics.get_replicator_shrinkage_rate" title="Link to this definition"></a></dt>
+<dd><p>Compute the shrinkage rate of the global fair market price for replicators.
+This is just the negative rate of change in the total FMP for replicators.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital_history</strong> (<em>List</em><em>[</em><em>scipy.sparse.spmatrix</em><em>]</em>) – A chronological list of at least two sparse capital matrices.</p></li>
+<li><p><strong>contributor_index_map</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Full contributor map (all contributors, not a subset).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Per-period shrinkage rate for replicator FMP.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If any element in capital_history is not a scipy sparse matrix.</p></li>
+<li><p><strong>ValueError</strong> – If capital_history contains fewer than two entries.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.system_health_metrics.get_reviewer_fmp_volatility">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.system_health_metrics.</span></span><span class="sig-name descname"><span class="pre">get_reviewer_fmp_volatility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital_history</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">spmatrix</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/system_health_metrics.html#get_reviewer_fmp_volatility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.system_health_metrics.get_reviewer_fmp_volatility" title="Link to this definition"></a></dt>
+<dd><p>Compute the volatility of the global fair market price for reviewers
+over a time period of n steps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital_history</strong> (<em>List</em><em>[</em><em>scipy.sparse.spmatrix</em><em>]</em>) – A chronological list of at least two sparse capital matrices.</p></li>
+<li><p><strong>contributor_index_map</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Full contributor map (all contributors, not a subset).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Volatility of reviewer FMP.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If any element in capital_history is not a scipy sparse matrix.</p></li>
+<li><p><strong>ValueError</strong> – If capital_history contains fewer than two entries.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.system_health_metrics.get_reviewer_shrinkage_rate">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.system_health_metrics.</span></span><span class="sig-name descname"><span class="pre">get_reviewer_shrinkage_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital_history</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">spmatrix</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/system_health_metrics.html#get_reviewer_shrinkage_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.system_health_metrics.get_reviewer_shrinkage_rate" title="Link to this definition"></a></dt>
+<dd><p>Compute the shrinkage rate of the global fair market price for reviewers.
+This is just the negative rate of change in the total FMP for reviewers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital_history</strong> (<em>List</em><em>[</em><em>scipy.sparse.spmatrix</em><em>]</em>) – A chronological list of at least two sparse capital matrices.</p></li>
+<li><p><strong>contributor_index_map</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Full contributor map (all contributors, not a subset).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Per-period shrinkage rate for reviewer FMP</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If any element in capital_history is not a scipy sparse matrix.</p></li>
+<li><p><strong>ValueError</strong> – If capital_history contains fewer than two entries.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.system_health_metrics.get_time_efficiency">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.system_health_metrics.</span></span><span class="sig-name descname"><span class="pre">get_time_efficiency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/system_health_metrics.html#get_time_efficiency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.system_health_metrics.get_time_efficiency" title="Link to this definition"></a></dt>
+<dd><p>Compute global research time efficiency, which is the academic capital produced per unit time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> (<em>scipy.sparse.spmatrix</em>) – Sparse capital matrix covering all manuscripts globally.</p></li>
+<li><p><strong>delta_t</strong> (<em>float</em>) – Time elapsed (Δt_Θ).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns the time efficiency.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – If capital is not a scipy sparse matrix.</p></li>
+<li><p><strong>ValueError</strong> – If delta_t is not positive.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.system_health_metrics.total_fair_market_price">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.system_health_metrics.</span></span><span class="sig-name descname"><span class="pre">total_fair_market_price</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_index_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_reviewer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/system_health_metrics.html#total_fair_market_price"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.system_health_metrics.total_fair_market_price" title="Link to this definition"></a></dt>
+<dd><p>Compute the total fair market price for either reviewers or replicators across all manuscripts.
+This is the total capital across all reveiwers or replicators.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> (<em>scipy.sparse.spmatrix</em>) – Sparse capital matrix of shape (M, M + C), where M is the number of
+manuscripts and C = num_contributors * 3.</p></li>
+<li><p><strong>contributor_index_map</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from contributor identifier to base column index.</p></li>
+<li><p><strong>is_reviewer</strong> (<em>bool</em>) – If True, sums the reviewer block (second role block).
+If False, sums the replicator block (third role block).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Total fair market price across all manuscripts for the specified role.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="liberata_metrics.metrics.portfolio_metrics.html" class="btn btn-neutral float-left" title="liberata_metrics.metrics.portfolio_metrics module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="liberata_metrics.utils.html" class="btn btn-neutral float-right" title="liberata_metrics.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Liberata.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

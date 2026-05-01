@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>liberata_metrics.metrics.legacy_metric &mdash; Liberata Scientometrics  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+    <link rel="canonical" href="https://www.liberata.info/_modules/liberata_metrics/metrics/legacy_metric.html" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Liberata Scientometrics
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Liberata Scientometrics: Academic Knowledge Graph Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../liberata_metrics.html">liberata_metrics package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Liberata Scientometrics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">liberata_metrics.metrics.legacy_metric</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for liberata_metrics.metrics.legacy_metric</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This code implements legacy metrics such as the h-index, i-10 index, and g-index.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">sparse</span>
+
+
+<div class="viewcode-block" id="get_citation_counts">
+<a class="viewcode-back" href="../../../liberata_metrics.metrics.html#liberata_metrics.metrics.get_citation_counts">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_citation_counts</span><span class="p">(</span>
+    <span class="n">references</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">manuscript_rows</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the number of incoming citations for each manuscript in the subset.</span>
+
+<span class="sd">    references[i, j] encodes a citation from paper j (citing) to paper i (cited),</span>
+<span class="sd">    so the number of papers citing manuscript i is the number of non-zero entries</span>
+<span class="sd">    in row i.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        references: Sparse citation matrix of shape (M, M).</span>
+<span class="sd">        manuscript_row: List of row indices.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict mapping each manuscript index to its incoming citation count (int).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Slice to selected manuscript rows; binarize to get integer citation counts</span>
+    <span class="n">sub</span> <span class="o">=</span> <span class="n">references</span><span class="p">[</span><span class="n">manuscript_rows</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+
+    <span class="c1">#Basically sum along the axes horizontally to get the per manuscript citations</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">sub</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">manuscript_rows</span><span class="p">,</span> <span class="n">counts</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span></div>
+
+
+
+<div class="viewcode-block" id="get_h_index">
+<a class="viewcode-back" href="../../../liberata_metrics.metrics.html#liberata_metrics.metrics.get_h_index">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_h_index</span><span class="p">(</span>
+    <span class="n">capital</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">references</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">contributor_col</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the h-index for a single author.</span>
+
+<span class="sd">    h is the largest integer such that h of the author&#39;s papers each have</span>
+<span class="sd">    at least h incoming citations.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        capital: Sparse matrix of shape (M, M + 3*C). Used to find which</span>
+<span class="sd">            manuscripts this author contributed to (author block: cols M to M+C).</span>
+<span class="sd">        references: Sparse citation matrix of shape (M, M).</span>
+<span class="sd">        contributor_col: Column index of the author in the contributor space</span>
+<span class="sd">            (0-indexed, before the M offset). Pass contributor_index_map[id]</span>
+<span class="sd">            at the call site.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The h-index as an integer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">citation_counts</span> <span class="o">=</span> <span class="n">get_author_citations</span><span class="p">(</span><span class="n">capital</span><span class="p">,</span> <span class="n">references</span><span class="p">,</span> <span class="n">contributor_col</span><span class="p">)</span>
+    <span class="n">sorted_counts</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">citation_counts</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Find the first paper in the sorted list with fewer citations than the count of papers that precede it</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sorted_counts</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;=</span> <span class="n">rank</span><span class="p">:</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">rank</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">break</span>
+
+    <span class="k">return</span> <span class="n">h</span></div>
+
+
+<div class="viewcode-block" id="get_author_citations">
+<a class="viewcode-back" href="../../../liberata_metrics.metrics.html#liberata_metrics.metrics.get_author_citations">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_author_citations</span><span class="p">(</span>
+    <span class="n">capital</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">references</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">contributor_col</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    For a contributor, returns authored manuscripts and corresponding citations</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        capital: Sparse matrix of shape (M, M + 3*C). Used to find which</span>
+<span class="sd">            manuscripts this author contributed to.</span>
+<span class="sd">        references: Sparse citation matrix of shape (M, M).</span>
+<span class="sd">        contributor_col: Column index of the author in the contributor space</span>
+<span class="sd">            (0-indexed, before the M offset). Pass contributor_index_map[id]</span>
+<span class="sd">            at the call site.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict mapping each manuscript index to its citation count.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#Find the author&#39;s index in the capital matrix</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">capital</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">author_col</span> <span class="o">=</span> <span class="n">M</span> <span class="o">+</span> <span class="n">contributor_col</span>
+
+    <span class="c1">#Find the indices correspoinding to the author</span>
+    <span class="n">manuscript_indices</span> <span class="o">=</span> <span class="n">capital</span><span class="o">.</span><span class="n">getcol</span><span class="p">(</span><span class="n">author_col</span><span class="p">)</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+    <span class="c1">#By definition, if someone has no papers, the return value would be 0, </span>
+    <span class="c1">#since this person could be listed as a peer reviewer and exist in the capital matrix</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">manuscript_indices</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="c1">#Get the citations for the manuscripts</span>
+    <span class="n">citations</span> <span class="o">=</span> <span class="n">get_citation_counts</span><span class="p">(</span><span class="n">references</span><span class="p">,</span> <span class="n">manuscript_indices</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">citations</span></div>
+
+
+
+
+<div class="viewcode-block" id="get_i10_index">
+<a class="viewcode-back" href="../../../liberata_metrics.metrics.html#liberata_metrics.metrics.get_i10_index">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_i10_index</span><span class="p">(</span>
+    <span class="n">capital</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">references</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">contributor_col</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the i-10 index</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        capital: Sparse matrix of shape (M, M + 3*C). Used to find which</span>
+<span class="sd">            manuscripts this author contributed to.</span>
+<span class="sd">            The author block are the cols M to M+C because the capital matrix</span>
+<span class="sd">            columns are blocked by author, peer reviewer, and replicator, with each</span>
+<span class="sd">            contributor located in indentical indices within each block.</span>
+
+<span class="sd">        references: Sparse citation matrix of shape (M, M).</span>
+<span class="sd">        contributor_col: Column index of the author in the contributor space</span>
+<span class="sd">            (0-indexed, before the M offset). Pass contributor_index_map[id]</span>
+<span class="sd">            at the call site.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The i-10 index as an integer</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">citations</span> <span class="o">=</span> <span class="n">get_author_citations</span><span class="p">(</span><span class="n">capital</span><span class="p">,</span> <span class="n">references</span><span class="p">,</span> <span class="n">contributor_col</span><span class="p">)</span>
+
+    <span class="n">i10</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">cit</span> <span class="ow">in</span> <span class="n">citations</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">cit</span><span class="o">&gt;=</span><span class="mi">10</span><span class="p">:</span>
+            <span class="n">i10</span><span class="o">+=</span><span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">i10</span></div>
+
+
+
+
+<div class="viewcode-block" id="get_g_index">
+<a class="viewcode-back" href="../../../liberata_metrics.metrics.html#liberata_metrics.metrics.get_g_index">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_g_index</span><span class="p">(</span>
+    <span class="n">capital</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">references</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">contributor_col</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the g-index</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        capital: Sparse matrix of shape (M, M + 3*C). Used to find which</span>
+<span class="sd">            manuscripts this author contributed to (author block: cols M to M+C).</span>
+<span class="sd">        references: Sparse citation matrix of shape (M, M).</span>
+<span class="sd">        contributor_col: Column index of the author in the contributor space</span>
+<span class="sd">            (0-indexed, before the M offset). Pass contributor_index_map[id]</span>
+<span class="sd">            at the call site.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The g-index as an integer</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">citations</span> <span class="o">=</span> <span class="n">get_author_citations</span><span class="p">(</span><span class="n">capital</span><span class="p">,</span> <span class="n">references</span><span class="p">,</span> <span class="n">contributor_col</span><span class="p">)</span>
+
+    <span class="n">sorted_citations</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">citations</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Find the first paper in the sorted list where the sum of the entries squared is smaller than the rank squared</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">sum_sq</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sorted_citations</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">sum_sq</span><span class="o">+=</span><span class="n">count</span>
+        <span class="k">if</span> <span class="n">sum_sq</span> <span class="o">&gt;=</span> <span class="n">rank</span><span class="o">**</span><span class="mi">2</span><span class="p">:</span>
+            <span class="n">g</span> <span class="o">=</span> <span class="n">rank</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">break</span>
+
+    <span class="k">return</span> <span class="n">g</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Liberata.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

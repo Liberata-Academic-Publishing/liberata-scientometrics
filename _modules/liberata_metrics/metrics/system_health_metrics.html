@@ -1,0 +1,860 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>liberata_metrics.metrics.system_health_metrics &mdash; Liberata Scientometrics  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+    <link rel="canonical" href="https://www.liberata.info/_modules/liberata_metrics/metrics/system_health_metrics.html" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Liberata Scientometrics
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Liberata Scientometrics: Academic Knowledge Graph Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../liberata_metrics.html">liberata_metrics package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Liberata Scientometrics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">liberata_metrics.metrics.system_health_metrics</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for liberata_metrics.metrics.system_health_metrics</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">System health metrics computation module.</span>
+
+<span class="sd">This module provides classes and functions for computing and analyzing</span>
+<span class="sd">system health metrics, such as growth rates and shrinkage rates, and various</span>
+<span class="sd">properties related to the health of a portfiolio.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">sparse</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.metrics.portfolio_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">academic_capital</span>
+
+
+<div class="viewcode-block" id="get_academic_capital_growth_rate">
+<a class="viewcode-back" href="../../../api/liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_academic_capital_growth_rate">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_academic_capital_growth_rate</span><span class="p">(</span>
+    <span class="n">capital_history</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">],</span>
+    <span class="n">contributor_index_map_subset</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the average Academic Capital Growth Rate of a portfolio. This is the </span>
+<span class="sd">    rate at which the academic capital of a portfolio has grown over a historical</span>
+<span class="sd">    sequence of capital matrices.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital_history : List[scipy.sparse.spmatrix]</span>
+<span class="sd">        A chronological list of at least two sparse capital matrices</span>
+<span class="sd">        representing portfolio states over time. Consecutive entries are</span>
+<span class="sd">        should be a year apart</span>
+<span class="sd">    contributor_index_map_subset : Dict[str, int]</span>
+<span class="sd">        Mapping from contributor identifier to the corresponding column</span>
+<span class="sd">        index in the capital matrices.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The compound growth rate per time period.</span>
+<span class="sd">        Returns 0.0 if the starting capital is zero</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If any element in capital_history is not a scipy sparse matrix.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If capital_history contains fewer than two entries.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">capital_history</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;capital_history must contain at least two entries to compute growth rate&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">cap</span> <span class="ow">in</span> <span class="n">capital_history</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">cap</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;All elements in capital_history must be scipy sparse matrices&#39;</span><span class="p">)</span>
+
+    <span class="n">cap_start</span> <span class="o">=</span> <span class="n">academic_capital</span><span class="p">(</span><span class="n">capital_history</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">contributor_index_map_subset</span><span class="p">)</span>
+    <span class="n">cap_end</span> <span class="o">=</span> <span class="n">academic_capital</span><span class="p">(</span><span class="n">capital_history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">contributor_index_map_subset</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cap_start</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+
+    <span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">capital_history</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">((</span><span class="n">cap_end</span> <span class="o">/</span> <span class="n">cap_start</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">T</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="total_fair_market_price">
+<a class="viewcode-back" href="../../../api/liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.total_fair_market_price">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">total_fair_market_price</span><span class="p">(</span>
+    <span class="n">capital</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">contributor_index_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">is_reviewer</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the total fair market price for either reviewers or replicators across all manuscripts.</span>
+<span class="sd">    This is the total capital across all reveiwers or replicators.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital : scipy.sparse.spmatrix</span>
+<span class="sd">        Sparse capital matrix of shape (M, M + C), where M is the number of</span>
+<span class="sd">        manuscripts and C = num_contributors * 3.</span>
+<span class="sd">    contributor_index_map : Dict[str, int]</span>
+<span class="sd">        Mapping from contributor identifier to base column index.</span>
+<span class="sd">    is_reviewer : bool</span>
+<span class="sd">        If True, sums the reviewer block (second role block).</span>
+<span class="sd">        If False, sums the replicator block (third role block).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Total fair market price across all manuscripts for the specified role.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#Note: This is an internal helper function</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">capital</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">capital</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="n">M</span>
+
+    <span class="n">num_contributors</span> <span class="o">=</span> <span class="n">C</span> <span class="o">//</span> <span class="mi">3</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">contributor_index_map</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+    <span class="k">if</span> <span class="n">is_reviewer</span><span class="p">:</span>
+        <span class="n">col_indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">M</span> <span class="o">+</span> <span class="n">num_contributors</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">col_indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">M</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">num_contributors</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cap_sub</span> <span class="o">=</span> <span class="n">capital</span><span class="p">[:,</span> <span class="n">col_indices</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">cap_sub</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">capital</span><span class="o">.</span><span class="n">getcol</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">col_indices</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csr&quot;</span><span class="p">)</span>
+
+    
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">cap_sub</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span></div>
+
+
+
+<div class="viewcode-block" id="get_reviewer_shrinkage_rate">
+<a class="viewcode-back" href="../../../api/liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_reviewer_shrinkage_rate">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_reviewer_shrinkage_rate</span><span class="p">(</span>
+    <span class="n">capital_history</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">],</span>
+    <span class="n">contributor_index_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the shrinkage rate of the global fair market price for reviewers.</span>
+<span class="sd">    This is just the negative rate of change in the total FMP for reviewers.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital_history : List[scipy.sparse.spmatrix]</span>
+<span class="sd">        A chronological list of at least two sparse capital matrices.</span>
+<span class="sd">    contributor_index_map : Dict[str, int]</span>
+<span class="sd">        Full contributor map (all contributors, not a subset).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Per-period shrinkage rate for reviewer FMP</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If any element in capital_history is not a scipy sparse matrix.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If capital_history contains fewer than two entries.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">capital_history</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s1">&#39;capital_history must contain at least two entries &#39;</span>
+            <span class="s1">&#39;to compute reviewer shrinkage rate&#39;</span>
+        <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">cap</span> <span class="ow">in</span> <span class="n">capital_history</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">cap</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="s1">&#39;All elements in capital_history must be scipy sparse matrices&#39;</span>
+            <span class="p">)</span>
+
+
+    <span class="n">T</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">capital_history</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">total_fair_market_price</span><span class="p">(</span><span class="n">capital_history</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">contributor_index_map</span><span class="p">,</span> <span class="n">is_reviewer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="o">-</span> <span class="n">total_fair_market_price</span><span class="p">(</span><span class="n">capital_history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">contributor_index_map</span><span class="p">,</span> <span class="n">is_reviewer</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span> <span class="o">/</span> <span class="n">T</span></div>
+
+
+
+<div class="viewcode-block" id="get_replicator_shrinkage_rate">
+<a class="viewcode-back" href="../../../api/liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_replicator_shrinkage_rate">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_replicator_shrinkage_rate</span><span class="p">(</span>
+    <span class="n">capital_history</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">],</span>
+    <span class="n">contributor_index_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the shrinkage rate of the global fair market price for replicators.</span>
+<span class="sd">    This is just the negative rate of change in the total FMP for replicators.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital_history : List[scipy.sparse.spmatrix]</span>
+<span class="sd">        A chronological list of at least two sparse capital matrices.</span>
+<span class="sd">    contributor_index_map : Dict[str, int]</span>
+<span class="sd">        Full contributor map (all contributors, not a subset).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Per-period shrinkage rate for replicator FMP.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If any element in capital_history is not a scipy sparse matrix.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If capital_history contains fewer than two entries.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">capital_history</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s1">&#39;capital_history must contain at least two entries &#39;</span>
+            <span class="s1">&#39;to compute replicator shrinkage rate&#39;</span>
+        <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">cap</span> <span class="ow">in</span> <span class="n">capital_history</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">cap</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="s1">&#39;All elements in capital_history must be scipy sparse matrices&#39;</span>
+            <span class="p">)</span>
+
+    <span class="n">T</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">capital_history</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="o">-</span><span class="p">(</span><span class="n">total_fair_market_price</span><span class="p">(</span><span class="n">capital_history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">contributor_index_map</span><span class="p">,</span> <span class="n">is_reviewer</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+             <span class="o">-</span> <span class="n">total_fair_market_price</span><span class="p">(</span><span class="n">capital_history</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">contributor_index_map</span><span class="p">,</span> <span class="n">is_reviewer</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span> <span class="o">/</span> <span class="n">T</span></div>
+
+
+
+<div class="viewcode-block" id="get_reviewer_fmp_volatility">
+<a class="viewcode-back" href="../../../api/liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_reviewer_fmp_volatility">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_reviewer_fmp_volatility</span><span class="p">(</span>
+    <span class="n">capital_history</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">],</span>
+    <span class="n">contributor_index_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the volatility of the global fair market price for reviewers</span>
+<span class="sd">    over a time period of n steps.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital_history : List[scipy.sparse.spmatrix]</span>
+<span class="sd">        A chronological list of at least two sparse capital matrices.</span>
+<span class="sd">    contributor_index_map : Dict[str, int]</span>
+<span class="sd">        Full contributor map (all contributors, not a subset).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Volatility of reviewer FMP.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If any element in capital_history is not a scipy sparse matrix.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If capital_history contains fewer than two entries.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">capital_history</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;capital_history must contain at least two entries to compute volatility&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">cap</span> <span class="ow">in</span> <span class="n">capital_history</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">cap</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;All elements in capital_history must be scipy sparse matrices&#39;</span><span class="p">)</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">capital_history</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">capital_history</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">capital_history</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="n">M</span>
+    <span class="n">num_contributors</span> <span class="o">=</span> <span class="n">C</span> <span class="o">//</span> <span class="mi">3</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">contributor_index_map</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="n">col_indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">M</span> <span class="o">+</span> <span class="n">num_contributors</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
+
+    <span class="n">prices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">cap</span><span class="p">[:,</span> <span class="n">col_indices</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="k">for</span> <span class="n">cap</span> <span class="ow">in</span> <span class="n">capital_history</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">prices</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_replicator_fmp_volatility">
+<a class="viewcode-back" href="../../../api/liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_replicator_fmp_volatility">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_replicator_fmp_volatility</span><span class="p">(</span>
+    <span class="n">capital_history</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">],</span>
+    <span class="n">contributor_index_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the volatility of the global fair market price for replicators</span>
+<span class="sd">    over a time period of n steps.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital_history : List[scipy.sparse.spmatrix]</span>
+<span class="sd">        A chronological list of at least two sparse capital matrices.</span>
+<span class="sd">    contributor_index_map : Dict[str, int]</span>
+<span class="sd">        Full contributor map (all contributors, not a subset).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Volatility of replicator FMP.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If any element in capital_history is not a scipy sparse matrix.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If capital_history contains fewer than two entries.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">capital_history</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;capital_history must contain at least two entries to compute volatility&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">cap</span> <span class="ow">in</span> <span class="n">capital_history</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">cap</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;All elements in capital_history must be scipy sparse matrices&#39;</span><span class="p">)</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">capital_history</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">capital_history</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">capital_history</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="n">M</span>
+    <span class="n">num_contributors</span> <span class="o">=</span> <span class="n">C</span> <span class="o">//</span> <span class="mi">3</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">contributor_index_map</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="n">col_indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">M</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">num_contributors</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
+
+    <span class="n">prices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">cap</span><span class="p">[:,</span> <span class="n">col_indices</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="k">for</span> <span class="n">cap</span> <span class="ow">in</span> <span class="n">capital_history</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">prices</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_funding_efficiency">
+<a class="viewcode-back" href="../../../api/liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_funding_efficiency">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_funding_efficiency</span><span class="p">(</span>
+    <span class="n">capital</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">total_spending</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute global research funding efficiency, which is the academic capital produced per unit of research spending.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital : scipy.sparse.spmatrix</span>
+<span class="sd">        Sparse capital matrix covering all manuscripts globally.</span>
+<span class="sd">    total_spending : float</span>
+<span class="sd">        Total global research spending ($Θ).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Returns the funding efficiency.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If capital is not a scipy sparse matrix.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If total_spending is not positive.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">capital</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Capital matrix must be a scipy sparse matrix&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">total_spending</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;total_spending must be positive&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">capital</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">/</span> <span class="n">total_spending</span></div>
+
+
+
+<div class="viewcode-block" id="get_gdp_efficiency">
+<a class="viewcode-back" href="../../../api/liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_gdp_efficiency">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_gdp_efficiency</span><span class="p">(</span>
+    <span class="n">capital</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">total_spending</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">gdp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute global research GDP efficiency, which is funding efficiency scaled by GDP.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital : scipy.sparse.spmatrix</span>
+<span class="sd">        Sparse capital matrix covering all manuscripts globally.</span>
+<span class="sd">    total_spending : float</span>
+<span class="sd">        Total global research spending ($Θ).</span>
+<span class="sd">    gdp : float</span>
+<span class="sd">        Global GDP (GDP_Θ).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Returns the GDP efficiency.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If capital is not a scipy sparse matrix.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If total_spending or gdp is not positive.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">gdp</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;gdp must be positive&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">get_funding_efficiency</span><span class="p">(</span><span class="n">capital</span><span class="p">,</span> <span class="n">total_spending</span><span class="p">)</span> <span class="o">*</span> <span class="n">gdp</span></div>
+
+
+
+<div class="viewcode-block" id="get_ppp_efficiency">
+<a class="viewcode-back" href="../../../api/liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_ppp_efficiency">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_ppp_efficiency</span><span class="p">(</span>
+    <span class="n">capital</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">total_spending</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">ppp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute global research PPP efficiency, which is funding efficiency scaled by PPP.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital : scipy.sparse.spmatrix</span>
+<span class="sd">        Sparse capital matrix covering all manuscripts globally.</span>
+<span class="sd">    total_spending : float</span>
+<span class="sd">        Total global research spending ($Θ).</span>
+<span class="sd">    ppp : float</span>
+<span class="sd">        Global purchasing power parity (PPP_Θ).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Returns the PPP efficiency.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If capital is not a scipy sparse matrix.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If total_spending or ppp is not positive.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">ppp</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;ppp must be positive&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">get_funding_efficiency</span><span class="p">(</span><span class="n">capital</span><span class="p">,</span> <span class="n">total_spending</span><span class="p">)</span> <span class="o">*</span> <span class="n">ppp</span></div>
+
+
+
+<div class="viewcode-block" id="get_time_efficiency">
+<a class="viewcode-back" href="../../../api/liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_time_efficiency">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_time_efficiency</span><span class="p">(</span>
+    <span class="n">capital</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">delta_t</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute global research time efficiency, which is the academic capital produced per unit time.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital : scipy.sparse.spmatrix</span>
+<span class="sd">        Sparse capital matrix covering all manuscripts globally.</span>
+<span class="sd">    delta_t : float</span>
+<span class="sd">        Time elapsed (Δt_Θ).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Returns the time efficiency.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If capital is not a scipy sparse matrix.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If delta_t is not positive.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">capital</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Capital matrix must be a scipy sparse matrix&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">delta_t</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;delta_t must be positive&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">capital</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">/</span> <span class="n">delta_t</span></div>
+
+
+
+<div class="viewcode-block" id="get_regional_academic_capital">
+<a class="viewcode-back" href="../../../api/liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_regional_academic_capital">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_regional_academic_capital</span><span class="p">(</span>
+    <span class="n">capital</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">region_contributor_index_maps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute total academic capital per geographic region.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital : scipy.sparse.spmatrix</span>
+<span class="sd">        Sparse capital matrix covering all manuscripts globally.</span>
+<span class="sd">    region_contributor_index_maps : Dict[str, Dict[str, int]]</span>
+<span class="sd">        Mapping from region identifier to contributor index map for that region.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Dict[str, float]</span>
+<span class="sd">        Mapping from region identifier to total academic capital.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If capital is not a scipy sparse matrix.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">capital</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Capital matrix must be a scipy sparse matrix&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="n">region</span><span class="p">:</span> <span class="n">academic_capital</span><span class="p">(</span><span class="n">capital</span><span class="p">,</span> <span class="n">contributor_map</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">region</span><span class="p">,</span> <span class="n">contributor_map</span> <span class="ow">in</span> <span class="n">region_contributor_index_maps</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="get_field_capital_shares">
+<a class="viewcode-back" href="../../../api/liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_field_capital_shares">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_field_capital_shares</span><span class="p">(</span>
+    <span class="n">capital</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">region_contributor_index_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">field_contributor_index_maps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the proportionate contribution of each academic field to the total</span>
+<span class="sd">    academic capital of a region.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital : scipy.sparse.spmatrix</span>
+<span class="sd">        Sparse capital matrix.</span>
+<span class="sd">    region_contributor_index_map : Dict[str, int]</span>
+<span class="sd">        Contributor index map for the full region.</span>
+<span class="sd">    field_contributor_index_maps : Dict[str, Dict[str, int]]</span>
+<span class="sd">        Mapping from field identifier to contributor index map for that field</span>
+<span class="sd">        within the region.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Dict[str, float]</span>
+<span class="sd">        Mapping from field identifier to its proportionate share of regional academic capital.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If capital is not a scipy sparse matrix.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If total regional academic capital is zero.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">capital</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Capital matrix must be a scipy sparse matrix&#39;</span><span class="p">)</span>
+    
+    <span class="n">total</span> <span class="o">=</span> <span class="n">academic_capital</span><span class="p">(</span><span class="n">capital</span><span class="p">,</span> <span class="n">region_contributor_index_map</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">total</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Total regional academic capital is zero, cannot compute field shares&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="n">field</span><span class="p">:</span> <span class="n">academic_capital</span><span class="p">(</span><span class="n">capital</span><span class="p">,</span> <span class="n">contributor_map</span><span class="p">)</span> <span class="o">/</span> <span class="n">total</span>
+        <span class="k">for</span> <span class="n">field</span><span class="p">,</span> <span class="n">contributor_map</span> <span class="ow">in</span> <span class="n">field_contributor_index_maps</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="get_regional_hhi">
+<a class="viewcode-back" href="../../../api/liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_regional_hhi">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_regional_hhi</span><span class="p">(</span>
+    <span class="n">capital</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">region_contributor_index_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">field_contributor_index_maps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the HHI of academic capital concentration across fields for a region.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital : scipy.sparse.spmatrix</span>
+<span class="sd">        Sparse capital matrix.</span>
+<span class="sd">    region_contributor_index_map : Dict[str, int]</span>
+<span class="sd">        Contributor index map for the full region.</span>
+<span class="sd">    field_contributor_index_maps : Dict[str, Dict[str, int]]</span>
+<span class="sd">        Mapping from field identifier to contributor index map for that field</span>
+<span class="sd">        within the region.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        HHI value.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If capital is not a scipy sparse matrix.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If total regional academic capital is zero.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#Errors raised in the function it calls</span>
+    <span class="n">shares</span> <span class="o">=</span> <span class="n">get_field_capital_shares</span><span class="p">(</span><span class="n">capital</span><span class="p">,</span> <span class="n">region_contributor_index_map</span><span class="p">,</span> <span class="n">field_contributor_index_maps</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">s</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shares</span><span class="o">.</span><span class="n">values</span><span class="p">())</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_gini_weighted</span><span class="p">(</span>
+    <span class="n">capital</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">region_contributor_index_maps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span>
+    <span class="n">weights</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the Gini coefficient using weighted pairwise absolute differences</span>
+<span class="sd">    of regional academic capital.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital : scipy.sparse.spmatrix</span>
+<span class="sd">        Sparse capital matrix.</span>
+<span class="sd">    region_contributor_index_maps : Dict[str, Dict[str, int]]</span>
+<span class="sd">        Mapping from region identifier to contributor index map.</span>
+<span class="sd">    weights : Dict[str, float]</span>
+<span class="sd">        Per-region weights (e.g. population, contributor count, GDP).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Gini coefficient.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If total capital is zero</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">regions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">region_contributor_index_maps</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">caps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">academic_capital</span><span class="p">(</span><span class="n">capital</span><span class="p">,</span> <span class="n">region_contributor_index_maps</span><span class="p">[</span><span class="n">r</span><span class="p">])</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">regions</span><span class="p">])</span>
+    <span class="n">wts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">weights</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">regions</span><span class="p">])</span>
+
+    <span class="n">total_capital</span> <span class="o">=</span> <span class="n">caps</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">total_capital</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Total capital is zero&#39;</span><span class="p">)</span>
+
+    <span class="n">per_unit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">wts</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">caps</span> <span class="o">/</span> <span class="n">wts</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">regions</span><span class="p">)</span>
+    <span class="n">diff_sum</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">per_unit</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">-</span> <span class="n">per_unit</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:])))</span>
+    <span class="n">mean_per_unit</span> <span class="o">=</span> <span class="n">per_unit</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">diff_sum</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">mean_per_unit</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="get_gini_per_capita">
+<a class="viewcode-back" href="../../../api/liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_gini_per_capita">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_gini_per_capita</span><span class="p">(</span>
+    <span class="n">capital</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">region_contributor_index_maps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span>
+    <span class="n">regional_populations</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the Gini coefficient of per capita academic capital inequality</span>
+<span class="sd">    across regions.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital : scipy.sparse.spmatrix</span>
+<span class="sd">        Sparse capital matrix covering all manuscripts globally.</span>
+<span class="sd">    region_contributor_index_maps : Dict[str, Dict[str, int]]</span>
+<span class="sd">        Mapping from region identifier to contributor index map for that region.</span>
+<span class="sd">    regional_populations : Dict[str, float]</span>
+<span class="sd">        Mapping from region identifier to population.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Gini coefficient in [0, 1].</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If capital is not a scipy sparse matrix.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If a region present in region_contributor_index_maps is missing from regional_populations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">capital</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Capital matrix must be a scipy sparse matrix&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="n">region_contributor_index_maps</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">region</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">regional_populations</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Population missing for region: </span><span class="si">{</span><span class="n">region</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_gini_weighted</span><span class="p">(</span><span class="n">capital</span><span class="p">,</span> <span class="n">region_contributor_index_maps</span><span class="p">,</span> <span class="n">regional_populations</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_gini_per_contributor">
+<a class="viewcode-back" href="../../../api/liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_gini_per_contributor">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_gini_per_contributor</span><span class="p">(</span>
+    <span class="n">capital</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">region_contributor_index_maps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span>
+    <span class="n">regional_contributor_counts</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the Gini coefficient of per contributor academic capital inequality across regions.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital : scipy.sparse.spmatrix</span>
+<span class="sd">        Sparse capital matrix covering all manuscripts globally.</span>
+<span class="sd">    region_contributor_index_maps : Dict[str, Dict[str, int]]</span>
+<span class="sd">        Mapping from region identifier to contributor index map for that region.</span>
+<span class="sd">    regional_contributor_counts : Dict[str, int]</span>
+<span class="sd">        Mapping from region identifier to number of contributors in that region.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Gini coefficient in [0, 1].</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If capital is not a scipy sparse matrix.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If a region present in region_contributor_index_maps is missing from regional_contributor_counts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">capital</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Capital matrix must be a scipy sparse matrix&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="n">region_contributor_index_maps</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">region</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">regional_contributor_counts</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Contributor count missing for region: </span><span class="si">{</span><span class="n">region</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">weights</span> <span class="o">=</span> <span class="p">{</span><span class="n">r</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">regional_contributor_counts</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="k">return</span> <span class="n">_gini_weighted</span><span class="p">(</span><span class="n">capital</span><span class="p">,</span> <span class="n">region_contributor_index_maps</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_gini_per_gdp">
+<a class="viewcode-back" href="../../../api/liberata_metrics.metrics.system_health_metrics.html#liberata_metrics.metrics.system_health_metrics.get_gini_per_gdp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_gini_per_gdp</span><span class="p">(</span>
+    <span class="n">capital</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">region_contributor_index_maps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span>
+    <span class="n">regional_gdps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the Gini coefficient of per GDP academic capital inequality across regions.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital : scipy.sparse.spmatrix</span>
+<span class="sd">        Sparse capital matrix covering all manuscripts globally.</span>
+<span class="sd">    region_contributor_index_maps : Dict[str, Dict[str, int]]</span>
+<span class="sd">        Mapping from region identifier to contributor index map for that region.</span>
+<span class="sd">    regional_gdps : Dict[str, float]</span>
+<span class="sd">        Mapping from region identifier to GDP.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Gini coefficient in [0, 1].</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If capital is not a scipy sparse matrix.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If a region present in region_contributor_index_maps is missing from regional_gdps.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">capital</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Capital matrix must be a scipy sparse matrix&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="n">region_contributor_index_maps</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">region</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">regional_gdps</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;GDP missing for region: </span><span class="si">{</span><span class="n">region</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_gini_weighted</span><span class="p">(</span><span class="n">capital</span><span class="p">,</span> <span class="n">region_contributor_index_maps</span><span class="p">,</span> <span class="n">regional_gdps</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Liberata.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

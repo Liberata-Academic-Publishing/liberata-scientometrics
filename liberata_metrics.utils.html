@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>liberata_metrics.utils package &mdash; Liberata Scientometrics  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+    <link rel="canonical" href="https://www.liberata.info/liberata_metrics.utils.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="liberata_metrics.utils.data_loading module" href="liberata_metrics.utils.data_loading.html" />
+    <link rel="prev" title="liberata_metrics.generators.generate_matrices module" href="liberata_metrics.generators.generate_matrices.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Liberata Scientometrics
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Liberata Scientometrics: Academic Knowledge Graph Analysis</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="liberata_metrics.html">liberata_metrics package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.html#the-liberata-scientometrics-library">The Liberata Scientometrics Library</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="liberata_metrics.html#main-components">Main Components</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="liberata_metrics.metrics.html">liberata_metrics.metrics package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="liberata_metrics.generators.html">liberata_metrics.generators package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">liberata_metrics.utils package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#common-tasks">Common Tasks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#performance-considerations">Performance Considerations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-liberata_metrics.utils">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="liberata_metrics.visualizations.html">liberata_metrics.visualizations package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/liberata_metrics.integrations.html">liberata_metrics.integrations package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.html#quick-start-example">Quick Start Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.html#use-cases">Use Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.html#data-requirements">Data Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.html#performance-characteristics">Performance Characteristics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.html#getting-help">Getting Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.html#citation">Citation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.html#module-liberata_metrics">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Liberata Scientometrics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="liberata_metrics.html">liberata_metrics package</a></li>
+      <li class="breadcrumb-item active">liberata_metrics.utils package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/liberata_metrics.utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="liberata-metrics-utils-package">
+<h1>liberata_metrics.utils package<a class="headerlink" href="#liberata-metrics-utils-package" title="Link to this heading"></a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The utils module provides essential utilities for working with the Liberata Scientometrics library. It includes:</p>
+<ul class="simple">
+<li><p><strong>Data Loading</strong>: Fetch data from Supabase or local files</p></li>
+<li><p><strong>Data Wrangling</strong>: Transform and prepare data for analysis</p></li>
+<li><p><strong>Matrix Operations</strong>: Efficient utilities for sparse matrix manipulation</p></li>
+<li><p><strong>Helper Functions</strong>: Common operations used across the package</p></li>
+</ul>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="liberata_metrics.utils.data_loading.html">liberata_metrics.utils.data_loading module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.utils.data_loading.html#liberata_metrics.utils.data_loading.read_yaml_config"><code class="docutils literal notranslate"><span class="pre">read_yaml_config()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.utils.data_loading.html#liberata_metrics.utils.data_loading.save_sparse_npz"><code class="docutils literal notranslate"><span class="pre">save_sparse_npz()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="liberata_metrics.utils.data_wrangling.html">liberata_metrics.utils.data_wrangling module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.utils.data_wrangling.html#liberata_metrics.utils.data_wrangling.coo_to_binned_array"><code class="docutils literal notranslate"><span class="pre">coo_to_binned_array()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.utils.data_wrangling.html#liberata_metrics.utils.data_wrangling.deserialize_upload_dates"><code class="docutils literal notranslate"><span class="pre">deserialize_upload_dates()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.utils.data_wrangling.html#liberata_metrics.utils.data_wrangling.make_date_grid"><code class="docutils literal notranslate"><span class="pre">make_date_grid()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.utils.data_wrangling.html#liberata_metrics.utils.data_wrangling.matrix_to_plot_array"><code class="docutils literal notranslate"><span class="pre">matrix_to_plot_array()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.utils.data_wrangling.html#liberata_metrics.utils.data_wrangling.serialize_upload_dates"><code class="docutils literal notranslate"><span class="pre">serialize_upload_dates()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="liberata_metrics.utils.utils.html">liberata_metrics.utils.utils module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.utils.utils.html#liberata_metrics.utils.utils.random_date"><code class="docutils literal notranslate"><span class="pre">random_date()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.utils.utils.html#liberata_metrics.utils.utils.sparse_divide"><code class="docutils literal notranslate"><span class="pre">sparse_divide()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="common-tasks">
+<h2>Common Tasks<a class="headerlink" href="#common-tasks" title="Link to this heading"></a></h2>
+<p><strong>Loading Data from Supabase</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_supabase_data</span>
+
+<span class="c1"># Load references and capital matrices from production</span>
+<span class="n">references</span><span class="p">,</span> <span class="n">capital</span> <span class="o">=</span> <span class="n">load_supabase_data</span><span class="o">.</span><span class="n">fetch_matrices</span><span class="p">()</span>
+
+<span class="c1"># Load specific time period</span>
+<span class="n">start_date</span> <span class="o">=</span> <span class="s1">&#39;2023-01-01&#39;</span>
+<span class="n">end_date</span> <span class="o">=</span> <span class="s1">&#39;2024-01-01&#39;</span>
+<span class="n">refs_period</span><span class="p">,</span> <span class="n">cap_period</span> <span class="o">=</span> <span class="n">load_supabase_data</span><span class="o">.</span><span class="n">fetch_matrices_for_period</span><span class="p">(</span>
+    <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Loading from Local Files</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">data_loading</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">sparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Load COO matrices</span>
+<span class="n">references</span> <span class="o">=</span> <span class="n">data_loading</span><span class="o">.</span><span class="n">load_coo_matrix</span><span class="p">(</span><span class="s1">&#39;data/references.npz&#39;</span><span class="p">)</span>
+<span class="n">capital</span> <span class="o">=</span> <span class="n">data_loading</span><span class="o">.</span><span class="n">load_coo_matrix</span><span class="p">(</span><span class="s1">&#39;data/capital.npz&#39;</span><span class="p">)</span>
+
+<span class="c1"># Load metadata</span>
+<span class="n">id_maps</span> <span class="o">=</span> <span class="n">data_loading</span><span class="o">.</span><span class="n">load_id_mappings</span><span class="p">(</span><span class="s1">&#39;data/mappings.json&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Data Wrangling</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">data_wrangling</span>
+
+<span class="c1"># Filter matrix for a subset of manuscripts</span>
+<span class="n">subset_references</span> <span class="o">=</span> <span class="n">data_wrangling</span><span class="o">.</span><span class="n">filter_manuscripts</span><span class="p">(</span>
+    <span class="n">references</span><span class="p">,</span>
+    <span class="n">manuscript_ids</span>
+<span class="p">)</span>
+
+<span class="c1"># Normalize capital allocation</span>
+<span class="n">normalized_capital</span> <span class="o">=</span> <span class="n">data_wrangling</span><span class="o">.</span><span class="n">normalize_capital</span><span class="p">(</span><span class="n">capital</span><span class="p">)</span>
+
+<span class="c1"># Aggregate by topic</span>
+<span class="n">topic_aggregated</span> <span class="o">=</span> <span class="n">data_wrangling</span><span class="o">.</span><span class="n">aggregate_by_topic</span><span class="p">(</span>
+    <span class="n">capital</span><span class="p">,</span>
+    <span class="n">topic_mappings</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Sparse Matrix Operations</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Safe division on sparse matrices</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">sparse_divide</span><span class="p">(</span><span class="n">numerator</span><span class="p">,</span> <span class="n">denominator</span><span class="p">)</span>
+
+<span class="c1"># Extract submatrix</span>
+<span class="n">sub</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">submatrix</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">row_indices</span><span class="p">,</span> <span class="n">col_indices</span><span class="p">)</span>
+
+<span class="c1"># Convert between sparse formats</span>
+<span class="n">lil_matrix</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">to_lil</span><span class="p">(</span><span class="n">coo_matrix</span><span class="p">)</span>
+<span class="n">csr_matrix</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">to_csr</span><span class="p">(</span><span class="n">coo_matrix</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="performance-considerations">
+<h2>Performance Considerations<a class="headerlink" href="#performance-considerations" title="Link to this heading"></a></h2>
+<p><strong>Working with Large Matrices</strong></p>
+<p>The utils module is optimized for large sparse matrices:</p>
+<ul class="simple">
+<li><p>Sparse matrix format (COO, CSR, CSC) to minimize memory usage</p></li>
+<li><p>Lazy operations that avoid creating dense copies</p></li>
+<li><p>Vectorized NumPy operations for speed</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">data_loading</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sparse</span>
+
+<span class="c1"># Load large matrix efficiently</span>
+<span class="n">large_matrix</span> <span class="o">=</span> <span class="n">data_loading</span><span class="o">.</span><span class="n">load_coo_matrix</span><span class="p">(</span><span class="s1">&#39;data/large.npz&#39;</span><span class="p">)</span>
+
+<span class="c1"># Convert to efficient format for operations</span>
+<span class="n">csr_matrix</span> <span class="o">=</span> <span class="n">large_matrix</span><span class="o">.</span><span class="n">tocsr</span><span class="p">()</span>  <span class="c1"># For row operations</span>
+<span class="n">csc_matrix</span> <span class="o">=</span> <span class="n">large_matrix</span><span class="o">.</span><span class="n">tocsc</span><span class="p">()</span>  <span class="c1"># For column operations</span>
+
+<span class="c1"># Avoid creating dense copies</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">csr_matrix</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">another_sparse</span><span class="p">)</span>  <span class="c1"># Stays sparse</span>
+</pre></div>
+</div>
+<p><strong>Memory Profiling</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="c1"># Check size of matrix in memory</span>
+<span class="n">size_mb</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">getsizeof</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1e6</span>
+<span class="n">nnz</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">nnz</span>  <span class="c1"># Number of non-zero elements</span>
+<span class="n">density</span> <span class="o">=</span> <span class="n">nnz</span> <span class="o">/</span> <span class="p">(</span><span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="module-liberata_metrics.utils">
+<span id="module-contents"></span><h2>Module Contents<a class="headerlink" href="#module-liberata_metrics.utils" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.utils.coo_to_binned_array">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.utils.</span></span><span class="sig-name descname"><span class="pre">coo_to_binned_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">coo_matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_side</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agg_fn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;function</span> <span class="pre">sum&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/liberata_metrics/utils/data_wrangling.html#coo_to_binned_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.utils.coo_to_binned_array" title="Link to this definition"></a></dt>
+<dd><p>utility function to convert COO to binned array</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.utils.deserialize_upload_dates">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.utils.</span></span><span class="sig-name descname"><span class="pre">deserialize_upload_dates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">upload_dates_json</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">date</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/liberata_metrics/utils/data_wrangling.html#deserialize_upload_dates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.utils.deserialize_upload_dates" title="Link to this definition"></a></dt>
+<dd><p>convert ISO strings YYYY-MM-DD to date objects</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.utils.make_date_grid">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.utils.</span></span><span class="sig-name descname"><span class="pre">make_date_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">timedelta</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">date</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/liberata_metrics/utils/data_wrangling.html#make_date_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.utils.make_date_grid" title="Link to this definition"></a></dt>
+<dd><p>build a grid of dates from start_date to end_date with given time_step increments for time series data extraction</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.utils.matrix_to_plot_array">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.utils.</span></span><span class="sig-name descname"><span class="pre">matrix_to_plot_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_side</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agg_fn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;function</span> <span class="pre">sum&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/liberata_metrics/utils/data_wrangling.html#matrix_to_plot_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.utils.matrix_to_plot_array" title="Link to this definition"></a></dt>
+<dd><p>convert any COO matrix into appropriate array form for plotting (note: this is all ChatGPT)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.utils.random_date">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.utils.</span></span><span class="sig-name descname"><span class="pre">random_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rng</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">RandomState</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">date</span></span></span><a class="reference internal" href="_modules/liberata_metrics/utils/utils.html#random_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.utils.random_date" title="Link to this definition"></a></dt>
+<dd><p>draw a random date in given range</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.utils.read_yaml_config">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.utils.</span></span><span class="sig-name descname"><span class="pre">read_yaml_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/liberata_metrics/utils/data_loading.html#read_yaml_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.utils.read_yaml_config" title="Link to this definition"></a></dt>
+<dd><p>reads YAML config file and returns dictionary</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.utils.save_sparse_npz">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.utils.</span></span><span class="sig-name descname"><span class="pre">save_sparse_npz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/liberata_metrics/utils/data_loading.html#save_sparse_npz"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.utils.save_sparse_npz" title="Link to this definition"></a></dt>
+<dd><p>save scipy.sparse matrix to .npz</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.utils.serialize_upload_dates">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.utils.</span></span><span class="sig-name descname"><span class="pre">serialize_upload_dates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">upload_dates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">date</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/liberata_metrics/utils/data_wrangling.html#serialize_upload_dates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.utils.serialize_upload_dates" title="Link to this definition"></a></dt>
+<dd><p>convert date objects to ISO strings YYYY-MM-DD</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="liberata_metrics.generators.generate_matrices.html" class="btn btn-neutral float-left" title="liberata_metrics.generators.generate_matrices module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="liberata_metrics.utils.data_loading.html" class="btn btn-neutral float-right" title="liberata_metrics.utils.data_loading module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Liberata.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

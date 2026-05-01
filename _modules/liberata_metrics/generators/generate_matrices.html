@@ -1,0 +1,691 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>liberata_metrics.generators.generate_matrices &mdash; Liberata Scientometrics  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+    <link rel="canonical" href="https://www.liberata.info/_modules/liberata_metrics/generators/generate_matrices.html" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Liberata Scientometrics
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Liberata Scientometrics: Academic Knowledge Graph Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../liberata_metrics.html">liberata_metrics package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Liberata Scientometrics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">liberata_metrics.generators.generate_matrices</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for liberata_metrics.generators.generate_matrices</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">sparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">_rng</span><span class="p">,</span> <span class="n">random_date</span><span class="p">,</span> <span class="n">make_date_grid</span>
+
+<span class="n">OPEN_ALEX_TOPICS_CSV_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">/</span><span class="s1">&#39;data&#39;</span><span class="o">/</span><span class="s1">&#39;OpenAlex_topic_mapping_table.csv&#39;</span>
+<span class="n">MAX_RETRACTION_CUTOFF</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">63</span> <span class="o">-</span> <span class="mi">1</span>
+
+<div class="viewcode-block" id="Manuscript">
+<a class="viewcode-back" href="../../../liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.Manuscript">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Manuscript</span><span class="p">:</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">upload_date</span><span class="p">:</span> <span class="n">date</span>
+    <span class="n">primary_topic</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">topics</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">retraction_cutoff</span><span class="p">:</span> <span class="nb">int</span></div>
+
+
+<span class="c1"># TODO - Move to an appropriate utils file and import</span>
+<div class="viewcode-block" id="build_COO">
+<a class="viewcode-back" href="../../../liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.build_COO">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_COO</span><span class="p">(</span><span class="n">num_manuscripts</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">num_contributors</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+            <span class="n">rows</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+            <span class="n">cols</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+            <span class="n">dtype</span><span class="p">:</span> <span class="nb">type</span> <span class="o">=</span> <span class="nb">float</span><span class="p">,</span>
+            <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span> <span class="p">:</span>
+        
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">data_block</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">),</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">))),</span>
+            <span class="p">(</span><span class="n">num_manuscripts</span><span class="p">,</span> <span class="n">num_contributors</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">data_block</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">),</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">))),</span>
+            <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">num_manuscripts</span><span class="p">,</span> <span class="n">num_contributors</span><span class="p">),</span>
+        <span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">data_block</span></div>
+
+
+
+<span class="c1"># ==================== generating matrices from scratch ====================</span>
+
+<div class="viewcode-block" id="generate_references_matrix">
+<a class="viewcode-back" href="../../../liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_references_matrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_references_matrix</span><span class="p">(</span>
+    <span class="n">num_manuscripts</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">citation_density</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">start_date</span><span class="p">:</span> <span class="n">date</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">end_date</span><span class="p">:</span> <span class="n">date</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">date</span><span class="p">],</span> \
+           <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">,</span> <span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;build toy references matrix&#39;&#39;&#39;</span>
+
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+
+    <span class="c1"># Load OpenAlex topics document</span>
+    <span class="n">openalex_topics</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">OPEN_ALEX_TOPICS_CSV_PATH</span><span class="p">)</span>
+    <span class="n">num_topics</span> <span class="o">=</span> <span class="n">num_manuscripts</span> <span class="o">//</span> <span class="mi">10</span> <span class="k">if</span> <span class="n">num_manuscripts</span> <span class="o">&gt;=</span> <span class="mi">10</span> <span class="k">else</span> <span class="mi">1</span>
+    <span class="c1"># choose num_topics unique topics randomly</span>
+    <span class="n">unique_topics</span> <span class="o">=</span> <span class="n">openalex_topics</span><span class="p">[</span><span class="s1">&#39;topic_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="n">chosen_topics</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">unique_topics</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">num_topics</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>    
+
+    <span class="c1"># randomly generate manuscripts with IDs and upload dates</span>
+    <span class="c1"># manuscript_meta: List[Tuple[str, date, str, List[str], int]] = []</span>
+    <span class="n">manuscript_meta</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Manuscript</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_manuscripts</span><span class="p">):</span>
+        <span class="nb">id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+        <span class="n">upload</span> <span class="o">=</span> <span class="n">random_date</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
+        <span class="n">num_topics_on_manuscript</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_topics</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">all_topics</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">chosen_topics</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">num_topics_on_manuscript</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">primary_topic</span> <span class="o">=</span> <span class="n">all_topics</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">retraction_cutoff</span> <span class="o">=</span> <span class="n">MAX_RETRACTION_CUTOFF</span>  <span class="c1"># Using a large number instead of float inf</span>
+        <span class="n">manuscript_meta</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Manuscript</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">upload</span><span class="p">,</span> <span class="n">primary_topic</span><span class="p">,</span> <span class="n">all_topics</span><span class="p">,</span> <span class="n">retraction_cutoff</span><span class="p">))</span>
+
+    <span class="c1"># sort manuscripts by upload date</span>
+    <span class="n">manuscript_meta</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">upload_date</span><span class="o">.</span><span class="n">toordinal</span><span class="p">(),</span> <span class="n">m</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+    <span class="n">manuscript_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">manuscript_meta</span><span class="p">]</span>
+    <span class="n">upload_dates</span> <span class="o">=</span> <span class="p">{</span><span class="n">m</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">m</span><span class="o">.</span><span class="n">upload_date</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">manuscript_meta</span><span class="p">}</span>
+    <span class="n">manuscript_meta_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">m</span><span class="o">.</span><span class="vm">__dict__</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">manuscript_meta</span><span class="p">])</span>
+
+    <span class="c1"># extract manuscript to index mapping</span>
+    <span class="n">manuscript_index_map</span> <span class="o">=</span> <span class="p">{</span><span class="nb">id</span><span class="p">:</span> <span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="nb">id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">manuscript_ids</span><span class="p">)}</span>
+
+    <span class="c1"># topics index mapping</span>
+    <span class="n">topic_index_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">topic</span><span class="p">:</span> <span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">topic</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chosen_topics</span><span class="p">)}</span>
+
+    <span class="c1"># COO format</span>
+    <span class="n">rows</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cols</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">citing_id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">manuscript_ids</span><span class="p">):</span>
+        <span class="c1"># choose available indices according to upload time</span>
+        <span class="n">idx_avail</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">idx_avail</span><span class="p">:</span> <span class="k">continue</span>
+
+        <span class="n">max_citations</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">idx_avail</span><span class="p">)</span><span class="o">*</span><span class="n">citation_density</span><span class="p">)</span>
+        <span class="n">num_citations</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_citations</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">max_citations</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">num_citations</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">continue</span>
+
+        <span class="c1"># choose cited manuscripts and weight</span>
+        <span class="n">idx_cited</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">idx_avail</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">num_citations</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx_avail</span><span class="p">)),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">num_citations</span><span class="p">)</span>
+
+        <span class="c1"># insert values into matrix</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">idx_cited</span><span class="p">):</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+            <span class="n">cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    
+    <span class="c1"># Construct COO for manuscript memberships</span>
+    <span class="n">rows_membership</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cols_membership</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">data_membership</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">rows_all_membership</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cols_all_membership</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">data_all_membership</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">manuscript_meta</span><span class="p">:</span>
+        <span class="n">primary_topic_idx</span> <span class="o">=</span> <span class="n">topic_index_map</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">primary_topic</span><span class="p">]</span>
+        <span class="n">manuscript_idx</span> <span class="o">=</span> <span class="n">manuscript_index_map</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+        <span class="n">rows_membership</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">primary_topic_idx</span><span class="p">)</span>
+        <span class="n">cols_membership</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">manuscript_idx</span><span class="p">)</span>
+        <span class="n">data_membership</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">topic</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">topics</span><span class="p">:</span>
+            <span class="n">topic_idx</span> <span class="o">=</span> <span class="n">topic_index_map</span><span class="p">[</span><span class="n">topic</span><span class="p">]</span>
+            <span class="n">rows_all_membership</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">topic_idx</span><span class="p">)</span>
+            <span class="n">cols_all_membership</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">manuscript_idx</span><span class="p">)</span>
+            <span class="n">data_all_membership</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="n">primary_memberships</span> <span class="o">=</span> <span class="n">build_COO</span><span class="p">(</span><span class="n">num_manuscripts</span><span class="o">=</span><span class="n">num_topics</span><span class="p">,</span>
+                                  <span class="n">num_contributors</span><span class="o">=</span><span class="n">num_manuscripts</span><span class="p">,</span>
+                                  <span class="n">rows</span><span class="o">=</span><span class="n">rows_membership</span><span class="p">,</span>
+                                  <span class="n">cols</span><span class="o">=</span><span class="n">cols_membership</span><span class="p">,</span>
+                                  <span class="n">data</span><span class="o">=</span><span class="n">data_membership</span><span class="p">)</span>
+    
+    
+    <span class="n">all_memberships</span> <span class="o">=</span> <span class="n">build_COO</span><span class="p">(</span><span class="n">num_manuscripts</span><span class="o">=</span><span class="n">num_topics</span><span class="p">,</span>
+                                <span class="n">num_contributors</span><span class="o">=</span><span class="n">num_manuscripts</span><span class="p">,</span>
+                                <span class="n">rows</span><span class="o">=</span><span class="n">rows_all_membership</span><span class="p">,</span>
+                                <span class="n">cols</span><span class="o">=</span><span class="n">cols_all_membership</span><span class="p">,</span>
+                                <span class="n">data</span><span class="o">=</span><span class="n">data_all_membership</span><span class="p">,</span>
+                                <span class="p">)</span>
+
+    
+    <span class="c1"># output matrix in COO</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span> 
+        <span class="n">references</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">))),</span>
+            <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">num_manuscripts</span><span class="p">,</span> <span class="n">num_manuscripts</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> 
+        <span class="n">references</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">))),</span> 
+            <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">num_manuscripts</span><span class="p">,</span> <span class="n">num_manuscripts</span><span class="p">)</span>
+        <span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">references</span><span class="o">.</span><span class="n">tocoo</span><span class="p">(),</span> <span class="n">manuscript_ids</span><span class="p">,</span> <span class="n">manuscript_index_map</span><span class="p">,</span> <span class="n">upload_dates</span><span class="p">,</span> \
+        <span class="n">manuscript_meta_df</span><span class="p">,</span> <span class="n">primary_memberships</span><span class="o">.</span><span class="n">tocoo</span><span class="p">(),</span> <span class="n">all_memberships</span><span class="o">.</span><span class="n">tocoo</span><span class="p">(),</span> <span class="n">topic_index_map</span></div>
+
+
+
+
+<div class="viewcode-block" id="generate_shares_matrix">
+<a class="viewcode-back" href="../../../liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_shares_matrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_shares_matrix</span><span class="p">(</span>
+    <span class="n">manuscript_ids</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">manuscript_index_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">num_contributors</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">avg_contributors_per_man</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">std_contributors_per_man</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">contributor_shares_dist</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;dirichlet&#39;</span><span class="p">,</span>
+    <span class="n">pareto_alpha</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;build toy shares matrix&#39;&#39;&#39;</span>
+    
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">manuscript_ids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">manuscript_ids</span><span class="p">)</span>
+    <span class="n">num_manuscripts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">manuscript_ids</span><span class="p">)</span>
+
+    <span class="c1"># create contributor IDs and mapping</span>
+    <span class="n">contributor_ids</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_contributors</span><span class="p">)]</span>
+    <span class="n">contributor_index_map</span> <span class="o">=</span> <span class="p">{</span><span class="nb">id</span><span class="p">:</span> <span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="nb">id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">contributor_ids</span><span class="p">)}</span>
+
+    <span class="c1"># COO format</span>
+    <span class="n">rows</span><span class="p">:</span>               <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cols</span><span class="p">:</span>               <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">data</span><span class="p">:</span>               <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">mask_author</span><span class="p">:</span>        <span class="n">List</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">mask_reviewer</span><span class="p">:</span>      <span class="n">List</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">mask_replicator</span><span class="p">:</span>    <span class="n">List</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">rows_reviewer</span><span class="p">:</span>      <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cols_reviewer</span><span class="p">:</span>      <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span> 
+    <span class="n">rows_rep</span><span class="p">:</span>           <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cols_rep</span><span class="p">:</span>           <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">rows_auth</span><span class="p">:</span>          <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cols_auth</span><span class="p">:</span>          <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+    <span class="c1"># pick number of authors for a manuscript</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pick_num_contributors</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="c1"># pick number of contributors normally</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">avg_contributors_per_man</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">std_contributors_per_man</span><span class="p">))</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+        <span class="c1"># truncate</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">num_contributors</span><span class="p">:</span> <span class="n">n</span> <span class="o">=</span> <span class="n">num_contributors</span>
+        <span class="k">return</span> <span class="n">n</span>
+
+    <span class="k">for</span> <span class="n">man</span> <span class="ow">in</span> <span class="n">manuscript_ids</span><span class="p">:</span>
+        <span class="n">man_idx</span> <span class="o">=</span> <span class="n">manuscript_index_map</span><span class="p">[</span><span class="n">man</span><span class="p">]</span>
+
+        <span class="c1"># pick number of contributors</span>
+        <span class="n">n_contributors</span> <span class="o">=</span> <span class="n">pick_num_contributors</span><span class="p">()</span>
+        <span class="n">n_contributors</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">n_contributors</span><span class="p">,</span> <span class="n">num_contributors</span><span class="p">))</span>
+
+        <span class="c1"># choose contributor indices</span>
+        <span class="n">idx_chosen</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">num_contributors</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n_contributors</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># compute shares</span>
+        <span class="k">if</span> <span class="n">contributor_shares_dist</span> <span class="o">==</span> <span class="s1">&#39;uniform&#39;</span><span class="p">:</span>
+            <span class="n">shares</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n_contributors</span><span class="p">,</span> <span class="mf">1.0</span><span class="o">/</span><span class="n">n_contributors</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">contributor_shares_dist</span> <span class="o">==</span> <span class="s1">&#39;dirichlet&#39;</span><span class="p">:</span>
+            <span class="n">shares</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">dirichlet</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n_contributors</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">contributor_shares_dist</span> <span class="o">==</span> <span class="s1">&#39;pareto&#39;</span><span class="p">:</span>
+            <span class="n">raw</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">pareto</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">pareto_alpha</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">n_contributors</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-12</span>
+            <span class="n">shares</span> <span class="o">=</span> <span class="n">raw</span><span class="o">/</span><span class="n">raw</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;author_shares_dist must be &lt;uniform&gt;, &lt;dirichlet&gt; or &lt;pareto&gt;&#39;</span><span class="p">)</span>
+        
+        <span class="c1"># set the lowest 2 contributor shares as reviewers and no replicators</span>
+        <span class="n">k</span><span class="o">=</span><span class="mi">2</span>
+        <span class="n">sorted_shares_idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">shares</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">shares</span><span class="p">))</span>
+        <span class="n">peerrev_idxs</span> <span class="o">=</span> <span class="n">sorted_shares_idxs</span><span class="p">[:</span><span class="n">k</span><span class="p">]</span>
+        
+
+        <span class="n">repl_shares_idxs</span> <span class="o">=</span> <span class="n">sorted_shares_idxs</span><span class="p">[</span><span class="n">k</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="p">]</span>
+        
+
+
+        <span class="c1"># insert values in matrix</span>
+        <span class="k">for</span> <span class="n">con_idx</span><span class="p">,</span> <span class="n">share</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">idx_chosen</span><span class="p">,</span> <span class="n">shares</span><span class="p">):</span>
+            <span class="c1"># rows.append(int(man_idx))</span>
+            <span class="c1"># cols.append(int(con_idx))</span>
+            <span class="c1"># data.append(float(share))</span>
+
+            <span class="c1"># Build the peer reviwer mask in COO</span>
+            <span class="k">if</span> <span class="n">con_idx</span> <span class="ow">in</span> <span class="n">peerrev_idxs</span><span class="p">:</span>
+                <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">man_idx</span><span class="p">))</span>
+                <span class="n">cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">num_contributors</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">con_idx</span><span class="p">))</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">share</span><span class="p">))</span>
+                
+            
+            <span class="c1"># Build the replicators mask in COO</span>
+            <span class="k">if</span> <span class="n">con_idx</span> <span class="ow">in</span> <span class="n">repl_shares_idxs</span><span class="p">:</span>
+                <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">man_idx</span><span class="p">))</span>
+                <span class="n">cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">num_contributors</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">con_idx</span><span class="p">))</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">share</span><span class="p">))</span>
+            
+            <span class="c1"># Build the authors mask in COO</span>
+            <span class="k">if</span> <span class="n">con_idx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">peerrev_idxs</span> <span class="ow">and</span> <span class="n">con_idx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">repl_shares_idxs</span><span class="p">:</span>
+                <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">man_idx</span><span class="p">))</span>
+                <span class="n">cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">con_idx</span><span class="p">))</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">share</span><span class="p">))</span>
+    
+    <span class="c1"># build COO </span>
+    
+    <span class="n">shares_block</span> <span class="o">=</span> <span class="n">build_COO</span><span class="p">(</span><span class="n">num_manuscripts</span><span class="o">=</span><span class="n">num_manuscripts</span><span class="p">,</span>
+                             <span class="n">num_contributors</span><span class="o">=</span><span class="mi">3</span><span class="o">*</span><span class="n">num_contributors</span><span class="p">,</span>
+                             <span class="n">rows</span><span class="o">=</span><span class="n">rows</span><span class="p">,</span>
+                             <span class="n">cols</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span>
+                             <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+                             <span class="p">)</span>
+    <span class="c1"># mask_authors_block = build_COO(num_manuscripts=num_manuscripts,</span>
+    <span class="c1">#                                num_contributors=num_contributors,</span>
+    <span class="c1">#                                rows=rows_auth,</span>
+    <span class="c1">#                                cols=cols_auth,</span>
+    <span class="c1">#                                data=mask_author,</span>
+    <span class="c1">#                                dtype=bool)</span>
+    <span class="c1"># mask_reviewers_block = build_COO(num_manuscripts=num_manuscripts,</span>
+    <span class="c1">#                                num_contributors=num_contributors,</span>
+    <span class="c1">#                                rows=rows_reviewer,</span>
+    <span class="c1">#                                cols=cols_reviewer,</span>
+    <span class="c1">#                                data=mask_reviewer,</span>
+    <span class="c1">#                                dtype=bool)</span>
+    <span class="c1"># mask_replicators_block = build_COO(num_manuscripts=num_manuscripts,</span>
+    <span class="c1">#                                num_contributors=num_contributors,</span>
+    <span class="c1">#                                rows=rows_rep,</span>
+    <span class="c1">#                                cols=cols_rep,</span>
+    <span class="c1">#                                data=mask_replicator,</span>
+    <span class="c1">#                                dtype=bool)</span>
+    
+    
+    <span class="c1"># match orientation and index shifts</span>
+    <span class="n">zero_block</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">))),</span> 
+        <span class="p">(</span><span class="n">num_manuscripts</span><span class="p">,</span> <span class="n">num_manuscripts</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># append M by M block of 0&#39;s and shift indices</span>
+    <span class="n">shares</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">zero_block</span><span class="p">,</span> <span class="n">shares_block</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;coo&#39;</span><span class="p">)</span>
+    <span class="c1"># mask_authors = sparse.hstack([zero_block, mask_authors_block], format=&#39;coo&#39;)</span>
+    <span class="c1"># mask_reviewers = sparse.hstack([zero_block, mask_reviewers_block], format=&#39;coo&#39;)</span>
+    <span class="c1"># mask_replicators = sparse.hstack([zero_block, mask_replicators_block], format=&#39;coo&#39;)</span>
+    
+
+    <span class="c1"># contributor_index_map_shifted = {id: (idx+num_manuscripts) for id, idx in contributor_index_map.items()}</span>
+
+    <span class="k">return</span> <span class="n">shares</span><span class="o">.</span><span class="n">tocoo</span><span class="p">(),</span> <span class="n">contributor_ids</span><span class="p">,</span> <span class="n">contributor_index_map</span><span class="p">,</span> \</div>
+
+        <span class="c1"># contributor_index_map_shifted, \</span>
+        <span class="c1"># mask_authors.tocoo(), mask_reviewers.tocoo(), mask_replicators.tocoo()</span>
+
+
+
+<div class="viewcode-block" id="build_capital_matrix">
+<a class="viewcode-back" href="../../../liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.build_capital_matrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_capital_matrix</span><span class="p">(</span>
+    <span class="n">references</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">shares</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;computes capital matrix given shares and reference at current time&#39;&#39;&#39;</span>
+    <span class="n">ones_M</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">references</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">)))</span> <span class="c1"># M by 1</span>
+    <span class="n">ones_MplusC</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">shares</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span> <span class="c1"># 1 by M+C</span>
+
+    <span class="c1"># convolve</span>
+    <span class="n">capital</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">(</span><span class="n">shares</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">references</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ones_M</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ones_MplusC</span><span class="p">)))</span> <span class="c1"># M by M+C</span>
+    <span class="k">return</span> <span class="n">capital</span></div>
+
+
+
+
+<span class="c1"># ==================== generating time series capital data ====================</span>
+
+<div class="viewcode-block" id="get_references_earlier">
+<a class="viewcode-back" href="../../../liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.get_references_earlier">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_references_earlier</span><span class="p">(</span>
+    <span class="n">references</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">manuscript_index_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">upload_dates</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">date</span><span class="p">],</span>
+    <span class="n">time_cutoff</span><span class="p">:</span> <span class="n">date</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;extracts the earlier references matrix corresponding to the current manuscripts&#39;&#39;&#39;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">manuscript_index_map</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+    <span class="c1"># extract indices of manuscripts uploaded before time cutoff</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">man_id</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">manuscript_index_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">upload_dates</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">man_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">dt</span> <span class="o">&lt;=</span> <span class="n">time_cutoff</span><span class="p">:</span>
+            <span class="n">indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">idx</span><span class="p">))</span>
+
+    <span class="c1"># sort and return empty if no manuscript satisfies time cutoff</span>
+    <span class="n">indices</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+    <span class="n">references_csr</span> <span class="o">=</span> <span class="n">references</span><span class="o">.</span><span class="n">tocsr</span><span class="p">()</span>
+    <span class="c1"># get submatrix</span>
+    <span class="k">if</span> <span class="n">indices</span> <span class="o">==</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="n">references_csr</span><span class="p">[:</span><span class="n">m</span><span class="p">,</span> <span class="p">:</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">tocoo</span><span class="p">()</span>
+    
+    <span class="c1"># protects against non-time ordered indices, probably not needed but just in case</span>
+    <span class="k">return</span> <span class="n">references_csr</span><span class="p">[</span><span class="n">indices</span><span class="p">,</span> <span class="p">:][:,</span> <span class="n">indices</span><span class="p">]</span><span class="o">.</span><span class="n">tocoo</span><span class="p">()</span></div>
+
+
+
+
+<div class="viewcode-block" id="get_capital_earlier">
+<a class="viewcode-back" href="../../../liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.get_capital_earlier">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_capital_earlier</span><span class="p">(</span>
+    <span class="n">references</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">shares</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">manuscript_index_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">upload_dates</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">date</span><span class="p">],</span>
+    <span class="n">time_cutoff</span><span class="p">:</span> <span class="n">date</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;builds the earlier capital matrix corresponding to given time cutoff&#39;&#39;&#39;</span>
+
+    <span class="n">M</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">references</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">shares</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="n">M</span>
+
+    <span class="n">references_earlier</span> <span class="o">=</span> <span class="n">get_references_earlier</span><span class="p">(</span>
+        <span class="n">references</span><span class="o">=</span><span class="n">references</span><span class="p">,</span>
+        <span class="n">manuscript_index_map</span><span class="o">=</span><span class="n">manuscript_index_map</span><span class="p">,</span>
+        <span class="n">upload_dates</span><span class="o">=</span><span class="n">upload_dates</span><span class="p">,</span>
+        <span class="n">time_cutoff</span><span class="o">=</span><span class="n">time_cutoff</span>
+    <span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">references_earlier</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="c1"># return empty if no manuscript satisfies time cutoff</span>
+    <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+    <span class="c1"># get relevant subblock in shares matrix</span>
+    <span class="n">shares_csr</span> <span class="o">=</span> <span class="n">shares</span><span class="o">.</span><span class="n">tocsr</span><span class="p">()</span>
+    <span class="n">shares_block</span> <span class="o">=</span> <span class="n">shares_csr</span><span class="p">[:,</span> <span class="n">M</span><span class="p">:(</span><span class="n">M</span> <span class="o">+</span> <span class="n">C</span><span class="p">)]</span>
+
+    <span class="c1"># For m &gt; 0</span>
+    <span class="n">shares_block_earlier</span> <span class="o">=</span> <span class="n">shares_block</span><span class="p">[:</span><span class="n">m</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">tocoo</span><span class="p">()</span>  <span class="c1"># m by C</span>
+    <span class="n">zero_block_earlier</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">m</span><span class="p">))</span> <span class="c1"># m by m</span>
+    <span class="n">shares_earlier</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">zero_block_earlier</span><span class="p">,</span> <span class="n">shares_block_earlier</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csr&#39;</span><span class="p">)</span>  <span class="c1"># m by m+C</span>
+
+    <span class="n">capital_earlier</span> <span class="o">=</span> <span class="n">build_capital_matrix</span><span class="p">(</span><span class="n">references</span><span class="o">=</span><span class="n">references_earlier</span><span class="p">,</span> <span class="n">shares</span><span class="o">=</span><span class="n">shares_earlier</span><span class="p">)</span> <span class="c1"># m by m+C</span>
+    <span class="k">return</span> <span class="n">capital_earlier</span><span class="o">.</span><span class="n">tocoo</span><span class="p">()</span></div>
+
+
+
+
+<div class="viewcode-block" id="generate_capital_time_series">
+<a class="viewcode-back" href="../../../liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_capital_time_series">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_capital_time_series</span><span class="p">(</span>
+    <span class="n">references</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">shares</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">manuscript_index_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">upload_dates</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">date</span><span class="p">],</span>
+    <span class="n">start_date</span><span class="p">:</span> <span class="n">date</span><span class="p">,</span>
+    <span class="n">end_date</span><span class="p">:</span> <span class="n">date</span><span class="p">,</span>
+    <span class="n">time_step</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;generates time series data for capital matrices at different time snapshots&#39;&#39;&#39;</span>
+
+    <span class="n">timestamps</span> <span class="o">=</span> <span class="n">make_date_grid</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">time_step</span><span class="p">)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">timestamps</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">references</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">shares</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="n">M</span>
+
+    <span class="n">capital_snapshots</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">manuscript_cutoffs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># indices for manuscripts that correspond to the last upload before each time snapshot</span>
+    <span class="n">contributor_totals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">T</span><span class="p">,</span> <span class="n">C</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">manuscript_totals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">T</span><span class="p">,</span> <span class="n">M</span><span class="p">),</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="c1"># setting unpulished manuscripts to -1</span>
+
+    <span class="k">for</span> <span class="n">t_idx</span><span class="p">,</span> <span class="n">cutoff_date</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">timestamps</span><span class="p">):</span>
+        <span class="c1"># build earlier capital matrix</span>
+        <span class="n">capital_earlier</span> <span class="o">=</span> <span class="n">get_capital_earlier</span><span class="p">(</span>
+            <span class="n">references</span><span class="o">=</span><span class="n">references</span><span class="p">,</span>
+            <span class="n">shares</span><span class="o">=</span><span class="n">shares</span><span class="p">,</span>
+            <span class="n">manuscript_index_map</span><span class="o">=</span><span class="n">manuscript_index_map</span><span class="p">,</span>
+            <span class="n">upload_dates</span><span class="o">=</span><span class="n">upload_dates</span><span class="p">,</span>
+            <span class="n">time_cutoff</span><span class="o">=</span><span class="n">cutoff_date</span>
+        <span class="p">)</span> <span class="c1"># m times m+C</span>
+
+        <span class="n">m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">capital_earlier</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">manuscript_cutoffs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+        <span class="n">capital_snapshots</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">capital_earlier</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># set contributor totals to 0 if no manuscript published yet</span>
+            <span class="n">contributor_totals</span><span class="p">[</span><span class="n">t_idx</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># get contributor capital</span>
+        <span class="n">col_sums</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">capital_earlier</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+        <span class="n">contributor_totals</span><span class="p">[</span><span class="n">t_idx</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">col_sums</span><span class="p">[</span><span class="n">m</span><span class="p">:(</span><span class="n">m</span> <span class="o">+</span> <span class="n">C</span><span class="p">)]</span>
+        
+        <span class="c1"># get manuscrip capital</span>
+        <span class="n">row_sums</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">capital_earlier</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+        <span class="n">manuscript_totals</span><span class="p">[</span><span class="n">t_idx</span><span class="p">,</span> <span class="p">:</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">row_sums</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s1">&#39;timestamps&#39;</span><span class="p">:</span> <span class="n">timestamps</span><span class="p">,</span>
+        <span class="s1">&#39;manuscript_cutoff_idx&#39;</span><span class="p">:</span> <span class="n">manuscript_cutoffs</span><span class="p">,</span>
+        <span class="s1">&#39;capital_snapshots&#39;</span><span class="p">:</span> <span class="n">capital_snapshots</span><span class="p">,</span>
+        <span class="s1">&#39;contributor_totals&#39;</span><span class="p">:</span> <span class="n">contributor_totals</span><span class="p">,</span>
+        <span class="s1">&#39;manuscript_totals&#39;</span><span class="p">:</span> <span class="n">manuscript_totals</span>
+    <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="update_retractions_graph">
+<a class="viewcode-back" href="../../../liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.update_retractions_graph">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_retractions_graph</span><span class="p">(</span>
+    <span class="n">references</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">retractions</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+    <span class="n">manuscript_index_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">newly_retracted_manuscript_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">manuscripts_metadata</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="nb">list</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">,</span> <span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="nb">list</span><span class="p">]]:</span>
+    <span class="c1"># Add complete docstring below</span>
+
+<span class="w">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function handles the movement of citation rows from the references graph to the </span>
+<span class="sd">    retractions graph when manuscripts are newly retracted. It also updates previously </span>
+<span class="sd">    retracted manuscripts to capture any new citations that occurred after retraction.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    references : sparse.spmatrix</span>
+<span class="sd">        Sparse matrix where columns represent manuscripts and rows represent cited works.</span>
+<span class="sd">        Non-zero entries represent citation relationships.</span>
+<span class="sd">    retractions : Union[sparse.spmatrix, None]</span>
+<span class="sd">        Sparse matrix of the same shape as references containing previously retracted </span>
+<span class="sd">        manuscript citations. If None, an empty sparse matrix is initialized.</span>
+<span class="sd">    manuscript_index_map : Dict[str, int]</span>
+<span class="sd">        Mapping from manuscript IDs to their corresponding row indices in the matrices.</span>
+<span class="sd">    newly_retracted_manuscript_ids : List[str]</span>
+<span class="sd">        List of manuscript IDs that have been newly retracted in this update.</span>
+<span class="sd">    manuscripts_metadata : Union[pd.DataFrame, list]</span>
+<span class="sd">        Metadata associated with manuscripts. If a DataFrame, the retraction_cutoff </span>
+<span class="sd">        column is updated for newly retracted manuscripts.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Tuple[sparse.csr_matrix, sparse.csr_matrix, Union[pd.DataFrame, list]]</span>
+<span class="sd">        A tuple containing:</span>
+<span class="sd">        - retractions (sparse.coo_matrix): Updated retractions graph with newly retracted </span>
+<span class="sd">          and previously retracted manuscript citations.</span>
+<span class="sd">        - references (sparse.coo_matrix): Updated references graph with retracted manuscript </span>
+<span class="sd">          rows zeroed out.</span>
+<span class="sd">        - manuscripts_metadata (Union[pd.DataFrame, list]): Updated metadata with </span>
+<span class="sd">          retraction information for newly retracted manuscripts.</span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Both newly retracted and previously retracted manuscript rows are removed from </span>
+<span class="sd">      the references graph and consolidated in the retractions graph.</span>
+<span class="sd">    - If manuscripts_metadata is not a DataFrame, a warning is issued and metadata </span>
+<span class="sd">      is returned unchanged.</span>
+<span class="sd">    - Output matrices are converted to COO format for sparse representation efficiency.</span>
+
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Use CSR for fast row slicing and modification</span>
+    <span class="n">references</span> <span class="o">=</span> <span class="n">references</span><span class="o">.</span><span class="n">tocsr</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">retractions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">retractions</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">(</span><span class="n">references</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">references</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">retractions</span> <span class="o">=</span> <span class="n">retractions</span><span class="o">.</span><span class="n">tocsr</span><span class="p">()</span>
+
+    <span class="c1"># Identify indices of newly retracted manuscripts</span>
+    <span class="n">new_rows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromiter</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">manuscript_index_map</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="k">for</span> <span class="n">mid</span> <span class="ow">in</span> <span class="n">newly_retracted_manuscript_ids</span><span class="p">),</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Add new retractions in one batch</span>
+    <span class="c1"># Combine into retractions; these rows become nonzero in retractions</span>
+    <span class="c1"># and zeroed out in the reference graph.</span>
+    <span class="k">if</span> <span class="n">new_rows</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+        <span class="c1"># Efficiently add into retractions</span>
+        <span class="n">retractions</span><span class="p">[</span><span class="n">new_rows</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">references</span><span class="p">[</span><span class="n">new_rows</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">references</span><span class="p">[</span><span class="n">new_rows</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="c1"># Update previously retracted rows:</span>
+    <span class="n">prev_rows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">retractions</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">len_prev_retracted</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prev_rows</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">prev_rows</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+        <span class="c1"># find new citations (nonzeros in references that correspond to prev_retracted rows)</span>
+        <span class="c1"># merge them</span>
+        <span class="n">retractions</span><span class="p">[</span><span class="n">prev_rows</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">retractions</span><span class="p">[</span><span class="n">prev_rows</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+</span> <span class="n">references</span><span class="p">[</span><span class="n">prev_rows</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">references</span><span class="p">[</span><span class="n">prev_rows</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="c1"># ⬆ Update metadata if it&#39;s a DataFrame</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">manuscripts_metadata</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="ow">and</span> <span class="n">new_rows</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+        <span class="n">manuscripts_metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+            <span class="n">manuscripts_metadata</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">newly_retracted_manuscript_ids</span><span class="p">),</span>
+            <span class="s2">&quot;retraction_cutoff&quot;</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="n">len_prev_retracted</span>  <span class="c1"># or another suitable counter</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;manuscripts_metadata is not a DataFrame; skipping metadata update.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">retractions</span><span class="o">.</span><span class="n">tocoo</span><span class="p">(),</span> <span class="n">references</span><span class="o">.</span><span class="n">tocoo</span><span class="p">(),</span> <span class="n">manuscripts_metadata</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Liberata.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,382 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>liberata_metrics.generators package &mdash; Liberata Scientometrics  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+    <link rel="canonical" href="https://www.liberata.info/liberata_metrics.generators.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="liberata_metrics.generators.generate_matrices module" href="liberata_metrics.generators.generate_matrices.html" />
+    <link rel="prev" title="liberata_metrics.metrics.market_metrics module" href="liberata_metrics.metrics.market_metrics.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Liberata Scientometrics
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Liberata Scientometrics: Academic Knowledge Graph Analysis</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="liberata_metrics.html">liberata_metrics package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.html#the-liberata-scientometrics-library">The Liberata Scientometrics Library</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="liberata_metrics.html#main-components">Main Components</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="liberata_metrics.metrics.html">liberata_metrics.metrics package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">liberata_metrics.generators package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-structures-generated">Data Structures Generated</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#key-functions">Key Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#common-usage-patterns">Common Usage Patterns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-liberata_metrics.generators">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="liberata_metrics.utils.html">liberata_metrics.utils package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="liberata_metrics.visualizations.html">liberata_metrics.visualizations package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/liberata_metrics.integrations.html">liberata_metrics.integrations package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.html#quick-start-example">Quick Start Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.html#use-cases">Use Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.html#data-requirements">Data Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.html#performance-characteristics">Performance Characteristics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.html#getting-help">Getting Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.html#citation">Citation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.html#module-liberata_metrics">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Liberata Scientometrics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="liberata_metrics.html">liberata_metrics package</a></li>
+      <li class="breadcrumb-item active">liberata_metrics.generators package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/liberata_metrics.generators.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="liberata-metrics-generators-package">
+<h1>liberata_metrics.generators package<a class="headerlink" href="#liberata-metrics-generators-package" title="Link to this heading"></a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The generators module provides tools for creating synthetic academic knowledge graphs and capital matrices. This is essential for:</p>
+<ul class="simple">
+<li><p><strong>Testing</strong>: Validate metrics computation without relying on real data</p></li>
+<li><p><strong>Benchmarking</strong>: Compare algorithm performance on controlled datasets</p></li>
+<li><p><strong>Experimentation</strong>: Explore “what-if” scenarios with specific properties</p></li>
+<li><p><strong>Education</strong>: Understand how the Liberata system works with transparent synthetic data</p></li>
+</ul>
+</section>
+<section id="data-structures-generated">
+<h2>Data Structures Generated<a class="headerlink" href="#data-structures-generated" title="Link to this heading"></a></h2>
+<p>The generators create several interconnected data structures:</p>
+<dl class="simple">
+<dt><strong>References Matrix</strong></dt><dd><p>A sparse matrix encoding citation relationships between manuscripts.</p>
+<ul class="simple">
+<li><p>Shape: (num_manuscripts, num_manuscripts)</p></li>
+<li><p>Entries: Number of times manuscript i cites manuscript j</p></li>
+<li><p>Format: COO (coordinate format) for memory efficiency</p></li>
+<li><p>Sparsity: Controlled via <cite>citation_density</cite> parameter</p></li>
+</ul>
+</dd>
+<dt><strong>Capital Matrix</strong></dt><dd><p>Represents how manuscripts generate academic capital that contributors accrue.</p>
+<ul class="simple">
+<li><p>Shape: (num_manuscripts, num_contributors)</p></li>
+<li><p>Entries: Capital accrued by contributor j from manuscript i</p></li>
+<li><p>Format: COO sparse matrix</p></li>
+<li><p>Extended format: May include multiple capital blocks for different capital types</p></li>
+</ul>
+</dd>
+<dt><strong>ID Mappings</strong></dt><dd><p>Dictionaries mapping human-readable IDs to matrix indices:</p>
+<ul class="simple">
+<li><p><cite>manuscript_id_to_index</cite>: Maps manuscript UUIDs to row indices</p></li>
+<li><p><cite>contributor_id_to_index</cite>: Maps contributor UUIDs to column indices</p></li>
+<li><p>Used for linking computed metrics back to real entities</p></li>
+</ul>
+</dd>
+<dt><strong>Metadata</strong></dt><dd><p>Supplementary information about generated entities:</p>
+<ul class="simple">
+<li><p>Manuscript metadata: upload dates, topics, retraction status</p></li>
+<li><p>Contributor metadata: attributes and relationships</p></li>
+<li><p>Topic assignments based on OpenAlex topics</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="key-functions">
+<h2>Key Functions<a class="headerlink" href="#key-functions" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_references_matrix">
+<span class="sig-name descname"><span class="pre">generate_references_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_manuscripts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">citation_density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">date(2020,</span> <span class="pre">1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">date(2024,</span> <span class="pre">1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_references_matrix" title="Link to this definition"></a></dt>
+<dd><p>Generate a synthetic citation network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_manuscripts</strong> – Number of manuscripts to generate</p></li>
+<li><p><strong>citation_density</strong> – Sparsity of citation relationships (0-1)</p></li>
+<li><p><strong>start_date</strong> – Earliest manuscript publication date</p></li>
+<li><p><strong>end_date</strong> – Latest manuscript publication date</p></li>
+<li><p><strong>seed</strong> – Random seed for reproducibility</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple of (references_matrix, manuscript_ids, id_to_index_map, dates_map, metadata_df, capital_matrix, contributor_matrix)</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">references</span><span class="p">,</span> <span class="n">ms_ids</span><span class="p">,</span> <span class="n">ms_map</span><span class="p">,</span> <span class="n">dates</span><span class="p">,</span> <span class="n">meta</span><span class="p">,</span> <span class="n">capital</span><span class="p">,</span> <span class="n">contribs</span> <span class="o">=</span> \
+    <span class="n">generate_references_matrix</span><span class="p">(</span><span class="n">num_manuscripts</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">citation_density</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
+<p>Generators are configured via YAML files. Example <cite>matrix_config.yaml</cite>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Number of manuscripts to generate</span>
+<span class="nt">num_manuscripts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+
+<span class="c1"># Citation network sparsity (0 = no citations, 1 = complete graph)</span>
+<span class="nt">citation_density</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
+
+<span class="c1"># Time range for manuscript generation</span>
+<span class="nt">start_date</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2020-01-01</span>
+<span class="nt">end_date</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2024-12-31</span>
+
+<span class="c1"># Random seed for reproducibility</span>
+<span class="nt">seed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">42</span>
+
+<span class="c1"># Use OpenAlex topics (True) or generic names (False)</span>
+<span class="nt">use_openalex_topics</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+
+<span class="c1"># Output format and location</span>
+<span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./test_scripts/output</span>
+<span class="nt">output_format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">coo</span><span class="w">  </span><span class="c1"># Sparse coordinate format</span>
+</pre></div>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html">liberata_metrics.generators.generate_matrices module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_matrices.Manuscript"><code class="docutils literal notranslate"><span class="pre">Manuscript</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_matrices.build_COO"><code class="docutils literal notranslate"><span class="pre">build_COO()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_matrices.build_capital_matrix"><code class="docutils literal notranslate"><span class="pre">build_capital_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_matrices.generate_capital_time_series"><code class="docutils literal notranslate"><span class="pre">generate_capital_time_series()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_matrices.generate_references_matrix"><code class="docutils literal notranslate"><span class="pre">generate_references_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_matrices.generate_shares_matrix"><code class="docutils literal notranslate"><span class="pre">generate_shares_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_matrices.get_capital_earlier"><code class="docutils literal notranslate"><span class="pre">get_capital_earlier()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_matrices.get_references_earlier"><code class="docutils literal notranslate"><span class="pre">get_references_earlier()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_matrices.update_retractions_graph"><code class="docutils literal notranslate"><span class="pre">update_retractions_graph()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="common-usage-patterns">
+<h2>Common Usage Patterns<a class="headerlink" href="#common-usage-patterns" title="Link to this heading"></a></h2>
+<p><strong>Generate test data for unit tests:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.generators</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_references_matrix</span>
+
+<span class="c1"># Create reproducible test data</span>
+<span class="n">refs</span><span class="p">,</span> <span class="n">ms_ids</span><span class="p">,</span> <span class="n">ms_map</span><span class="p">,</span> <span class="n">dates</span><span class="p">,</span> <span class="n">meta</span><span class="p">,</span> <span class="n">cap</span><span class="p">,</span> <span class="n">contribs</span> <span class="o">=</span> \
+    <span class="n">generate_references_matrix</span><span class="p">(</span>
+        <span class="n">num_manuscripts</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">citation_density</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span>
+        <span class="n">seed</span><span class="o">=</span><span class="mi">12345</span>  <span class="c1"># Fixed seed for reproducibility</span>
+    <span class="p">)</span>
+
+<span class="c1"># Use in tests</span>
+<span class="k">assert</span> <span class="n">refs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">100</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">ms_ids</span><span class="p">)</span> <span class="o">==</span> <span class="mi">100</span>
+</pre></div>
+</div>
+<p><strong>Generate data with specific properties:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sparse citation network</span>
+<span class="n">sparse_refs</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">generate_references_matrix</span><span class="p">(</span>
+    <span class="n">num_manuscripts</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">citation_density</span><span class="o">=</span><span class="mf">0.001</span>  <span class="c1"># Very sparse</span>
+<span class="p">)</span>
+
+<span class="c1"># Dense network for comparing algorithms</span>
+<span class="n">dense_refs</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">generate_references_matrix</span><span class="p">(</span>
+    <span class="n">num_manuscripts</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">citation_density</span><span class="o">=</span><span class="mf">0.1</span>  <span class="c1"># Much denser</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Load from configuration file:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.generators</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_references_matrix</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;config/matrix_config.yaml&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="n">refs</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">generate_references_matrix</span><span class="p">(</span><span class="o">**</span><span class="n">config</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="module-liberata_metrics.generators">
+<span id="module-contents"></span><h2>Module Contents<a class="headerlink" href="#module-liberata_metrics.generators" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.generators.build_capital_matrix">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.generators.</span></span><span class="sig-name descname"><span class="pre">build_capital_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shares</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">coo_matrix</span></span></span><a class="reference internal" href="_modules/liberata_metrics/generators/generate_matrices.html#build_capital_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.generators.build_capital_matrix" title="Link to this definition"></a></dt>
+<dd><p>computes capital matrix given shares and reference at current time</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.generators.generate_capital_time_series">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.generators.</span></span><span class="sig-name descname"><span class="pre">generate_capital_time_series</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shares</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscript_index_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upload_dates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">date</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">timedelta</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">object</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/liberata_metrics/generators/generate_matrices.html#generate_capital_time_series"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.generators.generate_capital_time_series" title="Link to this definition"></a></dt>
+<dd><p>generates time series data for capital matrices at different time snapshots</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.generators.generate_references_matrix">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.generators.</span></span><span class="sig-name descname"><span class="pre">generate_references_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_manuscripts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">citation_density</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.date(2020,</span> <span class="pre">1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.date(2024,</span> <span class="pre">1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">coo_matrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">date</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">coo_matrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">coo_matrix</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/liberata_metrics/generators/generate_matrices.html#generate_references_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.generators.generate_references_matrix" title="Link to this definition"></a></dt>
+<dd><p>build toy references matrix</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.generators.generate_shares_matrix">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.generators.</span></span><span class="sig-name descname"><span class="pre">generate_shares_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manuscript_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscript_index_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_contributors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avg_contributors_per_man</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_contributors_per_man</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_shares_dist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'dirichlet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pareto_alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">coo_matrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/liberata_metrics/generators/generate_matrices.html#generate_shares_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.generators.generate_shares_matrix" title="Link to this definition"></a></dt>
+<dd><p>build toy shares matrix</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.generators.get_capital_earlier">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.generators.</span></span><span class="sig-name descname"><span class="pre">get_capital_earlier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shares</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscript_index_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upload_dates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">date</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span></span></span><a class="reference internal" href="_modules/liberata_metrics/generators/generate_matrices.html#get_capital_earlier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.generators.get_capital_earlier" title="Link to this definition"></a></dt>
+<dd><p>builds the earlier capital matrix corresponding to given time cutoff</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.generators.update_retractions_graph">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.generators.</span></span><span class="sig-name descname"><span class="pre">update_retractions_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retractions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscript_index_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newly_retracted_manuscript_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscripts_metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">csr_matrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">csr_matrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/liberata_metrics/generators/generate_matrices.html#update_retractions_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.generators.update_retractions_graph" title="Link to this definition"></a></dt>
+<dd><p>This function handles the movement of citation rows from the references graph to the
+retractions graph when manuscripts are newly retracted. It also updates previously
+retracted manuscripts to capture any new citations that occurred after retraction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>references</strong> (<em>sparse.spmatrix</em>) – Sparse matrix where columns represent manuscripts and rows represent cited works.
+Non-zero entries represent citation relationships.</p></li>
+<li><p><strong>retractions</strong> (<em>Union</em><em>[</em><em>sparse.spmatrix</em><em>, </em><em>None</em><em>]</em>) – Sparse matrix of the same shape as references containing previously retracted
+manuscript citations. If None, an empty sparse matrix is initialized.</p></li>
+<li><p><strong>manuscript_index_map</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from manuscript IDs to their corresponding row indices in the matrices.</p></li>
+<li><p><strong>newly_retracted_manuscript_ids</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – List of manuscript IDs that have been newly retracted in this update.</p></li>
+<li><p><strong>manuscripts_metadata</strong> (<em>Union</em><em>[</em><em>pd.DataFrame</em><em>, </em><em>list</em><em>]</em>) – Metadata associated with manuscripts. If a DataFrame, the retraction_cutoff
+column is updated for newly retracted manuscripts.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>A tuple containing:
+- retractions (sparse.coo_matrix): Updated retractions graph with newly retracted</p>
+<blockquote>
+<div><p>and previously retracted manuscript citations.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>references (sparse.coo_matrix): Updated references graph with retracted manuscript
+rows zeroed out.</p></li>
+<li><p>manuscripts_metadata (Union[pd.DataFrame, list]): Updated metadata with
+retraction information for newly retracted manuscripts.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[sparse.csr_matrix, sparse.csr_matrix, Union[pd.DataFrame, list]]</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Both newly retracted and previously retracted manuscript rows are removed from
+the references graph and consolidated in the retractions graph.</p></li>
+<li><p>If manuscripts_metadata is not a DataFrame, a warning is issued and metadata
+is returned unchanged.</p></li>
+<li><p>Output matrices are converted to COO format for sparse representation efficiency.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="liberata_metrics.metrics.market_metrics.html" class="btn btn-neutral float-left" title="liberata_metrics.metrics.market_metrics module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="liberata_metrics.generators.generate_matrices.html" class="btn btn-neutral float-right" title="liberata_metrics.generators.generate_matrices module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Liberata.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,186 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>liberata_metrics.metrics.distribution_metrics module &mdash; Liberata Scientometrics  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+    <link rel="canonical" href="https://www.liberata.info/api/liberata_metrics.metrics.distribution_metrics.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="liberata_metrics.metrics.graph module" href="liberata_metrics.metrics.graph.html" />
+    <link rel="prev" title="liberata_metrics.metrics package" href="liberata_metrics.metrics.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Liberata Scientometrics
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Liberata Scientometrics: Academic Knowledge Graph Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../liberata_metrics.html">liberata_metrics package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#core-modules">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#quick-reference">Quick Reference</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#full-api-documentation">Full API Documentation</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="modules.html">liberata_metrics</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="liberata_metrics.html">liberata_metrics package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="generated/modules.html">liberata_metrics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Liberata Scientometrics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="modules.html">liberata_metrics</a></li>
+          <li class="breadcrumb-item"><a href="liberata_metrics.html">liberata_metrics package</a></li>
+          <li class="breadcrumb-item"><a href="liberata_metrics.metrics.html">liberata_metrics.metrics package</a></li>
+      <li class="breadcrumb-item active">liberata_metrics.metrics.distribution_metrics module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/liberata_metrics.metrics.distribution_metrics.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-liberata_metrics.metrics.distribution_metrics">
+<span id="liberata-metrics-metrics-distribution-metrics-module"></span><h1>liberata_metrics.metrics.distribution_metrics module<a class="headerlink" href="#module-liberata_metrics.metrics.distribution_metrics" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.distribution_metrics.hhi_discrepancy">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.distribution_metrics.</span></span><span class="sig-name descname"><span class="pre">hhi_discrepancy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shares_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_portfolio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">slice</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/distribution_metrics.html#hhi_discrepancy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.distribution_metrics.hhi_discrepancy" title="Link to this definition"></a></dt>
+<dd><p>Compute the discrepancy between the HHI of the field and that of the manuscript or portfolio.
+:param shares_matrix: Sparse matrix where each row represents a manuscript and each column represents an author.</p>
+<blockquote>
+<div><p>Entries are the shares each author has for each given manuscript.
+This matrix should have all manuscripts in the field/discipline.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>indices</strong> (<em>np.array</em>) – Array of indices of manuscripts in the shares_matrix that are to be considered in the HHI calculation.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The HHID value, a measure of discrepancy between a portfolio and the industry. Higher values indicate an anomaly that
+should be further investigated.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">hhi_discrepancy</span><span class="p">(</span><span class="n">shares_matrix</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span>
+<span class="go">0.375</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.distribution_metrics.share_splits_inequality">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.distribution_metrics.</span></span><span class="sig-name descname"><span class="pre">share_splits_inequality</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portfolio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/distribution_metrics.html#share_splits_inequality"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.distribution_metrics.share_splits_inequality" title="Link to this definition"></a></dt>
+<dd><p>Compute the Herfindahl-Hirschman Index (HHI) of a portfolio of manuscripts.
+:param portfolio: Sparse matrix where each row represents a manuscript and each column represents an author.</p>
+<blockquote>
+<div><p>Entries are the shares each author has for each given manuscript.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><em>float</em> – The mean HHI value, a measure of the typical concentration in the portfolio. Returns 0.0 if the portfolio is empty.</p></li>
+<li><p><em>——</em></p></li>
+<li><p><em>TypeError</em> – If <cite>portfolio</cite> is not a scipy sparse matrix.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The share splits inequality is calculated as the mean HHI of all provided manuscripts.</p></li>
+<li><p>The HHI for a single manuscript is calculated as the sum of the squares of the share splits for that manuscript.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">share_splits_inequality</span><span class="p">(</span><span class="n">portfolio</span><span class="p">)</span>
+<span class="go">0.375</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="liberata_metrics.metrics.html" class="btn btn-neutral float-left" title="liberata_metrics.metrics package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="liberata_metrics.metrics.graph.html" class="btn btn-neutral float-right" title="liberata_metrics.metrics.graph module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Liberata.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

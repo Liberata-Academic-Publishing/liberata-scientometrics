@@ -1,0 +1,238 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>liberata_metrics.metrics.legacy_metric module &mdash; Liberata Scientometrics  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+    <link rel="canonical" href="https://www.liberata.info/api/liberata_metrics.metrics.legacy_metric.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="liberata_metrics.metrics.market_metrics module" href="liberata_metrics.metrics.market_metrics.html" />
+    <link rel="prev" title="liberata_metrics.metrics.graph module" href="liberata_metrics.metrics.graph.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Liberata Scientometrics
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Liberata Scientometrics: Academic Knowledge Graph Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../liberata_metrics.html">liberata_metrics package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#core-modules">Core Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#quick-reference">Quick Reference</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#full-api-documentation">Full API Documentation</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="modules.html">liberata_metrics</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="liberata_metrics.html">liberata_metrics package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="generated/modules.html">liberata_metrics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Liberata Scientometrics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="modules.html">liberata_metrics</a></li>
+          <li class="breadcrumb-item"><a href="liberata_metrics.html">liberata_metrics package</a></li>
+          <li class="breadcrumb-item"><a href="liberata_metrics.metrics.html">liberata_metrics.metrics package</a></li>
+      <li class="breadcrumb-item active">liberata_metrics.metrics.legacy_metric module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/liberata_metrics.metrics.legacy_metric.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-liberata_metrics.metrics.legacy_metric">
+<span id="liberata-metrics-metrics-legacy-metric-module"></span><h1>liberata_metrics.metrics.legacy_metric module<a class="headerlink" href="#module-liberata_metrics.metrics.legacy_metric" title="Link to this heading"></a></h1>
+<p>This code implements legacy metrics such as the h-index, i-10 index, and g-index.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.legacy_metric.get_author_citations">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.legacy_metric.</span></span><span class="sig-name descname"><span class="pre">get_author_citations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/legacy_metric.html#get_author_citations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.legacy_metric.get_author_citations" title="Link to this definition"></a></dt>
+<dd><p>For a contributor, returns authored manuscripts and corresponding citations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> – Sparse matrix of shape (M, M + 3*C). Used to find which
+manuscripts this author contributed to.</p></li>
+<li><p><strong>references</strong> – Sparse citation matrix of shape (M, M).</p></li>
+<li><p><strong>contributor_col</strong> – Column index of the author in the contributor space
+(0-indexed, before the M offset). Pass contributor_index_map[id]
+at the call site.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict mapping each manuscript index to its citation count.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.legacy_metric.get_citation_counts">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.legacy_metric.</span></span><span class="sig-name descname"><span class="pre">get_citation_counts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscript_rows</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/legacy_metric.html#get_citation_counts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.legacy_metric.get_citation_counts" title="Link to this definition"></a></dt>
+<dd><p>Returns the number of incoming citations for each manuscript in the subset.</p>
+<p>references[i, j] encodes a citation from paper j (citing) to paper i (cited),
+so the number of papers citing manuscript i is the number of non-zero entries
+in row i.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>references</strong> – Sparse citation matrix of shape (M, M).</p></li>
+<li><p><strong>manuscript_row</strong> – List of row indices.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict mapping each manuscript index to its incoming citation count (int).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.legacy_metric.get_g_index">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.legacy_metric.</span></span><span class="sig-name descname"><span class="pre">get_g_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/legacy_metric.html#get_g_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.legacy_metric.get_g_index" title="Link to this definition"></a></dt>
+<dd><p>Computes the g-index</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> – Sparse matrix of shape (M, M + 3*C). Used to find which
+manuscripts this author contributed to (author block: cols M to M+C).</p></li>
+<li><p><strong>references</strong> – Sparse citation matrix of shape (M, M).</p></li>
+<li><p><strong>contributor_col</strong> – Column index of the author in the contributor space
+(0-indexed, before the M offset). Pass contributor_index_map[id]
+at the call site.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The g-index as an integer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.legacy_metric.get_h_index">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.legacy_metric.</span></span><span class="sig-name descname"><span class="pre">get_h_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/legacy_metric.html#get_h_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.legacy_metric.get_h_index" title="Link to this definition"></a></dt>
+<dd><p>Computes the h-index for a single author.</p>
+<p>h is the largest integer such that h of the author’s papers each have
+at least h incoming citations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> – Sparse matrix of shape (M, M + 3*C). Used to find which
+manuscripts this author contributed to (author block: cols M to M+C).</p></li>
+<li><p><strong>references</strong> – Sparse citation matrix of shape (M, M).</p></li>
+<li><p><strong>contributor_col</strong> – Column index of the author in the contributor space
+(0-indexed, before the M offset). Pass contributor_index_map[id]
+at the call site.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The h-index as an integer.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.metrics.legacy_metric.get_i10_index">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.metrics.legacy_metric.</span></span><span class="sig-name descname"><span class="pre">get_i10_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capital</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/liberata_metrics/metrics/legacy_metric.html#get_i10_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.metrics.legacy_metric.get_i10_index" title="Link to this definition"></a></dt>
+<dd><p>Computes the i-10 index</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>capital</strong> – Sparse matrix of shape (M, M + 3*C). Used to find which
+manuscripts this author contributed to.
+The author block are the cols M to M+C because the capital matrix
+columns are blocked by author, peer reviewer, and replicator, with each
+contributor located in indentical indices within each block.</p></li>
+<li><p><strong>references</strong> – Sparse citation matrix of shape (M, M).</p></li>
+<li><p><strong>contributor_col</strong> – Column index of the author in the contributor space
+(0-indexed, before the M offset). Pass contributor_index_map[id]
+at the call site.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The i-10 index as an integer</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="liberata_metrics.metrics.graph.html" class="btn btn-neutral float-left" title="liberata_metrics.metrics.graph module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="liberata_metrics.metrics.market_metrics.html" class="btn btn-neutral float-right" title="liberata_metrics.metrics.market_metrics module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Liberata.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

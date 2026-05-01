@@ -1,0 +1,903 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>liberata_metrics.metrics.market_metrics &mdash; Liberata Scientometrics  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+    <link rel="canonical" href="https://www.liberata.info/_modules/liberata_metrics/metrics/market_metrics.html" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Liberata Scientometrics
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Liberata Scientometrics: Academic Knowledge Graph Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../liberata_metrics.html">liberata_metrics package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Liberata Scientometrics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">liberata_metrics.metrics.market_metrics</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for liberata_metrics.metrics.market_metrics</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">sparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_per_manuscript_cap</span><span class="p">,</span> <span class="n">mix_by_tag</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.metrics.distribution_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">hhi_discrepancy</span><span class="p">,</span> <span class="n">share_splits_inequality</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.metrics.portfolio_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">allocation_weights</span><span class="p">,</span> <span class="n">get_volatility</span><span class="p">,</span> <span class="n">get_expected_returns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">sparse_divide</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_time_series_csr</span><span class="p">(</span><span class="n">time_series</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">snap</span><span class="o">.</span><span class="n">tocsr</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">sparse</span><span class="o">.</span><span class="n">isspmatrix_csr</span><span class="p">(</span><span class="n">snap</span><span class="p">)</span> <span class="k">else</span> <span class="n">snap</span> <span class="k">for</span> <span class="n">snap</span> <span class="ow">in</span> <span class="n">time_series</span><span class="p">]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_manuscript_capital_history</span><span class="p">(</span><span class="n">capital_history_csr</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">],</span> <span class="n">manuscript_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">snapshot</span><span class="p">[</span><span class="n">manuscript_index</span><span class="p">]</span> <span class="k">for</span> <span class="n">snapshot</span> <span class="ow">in</span> <span class="n">capital_history_csr</span><span class="p">]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_domain_capital_history</span><span class="p">(</span><span class="n">capital_history_csr</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">],</span> <span class="n">manuscript_tags</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">memberships_csr</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mix_by_tag</span><span class="p">(</span><span class="n">snapshot</span><span class="p">,</span> <span class="n">memberships_csr</span><span class="p">)[</span><span class="n">manuscript_tags</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)))</span>
+        <span class="k">for</span> <span class="n">snapshot</span> <span class="ow">in</span> <span class="n">capital_history_csr</span>
+    <span class="p">]</span>
+
+<div class="viewcode-block" id="compute_fair_marketprice">
+<a class="viewcode-back" href="../../../liberata_metrics.metrics.market_metrics.html#liberata_metrics.metrics.compute_fair_marketprice">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_fair_marketprice</span><span class="p">(</span>
+        <span class="n">capital</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+        <span class="n">mask_reviewers</span><span class="p">:</span> <span class="nb">slice</span><span class="p">,</span>
+        <span class="n">mask_replicators</span><span class="p">:</span> <span class="nb">slice</span><span class="p">,</span>
+        <span class="n">manuscript_memberships</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+        <span class="n">contributor_index_map_subset</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+        <span class="n">num_contributors</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="c1"># size_zero_block: int = 0,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">]:</span>
+    
+
+    <span class="c1"># Add docstring</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute tag-level fair market prices (FMP) for reviewers and replicators based on</span>
+<span class="sd">    the capital allocated to these roles across all manuscripts. The function performs the following steps:</span>
+<span class="sd">    1. Masks the global capital allocation by reviewer and replicator roles using the provided</span>
+<span class="sd">        mask matrices (mask_reviewers and mask_replicators).</span>
+<span class="sd">    2. Computes the per-manuscript capital allocated to reviewers and replicators using</span>
+<span class="sd">        get_per_manuscript_cap, restricted to the specified subset of contributors.</span>
+<span class="sd">    3. Aggregates the per-manuscript capital up to tags using the manuscript_memberships matrix.   </span>
+<span class="sd">    4. Divides the aggregated capital per tag by the number of manuscripts associated with each tag</span>
+<span class="sd">        to yield the fair market price (FMP) for reviewers and replicators per tag.</span>
+<span class="sd">    Parameters </span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital : sparse.spmatrix</span>
+<span class="sd">        Contributor-level capital matrix. Shape: (n_manuscripts, n_contributors).   </span>
+<span class="sd">    mask_reviewers : sparse.spmatrix</span>
+<span class="sd">        Manuscript-by-contributor mask indicating reviewer involvement. Shape:</span>
+<span class="sd">        (n_manuscripts, n_contributors). Used to select reviewers&#39; share of capital per manuscript. </span>
+<span class="sd">    mask_replicators : sparse.spmatrix</span>
+<span class="sd">        Manuscript-by-contributor mask indicating replicator involvement. Shape:</span>
+<span class="sd">        (n_manuscripts, n_contributors). Used to select replicators&#39; share of capital per manuscript.</span>
+<span class="sd">    manuscript_memberships : sparse.spmatrix</span>
+<span class="sd">        Tag-by-manuscript membership matrix (shape: n_tags x n_manuscripts). Used to aggregate</span>
+<span class="sd">        per-manuscript capital up to tags. Membership entries may be binary or weighted.</span>
+<span class="sd">    contributor_index_map_subset : Dict[str, int]</span>
+<span class="sd">        Mapping from contributor identifier (string) to column index in the mask matrices</span>
+<span class="sd">        for the subset of contributors of interest. The function uses the mapped indices to</span>
+<span class="sd">        select columns from mask_reviewers and mask_replicators.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Tuple[sparse.spmatrix, sparse.spmatrix]</span>
+<span class="sd">        A tuple containing two sparse arrays (each of length n_tags):</span>
+<span class="sd">        - reviewer_fmp: tagwise fair market price for reviewers.</span>
+<span class="sd">        - replicator_fmp: tagwise fair market price for replicators.</span>
+<span class="sd">    Raises  </span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If input matrix/vector shapes are incompatible (e.g., contributor counts, manuscript</span>
+<span class="sd">        counts, or tag counts do not align) the function may raise errors propagated from</span>
+<span class="sd">        underlying sparse operations or from get_per_manuscript_cap.</span>
+<span class="sd">    KeyError    </span>
+<span class="sd">        If contributor_index_map_subset contains indices that do not correspond to columns</span>
+<span class="sd">        in the provided mask matrices, column selection may fail.</span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The function attempts a fast column-slicing of mask_reviewers and mask_replicators</span>
+<span class="sd">        for the contributor subset and falls back to an explicit hstack/getcol approach if slicing is not supported.</span>
+<span class="sd">    - Elementwise multiplications and sums assume broadcasting consistent with sparse matrix</span>
+<span class="sd">        shapes: reviewer/replicator masks are treated as per-manuscript indicators and are multiplied with</span>
+<span class="sd">        per-manuscript capital vectors produced by get_per_manuscript_cap.</span>
+<span class="sd">    - manuscript_memberships is expected to map manuscripts to tags (rows correspond to tags).</span>
+<span class="sd">    - The returned fair market price values are not normalized by the number of reviewers</span>
+<span class="sd">        or replicators unless such normalization is performed earlier (e.g., in get_per_manuscript_cap).</span>
+<span class="sd">    - All inputs are expected to be sparse-compatible to avoid dense expansion; be mindful of</span>
+<span class="sd">        memory usage when converting between sparse and dense formats.</span>
+<span class="sd">    Examples    </span>
+<span class="sd">    --------</span>
+<span class="sd">    Shape conventions (illustrative):</span>
+<span class="sd">    - mask_reviewers / mask_replicators: (n_manuscripts, n_contributors)</span>
+<span class="sd">    - capital: (n_manuscripts, n_contributors)</span>
+<span class="sd">    - contributor_index_map_subset: subset of contributor -&gt; column index mappings</span>
+<span class="sd">    - get_per_manuscript_cap(masked_capital, subset_map) -&gt; returns array of length n_manuscripts</span>
+<span class="sd">    - manuscript_memberships: (n_tags, n_manuscripts)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># Check contributor subset is actually the whole set</span>
+    <span class="c1"># This is needed since we want to compute the averages over whole domains</span>
+    <span class="c1"># num_manuscripts = capital.shape[0]</span>
+    <span class="c1"># num_contributors = capital.shape[1] - num_manuscripts</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">contributor_index_map_subset</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">&lt;</span> <span class="n">num_contributors</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The contributor index map is a subset. Was expecting the whole set&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># mask_authors = np.s_[:,size_zero_block : size_zero_block + num_contributors]</span>
+    <span class="c1"># mask_reviewers = np.s_[:, size_zero_block + num_contributors: size_zero_block + 2*num_contributors]</span>
+    <span class="c1"># mask_replicators = np.s_[:, size_zero_block + 2*num_contributors:] </span>
+
+    <span class="n">capital</span> <span class="o">=</span> <span class="n">capital</span><span class="o">.</span><span class="n">tocsc</span><span class="p">()</span>
+    <span class="n">reviewer_capital</span>    <span class="o">=</span> <span class="n">capital</span><span class="p">[</span><span class="n">mask_reviewers</span><span class="p">]</span>
+    <span class="n">replicator_capital</span>  <span class="o">=</span> <span class="n">capital</span><span class="p">[</span><span class="n">mask_replicators</span><span class="p">]</span>
+
+    <span class="n">reviewer_cap_sub</span>    <span class="o">=</span> <span class="n">get_per_manuscript_cap</span><span class="p">(</span><span class="n">reviewer_capital</span><span class="p">,</span> <span class="n">contributor_index_map_subset</span><span class="p">)</span>
+    <span class="n">replicator_cap_sub</span>  <span class="o">=</span> <span class="n">get_per_manuscript_cap</span><span class="p">(</span><span class="n">replicator_capital</span><span class="p">,</span> <span class="n">contributor_index_map_subset</span><span class="p">)</span>
+
+    <span class="n">review_cost_per_tag</span> <span class="o">=</span> <span class="n">mix_by_tag</span><span class="p">(</span><span class="n">reviewer_cap_sub</span><span class="p">,</span> <span class="n">manuscript_memberships</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">repplication_cost_per_tag</span> <span class="o">=</span> <span class="n">mix_by_tag</span><span class="p">(</span><span class="n">replicator_cap_sub</span><span class="p">,</span> <span class="n">manuscript_memberships</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">num_manuscripts_per_tag</span> <span class="o">=</span> <span class="n">manuscript_memberships</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># sparse divide to get average cost of review per tag</span>
+    <span class="n">review_fmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">review_cost_per_tag</span><span class="p">,</span> <span class="n">num_manuscripts_per_tag</span><span class="p">)</span>
+    <span class="n">replication_fmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">repplication_cost_per_tag</span><span class="p">,</span> <span class="n">num_manuscripts_per_tag</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">review_fmp</span><span class="p">,</span> <span class="n">replication_fmp</span></div>
+
+
+<div class="viewcode-block" id="compute_risk_premiums">
+<a class="viewcode-back" href="../../../liberata_metrics.metrics.market_metrics.html#liberata_metrics.metrics.compute_risk_premiums">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_risk_premiums</span><span class="p">(</span>
+        
+        <span class="n">capital</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+        <span class="n">mask_authors</span><span class="p">:</span> <span class="nb">slice</span><span class="p">,</span>
+        <span class="n">mask_reviewers</span><span class="p">:</span> <span class="nb">slice</span><span class="p">,</span>
+        <span class="n">mask_replicators</span><span class="p">:</span> <span class="nb">slice</span><span class="p">,</span>
+        <span class="n">contributor_index_map_subset</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+        <span class="n">reviewer_fmp</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">sparray</span><span class="p">,</span>
+        <span class="n">replicator_fmp</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">sparray</span><span class="p">,</span>
+        <span class="n">manuscript_memberships</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+        <span class="c1"># num_contributors: int,</span>
+        <span class="c1"># size_zero_block: int = 0,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">sparray</span><span class="p">,</span> <span class="n">sparse</span><span class="o">.</span><span class="n">sparray</span><span class="p">]:</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute tag-level risk premiums for reviewers and replicators corresponding to manuscripts</span>
+<span class="sd">    authored by a given subset of contributors.</span>
+<span class="sd">    This function calculates, for each tag, the difference between the capital that reviewers</span>
+<span class="sd">    (or replicators) have obtained from manuscripts authored by the specified contributor subset</span>
+<span class="sd">    and the fair market price (FMP) for that tag. The computation proceeds in these steps:</span>
+<span class="sd">    1. Select the subset of author columns from mask_authors and create a per-manuscript mask</span>
+<span class="sd">        indicating which manuscripts were authored by selected contributors.</span>
+<span class="sd">    2. Mask the global capital allocation by reviewer/replicator role (mask_reviewers</span>
+<span class="sd">        / mask_replicators) and compute the per-manuscript capital given for QC services, i.e.,</span>
+<span class="sd">        peer review and replication.</span>
+<span class="sd">    3. Restrict reviewer/replicator per-manuscript capital to manuscripts authored by the</span>
+<span class="sd">        selected contributors.</span>
+<span class="sd">    4. Aggregate per-manuscript capital up to tags via manuscript_memberships (tags x manuscripts).</span>
+<span class="sd">    5. Subtract the provided tag-level fair market price vectors (reviewer_fmp, replicator_fmp)</span>
+<span class="sd">        to produce tag-level risk premiums.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital : sparse.spmatrix</span>
+<span class="sd">            Contributor-level capital vector or sparse column matrix. Expected length (or number</span>
+<span class="sd">            of rows) equals the number of contributors (n_contributors). This represents the</span>
+<span class="sd">            capital each contributor has available/allocated (units consistent with FMP).</span>
+<span class="sd">    mask_authors : sparse.spmatrix</span>
+<span class="sd">            Manuscript-by-contributor binary (or weighted) mask indicating authorship. Shape:</span>
+<span class="sd">            (n_manuscripts, n_contributors). Nonzero entry indicates that the contributor</span>
+<span class="sd">            authored (or contributed to) the manuscript.</span>
+<span class="sd">    mask_reviewers : sparse.spmatrix</span>
+<span class="sd">            Manuscript-by-contributor mask indicating reviewer involvement. Shape:</span>
+<span class="sd">            (n_manuscripts, n_contributors). Used to select reviewers&#39; share of capital per manuscript.</span>
+<span class="sd">    mask_replicators : sparse.spmatrix</span>
+<span class="sd">            Manuscript-by-contributor mask indicating replicator involvement. Shape:</span>
+<span class="sd">            (n_manuscripts, n_contributors). Used to select replicators&#39; share of capital per manuscript.</span>
+<span class="sd">    contributor_index_map_subset : Dict[str, int]</span>
+<span class="sd">            Mapping from contributor identifier (string) to column index in the mask matrices</span>
+<span class="sd">            for the subset of contributors of interest. The function uses the mapped indices to</span>
+<span class="sd">            select columns from mask_authors, mask_reviewers and mask_replicators.</span>
+<span class="sd">    reviewer_fmp : sparse.sparray</span>
+<span class="sd">            Tag-level fair market price vector for reviewers. Shape: (n_tags,). Units must match</span>
+<span class="sd">            those of capital after aggregation.</span>
+<span class="sd">    replicator_fmp : sparse.sparray</span>
+<span class="sd">            Tag-level fair market price vector for replicators. Shape: (n_tags,). Units must match</span>
+<span class="sd">            those of capital after aggregation.</span>
+<span class="sd">    manuscript_memberships : sparse.spmatrix</span>
+<span class="sd">            Tag-by-manuscript membership matrix (shape: n_tags x n_manuscripts). Used to aggregate</span>
+<span class="sd">            per-manuscript capital up to tags. Membership entries may be binary or weighted.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Tuple[sparse.sparray, sparse.sparray]</span>
+<span class="sd">            A tuple containing two sparse arrays (each of length n_tags):</span>
+<span class="sd">            - reviewer_risk_premium: tagwise (aggregated) reviewer capital on manuscripts authored</span>
+<span class="sd">            by the selected contributors minus reviewer_fmp.</span>
+<span class="sd">            - replicator_risk_premium: tagwise (aggregated) replicator capital on manuscripts authored</span>
+<span class="sd">            by the selected contributors minus replicator_fmp.</span>
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">            If input matrix/vector shapes are incompatible (e.g., contributor counts, manuscript</span>
+<span class="sd">            counts, or tag counts do not align) the function may raise errors propagated from</span>
+<span class="sd">            underlying sparse operations or from get_per_manuscript_cap.</span>
+<span class="sd">    KeyError</span>
+<span class="sd">            If contributor_index_map_subset contains indices that do not correspond to columns</span>
+<span class="sd">            in the provided mask matrices, column selection may fail.</span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The function attempts a fast column-slicing of mask_authors for the contributor subset</span>
+<span class="sd">        and falls back to an explicit hstack/getcol approach if slicing is not supported.</span>
+<span class="sd">    - Elementwise multiplications and sums assume broadcasting consistent with sparse matrix</span>
+<span class="sd">        shapes: author masks are treated as per-manuscript indicators and are multiplied with</span>
+<span class="sd">        per-manuscript capital vectors produced by get_per_manuscript_cap.</span>
+<span class="sd">    - manuscript_memberships is expected to map manuscripts to tags (rows correspond to tags).</span>
+<span class="sd">    - The returned risk premium values are not normalized by the number of authors, reviewers,</span>
+<span class="sd">        or replicators unless such normalization is performed earlier (e.g., in get_per_manuscript_cap).</span>
+<span class="sd">    - All inputs are expected to be sparse-compatible to avoid dense expansion; be mindful of</span>
+<span class="sd">        memory usage when converting between sparse and dense formats.</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Shape conventions (illustrative):</span>
+<span class="sd">    - mask_authors: (n_manuscripts, n_contributors)</span>
+<span class="sd">    - mask_reviewers / mask_replicators: (n_manuscripts, n_contributors)</span>
+<span class="sd">    - capital: (n_contributors,) or (n_contributors, 1)</span>
+<span class="sd">    - contributor_index_map_subset: subset of contributor -&gt; column index mappings</span>
+<span class="sd">    - get_per_manuscript_cap(masked_capital, subset_map) -&gt; returns array of length n_manuscripts</span>
+<span class="sd">    - manuscript_memberships: (n_tags, n_manuscripts)</span>
+<span class="sd">    - reviewer_fmp / replicator_fmp: (n_tags,)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># mask_authors = np.s_[:,size_zero_block : size_zero_block + num_contributors]</span>
+    <span class="c1"># mask_reviewers = np.s_[:, size_zero_block + num_contributors: size_zero_block + 2*num_contributors]</span>
+    <span class="c1"># mask_replicators = np.s_[:, size_zero_block + 2*num_contributors:] </span>
+    
+    <span class="c1"># Get a mask where the given contributor subset has authored manuscripts</span>
+    <span class="n">col_indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">contributor_index_map_subset</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="c1"># try:</span>
+    <span class="c1">#     author_mask_subset = sparse.csr_array(mask_authors[:, col_indices].sum(axis=1))</span>
+    <span class="c1"># except Exception as e:</span>
+    <span class="c1">#     author_mask_subset = sparse.csr_array(sparse.hstack([mask_authors.getcol(c) for c in col_indices], format=&quot;csr&quot;).sum(axis=1))</span>
+    <span class="n">capital</span> <span class="o">=</span> <span class="n">capital</span><span class="o">.</span><span class="n">tocsc</span><span class="p">()</span>
+    <span class="n">author_mask_subset</span> <span class="o">=</span> <span class="n">capital</span><span class="p">[</span><span class="n">mask_authors</span><span class="p">][:,</span> <span class="n">col_indices</span><span class="p">]</span>
+    <span class="n">row_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">author_mask_subset</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">authored_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">capital</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="n">authored_mask</span><span class="p">[</span><span class="n">row_indices</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">sp_authored_mask</span> <span class="o">=</span> <span class="n">authored_mask</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+    
+    <span class="c1"># reviewer_masked_capital = mask_reviewers.multiply(capital)</span>
+    <span class="n">reviewer_masked_capital</span> <span class="o">=</span> <span class="n">capital</span><span class="p">[</span><span class="n">mask_reviewers</span><span class="p">]</span>
+    <span class="n">reviewer_cap_sub</span> <span class="o">=</span> <span class="n">get_per_manuscript_cap</span><span class="p">(</span><span class="n">reviewer_masked_capital</span><span class="p">,</span> <span class="n">contributor_index_map_subset</span><span class="p">)</span>
+
+    <span class="c1"># replicator_masked_capital = mask_replicators.multiply(capital)</span>
+    <span class="n">replicator_masked_capital</span> <span class="o">=</span> <span class="n">capital</span><span class="p">[</span><span class="n">mask_replicators</span><span class="p">]</span>
+    <span class="n">replicator_cap_sub</span> <span class="o">=</span> <span class="n">get_per_manuscript_cap</span><span class="p">(</span><span class="n">replicator_masked_capital</span><span class="p">,</span> <span class="n">contributor_index_map_subset</span><span class="p">)</span>
+
+    <span class="c1"># import pdb; pdb.set_trace()</span>
+
+    <span class="n">reviewer_cap_on_authored</span> <span class="o">=</span> <span class="n">reviewer_cap_sub</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">sp_authored_mask</span><span class="p">)</span>            <span class="c1"># Capital of reviewers on the manuscripts authored by selected contributors </span>
+    <span class="n">replicator_cap_on_authored</span> <span class="o">=</span> <span class="n">replicator_cap_sub</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">sp_authored_mask</span><span class="p">)</span>        <span class="c1"># Capital of replicators on the manuscripts authored by selected contributors</span>
+
+    <span class="c1"># TODO: everything above this line should be put in a separate function so that it may be reused</span>
+    <span class="n">tagwise_reviewer_cap_on_authored</span> <span class="o">=</span> <span class="p">(</span><span class="n">manuscript_memberships</span> <span class="o">@</span> <span class="n">reviewer_cap_on_authored</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">tagwise_replicator_cap_on_authored</span> <span class="o">=</span> <span class="p">(</span><span class="n">manuscript_memberships</span> <span class="o">@</span> <span class="n">replicator_cap_on_authored</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># risk premium is capital on authored manuscripts minus fair market price per tag</span>
+    <span class="n">reviewer_risk_premium</span> <span class="o">=</span> <span class="n">tagwise_reviewer_cap_on_authored</span> <span class="o">-</span> <span class="n">reviewer_fmp</span>
+    <span class="n">replicator_risk_premium</span> <span class="o">=</span> <span class="n">tagwise_replicator_cap_on_authored</span> <span class="o">-</span> <span class="n">replicator_fmp</span>
+    
+
+    <span class="k">return</span> <span class="n">reviewer_risk_premium</span><span class="p">,</span> <span class="n">replicator_risk_premium</span></div>
+
+
+<div class="viewcode-block" id="compute_utility_function">
+<a class="viewcode-back" href="../../../liberata_metrics.metrics.market_metrics.html#liberata_metrics.metrics.compute_utility_function">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_utility_function</span><span class="p">(</span>
+    <span class="n">capital_history</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">],</span>
+    <span class="n">time_history</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+    <span class="n">contributor_index_map_subset</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">risk_willingness</span><span class="p">:</span> <span class="nb">float</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute mean-variance utility for a contributor subset over time.</span>
+
+<span class="sd">    This function derives expected returns from the provided capital history,</span>
+<span class="sd">    estimates volatility over the same history, and combines the two using a</span>
+<span class="sd">    standard quadratic utility formulation.</span>
+
+<span class="sd">    The computation proceeds in these steps:</span>
+<span class="sd">    1. Compute expected returns for the selected contributors using</span>
+<span class="sd">    ``get_expected_returns``.</span>
+<span class="sd">    2. Compute volatility for the same contributor subset using</span>
+<span class="sd">    ``get_volatility``.</span>
+<span class="sd">    3. Combine expected return and volatility with the risk willingness</span>
+<span class="sd">    coefficient to produce a utility vector.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital_history : List[sparse.spmatrix]</span>
+<span class="sd">        Sequence of sparse capital matrices, ordered over time. Each matrix is</span>
+<span class="sd">        expected to contain manuscript-by-contributor capital allocations for a</span>
+<span class="sd">        single time point.</span>
+<span class="sd">    time_history : List[float]</span>
+<span class="sd">        Time values corresponding to ``capital_history``. These are passed to</span>
+<span class="sd">        ``get_expected_returns`` when computing the expected return series.</span>
+<span class="sd">    contributor_index_map_subset : Dict[str, int]</span>
+<span class="sd">        Mapping from contributor identifier to the corresponding column index in</span>
+<span class="sd">        the capital matrices. Only the contributors in this subset are included</span>
+<span class="sd">        in the utility calculation.</span>
+<span class="sd">    risk_willingness : float</span>
+<span class="sd">        Risk preference coefficient used in the mean-variance utility formula.</span>
+<span class="sd">        Larger values penalize volatility more strongly.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.ndarray</span>
+<span class="sd">        A 1D NumPy array containing utility values for the selected</span>
+<span class="sd">        contributors. The result is computed as:</span>
+
+<span class="sd">        ``utility = expected_returns - 0.5 * risk_willingness * volatility``</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If the input histories are incompatible in length or if the expected</span>
+<span class="sd">        return / volatility helpers reject the provided data.</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If any history element is not sparse-compatible in a way that the</span>
+<span class="sd">        downstream helper functions can process.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The function assumes the helper routines return aligned vectors for the</span>
+<span class="sd">    same contributor subset.</span>
+<span class="sd">    - No normalization is performed here beyond the risk-adjusted utility</span>
+<span class="sd">    expression.</span>
+<span class="sd">    - The returned values are higher when expected returns increase and lower</span>
+<span class="sd">    when volatility increases.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; utility = compute_utility_function(capital_history, time_history, contributor_index_map_subset, 1.5)</span>
+<span class="sd">    &gt;&gt;&gt; utility.shape</span>
+<span class="sd">    (n_contributors,)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">expected_returns</span> <span class="o">=</span> <span class="n">get_expected_returns</span><span class="p">(</span><span class="n">capital_history</span><span class="p">,</span> <span class="n">time_history</span><span class="p">,</span> <span class="n">contributor_index_map_subset</span><span class="p">)</span>
+    <span class="n">volatility</span> <span class="o">=</span> <span class="n">get_volatility</span><span class="p">(</span><span class="n">capital_history</span><span class="p">,</span> <span class="n">contributor_index_map_subset</span><span class="p">,</span> <span class="n">expected_returns</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">expected_returns</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">risk_willingness</span> <span class="o">*</span> <span class="n">volatility</span></div>
+
+
+<div class="viewcode-block" id="compute_relative_performance">
+<a class="viewcode-back" href="../../../liberata_metrics.metrics.market_metrics.html#liberata_metrics.metrics.compute_relative_performance">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_relative_performance</span><span class="p">(</span>
+    <span class="n">shares</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">capital_history</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">],</span>
+    <span class="n">time_history</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+    <span class="n">manuscript_memberships</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">contributor_index_map_subset</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute portfolio relative performance against manuscript-domain benchmarks.</span>
+
+<span class="sd">    This metric evaluates the weighted quality/performance of manuscripts held by</span>
+<span class="sd">    a contributor-defined portfolio. For each manuscript in the portfolio, the</span>
+<span class="sd">    manuscript expected return is divided by the expected return of its domain</span>
+<span class="sd">    (as defined by manuscript tag memberships), then aggregated using portfolio</span>
+<span class="sd">    manuscript weights.</span>
+
+<span class="sd">    Conceptually, the function computes:</span>
+
+<span class="sd">        rho_Pi = (1 / sum_{m in Pi} s_m) * sum_{m in Pi} s_m * (mu_m / mu_d(m))</span>
+
+<span class="sd">    where:</span>
+<span class="sd">    - ``Pi`` is the set of manuscripts held by the portfolio,</span>
+<span class="sd">    - ``s_m`` is the portfolio weight/share in manuscript ``m``,</span>
+<span class="sd">    - ``mu_m`` is the manuscript expected return,</span>
+<span class="sd">    - ``mu_d(m)`` is the expected return of manuscript ``m``&#39;s domain/tag.</span>
+
+<span class="sd">    Processing overview</span>
+<span class="sd">    -------------------</span>
+<span class="sd">    1. Infer portfolio manuscript weights with ``allocation_weights`` using the</span>
+<span class="sd">    provided ``shares`` matrix and contributor subset.</span>
+<span class="sd">    2. For each manuscript in the inferred portfolio:</span>
+<span class="sd">    - Estimate manuscript expected return from manuscript-level slices of</span>
+<span class="sd">        ``capital_history`` via ``get_expected_returns``.</span>
+<span class="sd">    - Identify the manuscript&#39;s tag/domain membership from</span>
+<span class="sd">        ``manuscript_memberships``.</span>
+<span class="sd">    - Build domain-level capital history using ``mix_by_tag`` and estimate</span>
+<span class="sd">        domain expected return via ``get_expected_returns``.</span>
+<span class="sd">    - Accumulate the weighted ratio ``s_m * (mu_m / mu_d(m))``.</span>
+<span class="sd">    3. Normalize by total portfolio shares/weights.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    shares : scipy.sparse.spmatrix</span>
+<span class="sd">        Sparse manuscript-by-contributor matrix of shares/weights used to infer</span>
+<span class="sd">        the portfolio composition for ``contributor_index_map_subset``. Must be</span>
+<span class="sd">        compatible with ``allocation_weights`` indexing conventions.</span>
+<span class="sd">    capital_history : List[scipy.sparse.spmatrix]</span>
+<span class="sd">        Chronological sequence of sparse capital matrices used to estimate</span>
+<span class="sd">        returns over time. Each entry should be aligned to the same manuscript</span>
+<span class="sd">        and contributor indexing scheme.</span>
+<span class="sd">    time_history : List[float]</span>
+<span class="sd">        Time points corresponding to ``capital_history``. Must be the same</span>
+<span class="sd">        length as ``capital_history`` and strictly increasing for return-per-time</span>
+<span class="sd">        calculations in ``get_expected_returns``.</span>
+<span class="sd">    manuscript_memberships : scipy.sparse.spmatrix</span>
+<span class="sd">        Sparse tag-by-manuscript membership matrix of shape</span>
+<span class="sd">        ``(n_tags, n_manuscripts)`` where entry ``[t, m]`` indicates membership</span>
+<span class="sd">        of manuscript ``m`` in tag/domain ``t``.</span>
+<span class="sd">    contributor_index_map_subset : Dict[str, int]</span>
+<span class="sd">        Mapping from contributor identifier to contributor column index for the</span>
+<span class="sd">        portfolio entity being evaluated.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Relative performance score for the selected portfolio. Values above 1.0</span>
+<span class="sd">        indicate average outperformance versus domain baselines, while values</span>
+<span class="sd">        below 1.0 indicate underperformance.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If ``shares`` is not a scipy sparse matrix.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If ``contributor_index_map_subset`` is empty, or if called helper</span>
+<span class="sd">        functions reject invalid input shapes/history lengths.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Portfolio manuscript membership is inferred from non-zero allocation</span>
+<span class="sd">    weights returned by ``allocation_weights``.</span>
+<span class="sd">    - Domain return extraction depends on ``manuscript_memberships`` and assumes</span>
+<span class="sd">    consistent manuscript row indexing across all inputs.</span>
+<span class="sd">    - The implementation currently propagates edge-case behavior from helper</span>
+<span class="sd">    functions (for example, domain-return zero handling) rather than</span>
+<span class="sd">    explicitly applying a zero-safe division at this level.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; rp = compute_relative_performance(</span>
+<span class="sd">    ...     shares=shares,</span>
+<span class="sd">    ...     capital_history=capital_history,</span>
+<span class="sd">    ...     time_history=time_history,</span>
+<span class="sd">    ...     manuscript_memberships=manuscript_memberships,</span>
+<span class="sd">    ...     contributor_index_map_subset=subset_map,</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; isinstance(rp, float)</span>
+<span class="sd">    True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">shares</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;shares must be a scipy sparse matrix&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">contributor_index_map_subset</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;contributor_index_map_subset cannot be empty&quot;</span><span class="p">)</span>
+
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">allocation_weights</span><span class="p">(</span><span class="n">shares</span><span class="p">,</span> <span class="n">contributor_index_map_subset</span><span class="p">)</span>
+    <span class="n">capital_history_csr</span> <span class="o">=</span> <span class="n">_time_series_csr</span><span class="p">(</span><span class="n">capital_history</span><span class="p">)</span>
+    <span class="n">memberships_csr</span> <span class="o">=</span> <span class="n">manuscript_memberships</span><span class="o">.</span><span class="n">tocsr</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">sparse</span><span class="o">.</span><span class="n">isspmatrix_csr</span><span class="p">(</span><span class="n">manuscript_memberships</span><span class="p">)</span> <span class="k">else</span> <span class="n">manuscript_memberships</span>
+
+    <span class="n">total_shares</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="n">numerator</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">for</span> <span class="n">manuscript</span> <span class="ow">in</span> <span class="n">weights</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">manuscript_returns</span> <span class="o">=</span> <span class="n">get_expected_returns</span><span class="p">(</span>
+            <span class="n">_manuscript_capital_history</span><span class="p">(</span><span class="n">capital_history_csr</span><span class="p">,</span> <span class="n">manuscript</span><span class="p">),</span>
+            <span class="n">time_history</span><span class="p">,</span>
+            <span class="n">contributor_index_map_subset</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">manuscript_tags</span> <span class="o">=</span> <span class="n">memberships_csr</span><span class="p">[:,</span> <span class="n">manuscript</span><span class="p">]</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+        <span class="n">domain_capital_history</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mix_by_tag</span><span class="p">(</span><span class="n">snapshot</span><span class="p">,</span> <span class="n">memberships_csr</span><span class="p">)[</span><span class="n">manuscript_tags</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)))</span>
+            <span class="k">for</span> <span class="n">snapshot</span> <span class="ow">in</span> <span class="n">capital_history_csr</span>
+        <span class="p">]</span>
+        <span class="n">domain_returns</span> <span class="o">=</span> <span class="n">get_expected_returns</span><span class="p">(</span><span class="n">domain_capital_history</span><span class="p">,</span> <span class="n">time_history</span><span class="p">,</span> <span class="n">contributor_index_map_subset</span><span class="p">)</span>
+
+        <span class="c1"># Avoid division by zero: skip manuscripts with no domain returns</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">domain_returns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e-10</span><span class="p">:</span>
+            <span class="n">numerator</span> <span class="o">+=</span> <span class="n">weights</span><span class="p">[</span><span class="n">manuscript</span><span class="p">]</span> <span class="o">*</span> <span class="n">manuscript_returns</span> <span class="o">/</span> <span class="n">domain_returns</span>
+        <span class="k">elif</span> <span class="nb">abs</span><span class="p">(</span><span class="n">manuscript_returns</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-10</span><span class="p">:</span>
+            <span class="c1"># Both manuscript and domain had near-zero returns - treat as neutral (1.0) performance</span>
+            <span class="n">numerator</span> <span class="o">+=</span> <span class="n">weights</span><span class="p">[</span><span class="n">manuscript</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.0</span>
+    <span class="k">return</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">total_shares</span></div>
+
+
+<div class="viewcode-block" id="compute_sensitivity">
+<a class="viewcode-back" href="../../../liberata_metrics.metrics.market_metrics.html#liberata_metrics.metrics.compute_sensitivity">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_sensitivity</span><span class="p">(</span>
+    <span class="n">manuscript_expected_returns</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">domain_expected_returns</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute sensitivity (beta) of manuscript returns to domain returns.</span>
+
+<span class="sd">    This function returns the ratio of covariance between manuscript expected</span>
+<span class="sd">    returns and corresponding domain expected returns to the variance of domain</span>
+<span class="sd">    expected returns:</span>
+
+<span class="sd">        beta = Cov(mu_m, mu_d(m)) / Var(mu_d(m))</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    manuscript_expected_returns : float</span>
+<span class="sd">        Manuscript expected return value(s). While typed as ``float`` in the</span>
+<span class="sd">        current signature, this implementation delegates to NumPy covariance and</span>
+<span class="sd">        variance routines and is typically meaningful when array-like values are</span>
+<span class="sd">        provided.</span>
+<span class="sd">    domain_expected_returns : float</span>
+<span class="sd">        Domain expected return value(s) aligned with</span>
+<span class="sd">        ``manuscript_expected_returns``.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Sensitivity (beta) estimate. Returns 0.0 if domain variance is zero or</span>
+<span class="sd">        very close to zero (within numerical epsilon).</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The implementation uses ``np.var(..., ddof=0)``, i.e., population variance.</span>
+<span class="sd">    This is appropriate when working with return series.</span>
+<span class="sd">    - Returns 0.0 when domain variance is near zero to avoid division by zero.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; beta = compute_sensitivity(np.array([3.0, 5.0, 7.0, 9.0]), np.array([1.0, 2.0, 3.0, 4.0]))</span>
+<span class="sd">    &gt;&gt;&gt; isinstance(beta, float)</span>
+<span class="sd">    True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">domain_var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">domain_expected_returns</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">manuscript_expected_returns</span><span class="p">,</span> <span class="n">domain_expected_returns</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    
+    <span class="c1"># Avoid division by zero</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">domain_var</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-10</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-10</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">1.0</span>  <span class="c1"># If both covariance and variance are effectively zero, treat as perfect sensitivity</span>
+    <span class="k">elif</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">domain_var</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-10</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>  <span class="c1"># If variance is zero but covariance is not, return zero</span>
+
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">cov</span> <span class="o">/</span> <span class="n">domain_var</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="compute_risk_adjusted_excess_return">
+<a class="viewcode-back" href="../../../liberata_metrics.metrics.market_metrics.html#liberata_metrics.metrics.compute_risk_adjusted_excess_return">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_risk_adjusted_excess_return</span><span class="p">(</span>
+    <span class="n">capital_history</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">],</span>
+    <span class="n">time_history</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+    <span class="n">manuscript_memberships</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">contributor_index_map_subset</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">manuscript_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute manuscript-level risk-adjusted excess return (alpha).</span>
+
+<span class="sd">    For the selected manuscript, this function estimates:</span>
+
+<span class="sd">        alpha_m = mu_m - beta_m * mu_d(m)</span>
+
+<span class="sd">    where manuscript and domain expected returns are derived from</span>
+<span class="sd">    ``capital_history`` and ``time_history`` using ``get_expected_returns``, and</span>
+<span class="sd">    ``beta_m`` is computed via ``compute_sensitivity``.</span>
+
+<span class="sd">    Domain returns are constructed by:</span>
+<span class="sd">    1. extracting the manuscript&#39;s tag/domain memberships from</span>
+<span class="sd">    ``manuscript_memberships``;</span>
+<span class="sd">    2. aggregating capital history by tag with ``mix_by_tag``; and</span>
+<span class="sd">    3. selecting/summing the relevant domain rows for the manuscript.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital_history : List[scipy.sparse.spmatrix]</span>
+<span class="sd">        Chronological list of sparse capital matrices. Each matrix should use</span>
+<span class="sd">        consistent manuscript and contributor indexing.</span>
+<span class="sd">    time_history : List[float]</span>
+<span class="sd">        Time points corresponding to ``capital_history`` used to compute</span>
+<span class="sd">        expected returns per unit time.</span>
+<span class="sd">    manuscript_memberships : scipy.sparse.spmatrix</span>
+<span class="sd">        Sparse tag-by-manuscript matrix indicating manuscript-domain</span>
+<span class="sd">        membership.</span>
+<span class="sd">    contributor_index_map_subset : Dict[str, int]</span>
+<span class="sd">        Mapping from contributor identifier to contributor column index for the</span>
+<span class="sd">        portfolio subset used in return calculations.</span>
+<span class="sd">    manuscript_index : int</span>
+<span class="sd">        Row index of the manuscript for which to compute risk-adjusted excess</span>
+<span class="sd">        return.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.ndarray</span>
+<span class="sd">        Risk-adjusted excess return (alpha) for the specified manuscript.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    IndexError</span>
+<span class="sd">        If ``manuscript_index`` is out of bounds for any matrix in</span>
+<span class="sd">        ``capital_history`` or for ``manuscript_memberships``.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        Propagated from helper functions when histories are invalid (for</span>
+<span class="sd">        example, length mismatches or insufficient points).</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        Propagated from helper functions when non-sparse inputs are supplied</span>
+<span class="sd">        where sparse matrices are expected.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - This routine computes alpha for a single manuscript index.</span>
+<span class="sd">    - If domain expected returns are constant/degenerate, sensitivity estimation</span>
+<span class="sd">    may be unstable depending on NumPy behavior.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; alpha = compute_risk_adjusted_excess_return(</span>
+<span class="sd">    ...     capital_history=capital_history,</span>
+<span class="sd">    ...     time_history=time_history,</span>
+<span class="sd">    ...     manuscript_memberships=manuscript_memberships,</span>
+<span class="sd">    ...     contributor_index_map_subset=subset_map,</span>
+<span class="sd">    ...     manuscript_index=10,</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">capital_history_csr</span> <span class="o">=</span> <span class="n">_time_series_csr</span><span class="p">(</span><span class="n">capital_history</span><span class="p">)</span>
+    <span class="n">memberships_csr</span> <span class="o">=</span> <span class="n">manuscript_memberships</span><span class="o">.</span><span class="n">tocsr</span><span class="p">()</span>
+
+    <span class="n">manuscript_returns</span> <span class="o">=</span> <span class="n">get_expected_returns</span><span class="p">(</span>
+        <span class="n">_manuscript_capital_history</span><span class="p">(</span><span class="n">capital_history_csr</span><span class="p">,</span> <span class="n">manuscript_index</span><span class="p">),</span>
+        <span class="n">time_history</span><span class="p">,</span>
+        <span class="n">contributor_index_map_subset</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">manuscript_tags</span> <span class="o">=</span> <span class="n">memberships_csr</span><span class="p">[:,</span> <span class="n">manuscript_index</span><span class="p">]</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">domain_capital_history</span> <span class="o">=</span> <span class="n">_domain_capital_history</span><span class="p">(</span><span class="n">capital_history_csr</span><span class="p">,</span> <span class="n">manuscript_tags</span><span class="p">,</span> <span class="n">memberships_csr</span><span class="p">)</span>
+    <span class="n">domain_returns</span> <span class="o">=</span> <span class="n">get_expected_returns</span><span class="p">(</span><span class="n">domain_capital_history</span><span class="p">,</span> <span class="n">time_history</span><span class="p">,</span> <span class="n">contributor_index_map_subset</span><span class="p">)</span>
+
+    <span class="n">sensitivity</span> <span class="o">=</span> <span class="n">compute_sensitivity</span><span class="p">(</span><span class="n">manuscript_returns</span><span class="p">,</span> <span class="n">domain_returns</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">manuscript_returns</span> <span class="o">-</span> <span class="n">sensitivity</span> <span class="o">*</span> <span class="n">domain_returns</span></div>
+
+
+<div class="viewcode-block" id="compute_risk_adjusted_relative_performance">
+<a class="viewcode-back" href="../../../liberata_metrics.metrics.market_metrics.html#liberata_metrics.metrics.compute_risk_adjusted_relative_performance">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_risk_adjusted_relative_performance</span><span class="p">(</span>
+    <span class="n">capital_history</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">],</span>
+    <span class="n">time_history</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+    <span class="n">manuscript_memberships</span><span class="p">:</span> <span class="n">sparse</span><span class="o">.</span><span class="n">spmatrix</span><span class="p">,</span>
+    <span class="n">contributor_index_map_subset</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute risk-adjusted relative performance for an entire portfolio.</span>
+
+<span class="sd">    This function extends manuscript-level risk-adjusted excess return to a</span>
+<span class="sd">    portfolio-level quantity by evaluating every manuscript row in the first</span>
+<span class="sd">    capital matrix. For each manuscript, it computes the risk-adjusted excess</span>
+<span class="sd">    return ``alpha_m`` and then normalizes it by the manuscript&#39;s domain-level</span>
+<span class="sd">    expected return ``mu_d(m)``. The final result is the sum of these</span>
+<span class="sd">    manuscript-wise contributions.</span>
+
+<span class="sd">    Conceptually, the metric follows:</span>
+
+<span class="sd">        RARP = \sum_{m \in \Pi} \alpha_m / \mu_d(m)</span>
+
+<span class="sd">    where:</span>
+<span class="sd">    - ``Pi`` is the set of manuscripts in the portfolio,</span>
+<span class="sd">    - ``alpha_m`` is the risk-adjusted excess return for manuscript ``m``,</span>
+<span class="sd">    - ``mu_d(m)`` is the expected return of the manuscript&#39;s domain/tag.</span>
+
+<span class="sd">    The manuscript-level ``alpha_m`` values are computed by calling</span>
+<span class="sd">    ``compute_risk_adjusted_excess_return`` for each manuscript index. Domain returns</span>
+<span class="sd">    are then reconstructed from ``capital_history`` using ``mix_by_tag`` and</span>
+<span class="sd">    the manuscript&#39;s tag membership in ``manuscript_memberships``.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    capital_history : List[scipy.sparse.spmatrix]</span>
+<span class="sd">        Chronological sequence of sparse capital matrices. The first matrix is</span>
+<span class="sd">        used to determine the manuscript rows iterated over, and all matrices</span>
+<span class="sd">        should share the same manuscript indexing convention.</span>
+<span class="sd">    time_history : List[float]</span>
+<span class="sd">        Time points corresponding to ``capital_history``. These are passed to</span>
+<span class="sd">        ``get_expected_returns`` when computing manuscript and domain expected</span>
+<span class="sd">        returns.</span>
+<span class="sd">    manuscript_memberships : scipy.sparse.spmatrix</span>
+<span class="sd">        Sparse tag-by-manuscript membership matrix of shape</span>
+<span class="sd">        ``(n_tags, n_manuscripts)``. Entry ``[t, m]`` indicates whether</span>
+<span class="sd">        manuscript ``m`` belongs to tag/domain ``t``.</span>
+<span class="sd">    contributor_index_map_subset : Dict[str, int]</span>
+<span class="sd">        Mapping from contributor identifier to contributor column index for the</span>
+<span class="sd">        subset of contributors used in the portfolio calculation.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Risk-adjusted relative performance score for the portfolio.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If ``contributor_index_map_subset`` is empty.</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        May be raised by helper functions if the provided histories are not</span>
+<span class="sd">        sparse-compatible.</span>
+<span class="sd">    IndexError</span>
+<span class="sd">        May be raised if manuscript indices are out of bounds for the supplied</span>
+<span class="sd">        matrices.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The loop iterates over ``range(capital_history[0].shape[0])``.</span>
+<span class="sd">    - The current implementation accumulates ``alpha / domain_returns`` for</span>
+<span class="sd">    every manuscript and returns the total.</span>
+<span class="sd">    - Division by zero is not handled explicitly here; any zero-domain-return</span>
+<span class="sd">    behavior is inherited from the underlying arithmetic and helper calls.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; rarp = compute_risk_adjusted_relative_performance(</span>
+<span class="sd">    ...     capital_history=capital_history,</span>
+<span class="sd">    ...     time_history=time_history,</span>
+<span class="sd">    ...     manuscript_memberships=manuscript_memberships,</span>
+<span class="sd">    ...     contributor_index_map_subset=subset_map,</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; isinstance(rarp, float)</span>
+<span class="sd">    True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">contributor_index_map_subset</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;contributor_index_map_subset cannot be empty&quot;</span><span class="p">)</span>
+
+    <span class="n">capital_history_csr</span> <span class="o">=</span> <span class="n">_time_series_csr</span><span class="p">(</span><span class="n">capital_history</span><span class="p">)</span>
+    <span class="n">memberships_csr</span> <span class="o">=</span> <span class="n">manuscript_memberships</span><span class="o">.</span><span class="n">tocsr</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">sparse</span><span class="o">.</span><span class="n">isspmatrix_csr</span><span class="p">(</span><span class="n">manuscript_memberships</span><span class="p">)</span> <span class="k">else</span> <span class="n">manuscript_memberships</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">for</span> <span class="n">manuscript</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">capital_history_csr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="n">compute_risk_adjusted_excess_return</span><span class="p">(</span><span class="n">capital_history_csr</span><span class="p">,</span> <span class="n">time_history</span><span class="p">,</span> <span class="n">memberships_csr</span><span class="p">,</span> <span class="n">contributor_index_map_subset</span><span class="p">,</span> <span class="n">manuscript</span><span class="p">)</span>
+        
+        <span class="n">manuscript_tags</span> <span class="o">=</span> <span class="n">memberships_csr</span><span class="p">[:,</span> <span class="n">manuscript</span><span class="p">]</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+        <span class="n">domain_capital_history</span> <span class="o">=</span> <span class="n">_domain_capital_history</span><span class="p">(</span><span class="n">capital_history_csr</span><span class="p">,</span> <span class="n">manuscript_tags</span><span class="p">,</span> <span class="n">memberships_csr</span><span class="p">)</span>
+        <span class="n">domain_returns</span> <span class="o">=</span> <span class="n">get_expected_returns</span><span class="p">(</span><span class="n">domain_capital_history</span><span class="p">,</span> <span class="n">time_history</span><span class="p">,</span> <span class="n">contributor_index_map_subset</span><span class="p">)</span>
+        
+
+        <span class="c1"># Avoid division by zero: skip manuscripts with no domain returns</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">domain_returns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e-10</span><span class="p">:</span>
+            <span class="n">total</span> <span class="o">+=</span> <span class="n">alpha</span> <span class="o">/</span> <span class="n">domain_returns</span>
+    <span class="k">return</span> <span class="n">total</span></div>
+
+
+<span class="c1"># Removed as duplicates in distribution_metrics.py</span>
+
+<span class="c1"># def compute_share_splits_inequality(</span>
+<span class="c1">#     shares: sparse.spmatrix,</span>
+<span class="c1"># ) -&gt; float:</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Compute the Herfindahl-Hirschman Index (HHI) of a portfolio of manuscripts.</span>
+<span class="c1">#     Parameters</span>
+<span class="c1">#     ----------</span>
+<span class="c1">#     shares : scipy.sparse.spmatrix</span>
+<span class="c1">#         Sparse matrix where each row represents a manuscript and each column represents an author.</span>
+<span class="c1">#         Entries are the shares each author has for each given manuscript.</span>
+<span class="c1">#     Returns</span>
+<span class="c1">#     -------</span>
+<span class="c1">#     float</span>
+<span class="c1">#         The mean HHI value, a measure of the typical concentration in the portfolio. Returns 0.0 if the portfolio is empty.</span>
+<span class="c1">#     ------</span>
+<span class="c1">#     TypeError</span>
+<span class="c1">#         If `shares` is not a scipy sparse matrix.</span>
+<span class="c1">#     Notes</span>
+<span class="c1">#     -----</span>
+<span class="c1">#     - The share splits inequality is calculated as the mean HHI of all provided manuscripts.</span>
+<span class="c1">#     - The HHI for a single manuscript is calculated as the sum of the squares of the share splits for that manuscript.</span>
+<span class="c1">#     Examples</span>
+<span class="c1">#     --------</span>
+<span class="c1">#     &gt;&gt;&gt; share_splits_inequality(shares)</span>
+<span class="c1">#     0.375</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     return share_splits_inequality(shares)</span>
+
+<span class="c1"># def compute_hhi_discrepancy(</span>
+<span class="c1">#     shares: sparse.spmatrix,</span>
+<span class="c1">#     mask_portfolio: slice,</span>
+<span class="c1"># ) -&gt; float:</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Compute the discrepancy between the HHI of the field and that of the manuscript or portfolio.</span>
+<span class="c1">#     Parameters</span>
+<span class="c1">#     ----------</span>
+<span class="c1">#     shares_matrix : scipy.sparse.spmatrix</span>
+<span class="c1">#         Sparse matrix where each row represents a manuscript and each column represents an author.</span>
+<span class="c1">#         Entries are the shares each author has for each given manuscript.</span>
+<span class="c1">#         This matrix should have all manuscripts in the field/discipline.</span>
+<span class="c1">#     indices : np.array</span>
+<span class="c1">#         Array of indices of manuscripts in the shares_matrix that are to be considered in the HHI calculation.</span>
+<span class="c1">#     Returns</span>
+<span class="c1">#     -------</span>
+<span class="c1">#     float</span>
+<span class="c1">#         The HHID value, a measure of discrepancy between a portfolio and the industry. Higher values indicate an anomaly that </span>
+<span class="c1">#         should be further investigated.</span>
+<span class="c1">#     Examples</span>
+<span class="c1">#     --------</span>
+<span class="c1">#     &gt;&gt;&gt; hhi_discrepancy(shares_matrix, [1,2,5,6,7])</span>
+<span class="c1">#     0.375</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     return hhi_discrepancy(shares, mask_portfolio)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Liberata.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

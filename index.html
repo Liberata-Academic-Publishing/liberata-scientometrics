@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liberata Scientometrics: Academic Knowledge Graph Analysis &mdash; Liberata Scientometrics  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+    <link rel="canonical" href="https://www.liberata.info/index.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="liberata_metrics package" href="liberata_metrics.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            Liberata Scientometrics
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Liberata Scientometrics: Academic Knowledge Graph Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="liberata_metrics.html">liberata_metrics package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Liberata Scientometrics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Liberata Scientometrics: Academic Knowledge Graph Analysis</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="toctree-wrapper compound">
+</div>
+<section id="liberata-scientometrics-academic-knowledge-graph-analysis">
+<h1>Liberata Scientometrics: Academic Knowledge Graph Analysis<a class="headerlink" href="#liberata-scientometrics-academic-knowledge-graph-analysis" title="Link to this heading"></a></h1>
+<p>Welcome to the <strong>Liberata Scientometrics</strong> library documentation.</p>
+<p>Liberata models academic publishing as a marketplace with contribution shares based credit attribution and provides computational tools to analyze how knowledge and influence flow through citation networks.</p>
+<div style="background: #f0f7ff; padding: 15px; margin: 20px 0; border-radius: 5px; border-left: 4px solid #0066cc;">
+    <strong>What is Liberata?</strong><br/>
+    Liberata is an Open Access publishing platform with incentivized quality controls.
+    Liberata metrics provide methods for quantifying research impact across all research roles,
+    including peer reviewing and replication by using a shares-based credit attribution system, and a marketplace
+    for these academic services where researchers accrue impact from papers in the form of citations in proportion to
+    their contributions.
+</div></section>
+<section id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h1>
+<p><strong>New to Liberata?</strong> Start here:</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#intro"><span class="std std-ref">What is Liberata Scientometrics?</span></a> — Understand the core concepts</p></li>
+<li><p><a class="reference internal" href="#installation"><span class="std std-ref">Installation</span></a> — Get the package installed</p></li>
+<li><p><a class="reference internal" href="#quickstart"><span class="std std-ref">Quick Start</span></a> — Run your first analysis</p></li>
+<li><p><a class="reference internal" href="#concepts"><span class="std std-ref">Key Concepts</span></a> — Learn the terminology</p></li>
+<li><p><a class="reference internal" href="#api-ref"><span class="std std-ref">API Reference</span></a> — Detailed function documentation</p></li>
+</ol>
+<section id="what-is-liberata-scientometrics">
+<span id="intro"></span><h2>What is Liberata Scientometrics?<a class="headerlink" href="#what-is-liberata-scientometrics" title="Link to this heading"></a></h2>
+<p>The Liberata Scientometrics library provides tools for analyzing academic knowledge systems as networks of academic impact flow:</p>
+<ul class="simple">
+<li><p><strong>Papers</strong> are nodes that produce citations</p></li>
+<li><p><strong>Researchers</strong> accrue capital (influence/impact) from papers</p></li>
+<li><p><strong>Citations</strong> are edges showing how capital flows between papers</p></li>
+<li><p><strong>Metrics</strong> quantify capital concentration, returns, risk, and system health</p></li>
+</ul>
+<p>This package helps you:</p>
+<ul class="simple">
+<li><p>📊 Compute portfolio metrics on research collections</p></li>
+<li><p>🔗 Analyze citation networks and knowledge flow</p></li>
+<li><p>🧪 Generate synthetic data for testing</p></li>
+<li><p>📈 Track how capital accumulates over time</p></li>
+<li><p>💾 Connect to production data via Supabase</p></li>
+<li><p>📉 Create publication-quality visualizations</p></li>
+</ul>
+</section>
+</section>
+<section id="installation">
+<span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
+<p><strong>Option 1: From PyPI (recommended)</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>liberata-scientometrics
+</pre></div>
+</div>
+<p><strong>Option 2: From GitHub (latest development version)</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/Liberata-Academic-Publishing/liberata-scientometrics
+</pre></div>
+</div>
+<p><strong>Option 3: Local development</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Liberata-Academic-Publishing/liberata-scientometrics
+<span class="nb">cd</span><span class="w"> </span>liberata-scientometrics
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</div>
+</section>
+<section id="quick-start">
+<span id="quickstart"></span><h1>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h1>
+<p>Generate synthetic data and compute metrics in 30 seconds:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.generators</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_references_matrix</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.metrics.portfolio_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">PortfolioMetrics</span>
+
+<span class="c1"># Generate test data</span>
+<span class="n">refs</span><span class="p">,</span> <span class="n">ms_ids</span><span class="p">,</span> <span class="n">ms_map</span><span class="p">,</span> <span class="n">dates</span><span class="p">,</span> <span class="n">meta</span><span class="p">,</span> <span class="n">capital</span><span class="p">,</span> <span class="n">contribs</span> <span class="o">=</span> \
+    <span class="n">generate_references_matrix</span><span class="p">(</span><span class="n">num_manuscripts</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Compute portfolio metrics</span>
+<span class="n">pm</span> <span class="o">=</span> <span class="n">PortfolioMetrics</span><span class="p">(</span><span class="n">capital</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total capital: </span><span class="si">{</span><span class="n">pm</span><span class="o">.</span><span class="n">total_capital</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Volatility: </span><span class="si">{</span><span class="n">pm</span><span class="o">.</span><span class="n">compute_volatility</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Visualize</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.visualizations</span><span class="w"> </span><span class="kn">import</span> <span class="n">matrix_visuals</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">matrix_visuals</span><span class="o">.</span><span class="n">plot_sparsity_pattern</span><span class="p">(</span><span class="n">refs</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Next steps:</strong></p>
+<ul class="simple">
+<li><p>Explore <a class="reference internal" href="#examples"><span class="std std-ref">more examples</span></a></p></li>
+<li><p>Check <span class="xref std std-ref">core modules</span></p></li>
+<li><p>Read about <a class="reference internal" href="#concepts"><span class="std std-ref">key concepts</span></a></p></li>
+</ul>
+</section>
+<section id="key-concepts">
+<span id="concepts"></span><h1>Key Concepts<a class="headerlink" href="#key-concepts" title="Link to this heading"></a></h1>
+<dl class="simple">
+<dt><strong>Capital Matrix</strong></dt><dd><p>A sparse matrix where:</p>
+<ul class="simple">
+<li><p>Rows represent manuscripts (papers)</p></li>
+<li><p>Columns represent contributors (researchers)</p></li>
+<li><p>Entry [i,j] = capital accrued by researcher j from paper i</p></li>
+<li><p>Shape: (num_papers, num_researchers)</p></li>
+</ul>
+</dd>
+<dt><strong>References Matrix</strong></dt><dd><p>Citation relationships:</p>
+<ul class="simple">
+<li><p>Both dimensions are papers</p></li>
+<li><p>Entry [i,j] = number of times paper i cites paper j</p></li>
+<li><p>Encodes the knowledge graph structure</p></li>
+<li><p>Shape: (num_papers, num_papers)</p></li>
+</ul>
+</dd>
+<dt><strong>ID Mappings</strong></dt><dd><p>Dictionaries linking matrix indices to real identifiers:</p>
+<ul class="simple">
+<li><p>Connect computed metrics back to papers/researchers</p></li>
+<li><p>Enable temporal analysis with timestamps</p></li>
+<li><p>Support subsetting and filtering</p></li>
+</ul>
+</dd>
+<dt><strong>Metrics</strong></dt><dd><p>Quantitative measures of system behavior:</p>
+<ul class="simple">
+<li><p><strong>Portfolio metrics</strong>: returns, risk, correlations (paper-based)</p></li>
+<li><p><strong>Market metrics</strong>: price discovery, efficiency</p></li>
+<li><p><strong>Distribution metrics</strong>: concentration, inequality</p></li>
+<li><p><strong>System metrics</strong>: overall health and dynamics</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="common-usage-patterns">
+<span id="examples"></span><h1>Common Usage Patterns<a class="headerlink" href="#common-usage-patterns" title="Link to this heading"></a></h1>
+<p><strong>Pattern 1: Analyze a portfolio of papers</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.metrics.portfolio_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">PortfolioMetrics</span>
+
+<span class="c1"># Load or create capital matrix</span>
+<span class="n">pm</span> <span class="o">=</span> <span class="n">PortfolioMetrics</span><span class="p">(</span><span class="n">capital_matrix</span><span class="p">)</span>
+
+<span class="c1"># Compute standard metrics</span>
+<span class="n">returns</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">compute_returns</span><span class="p">()</span>
+<span class="n">volatility</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">compute_volatility</span><span class="p">()</span>
+<span class="n">sharpe</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">compute_sharpe_ratio</span><span class="p">(</span><span class="n">returns</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sharpe ratio: </span><span class="si">{</span><span class="n">sharpe</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Pattern 2: Load real data from Supabase</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_supabase_data</span>
+
+<span class="c1"># Fetch production data</span>
+<span class="n">references</span><span class="p">,</span> <span class="n">capital</span> <span class="o">=</span> <span class="n">load_supabase_data</span><span class="o">.</span><span class="n">fetch_matrices</span><span class="p">()</span>
+
+<span class="c1"># Load specific time period</span>
+<span class="n">start</span> <span class="o">=</span> <span class="s1">&#39;2023-01-01&#39;</span>
+<span class="n">end</span> <span class="o">=</span> <span class="s1">&#39;2024-01-01&#39;</span>
+<span class="n">refs_yr</span><span class="p">,</span> <span class="n">cap_yr</span> <span class="o">=</span> <span class="n">load_supabase_data</span><span class="o">.</span><span class="n">fetch_matrices_for_period</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Pattern 3: Generate controlled test data</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.generators</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_references_matrix</span>
+
+<span class="c1"># Sparse network (5 papers cite 2% of other papers on average)</span>
+<span class="n">sparse_refs</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">generate_references_matrix</span><span class="p">(</span>
+    <span class="n">num_manuscripts</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">citation_density</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span>
+    <span class="n">seed</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+
+<span class="c1"># Dense network (for comparison)</span>
+<span class="n">dense_refs</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">generate_references_matrix</span><span class="p">(</span>
+    <span class="n">num_manuscripts</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">citation_density</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">seed</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Pattern 4: Create visualizations</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.visualizations</span><span class="w"> </span><span class="kn">import</span> <span class="n">matrix_visuals</span><span class="p">,</span> <span class="n">time_series_visuals</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Citation network structure</span>
+<span class="n">matrix_visuals</span><span class="o">.</span><span class="n">plot_sparsity_pattern</span><span class="p">(</span>
+    <span class="n">references</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Citation Network&#39;</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Capital allocation</span>
+<span class="n">matrix_visuals</span><span class="o">.</span><span class="n">plot_matrix_heatmap</span><span class="p">(</span>
+    <span class="n">capital</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Capital Allocation&#39;</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="documentation-links">
+<span id="api-ref"></span><span id="id2"></span><span id="modules-section"></span><h1>Documentation Links<a class="headerlink" href="#documentation-links" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="liberata_metrics.html"><span class="doc">Package Guide</span></a></p></li>
+<li><p><a class="reference internal" href="api/index.html"><span class="doc">API Reference</span></a></p></li>
+</ul>
+<section id="additional-resources">
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Examples &amp; Tutorials</strong>: Use <cite>test_scripts/</cite> for runnable examples.</p></li>
+<li><p><strong>Synthetic Data Example</strong>: <cite>test_scripts/matrix_generators_test.py</cite></p></li>
+<li><p><strong>Portfolio Metrics Example</strong>: <cite>test_scripts/portfolio_metrics_test.py</cite></p></li>
+<li><p><strong>Generator Config Example</strong>: <cite>test_scripts/config/matrix_config.yaml</cite></p></li>
+<li><p><strong>Related Projects</strong>: Liberata Platform and Liberata Simulations</p></li>
+</ul>
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and Tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+<section id="license">
+<h1>License<a class="headerlink" href="#license" title="Link to this heading"></a></h1>
+<p>Liberata Scientometrics is released under the Apache License 2.0.
+See <a class="reference external" href="https://github.com/Liberata-Academic-Publishing/liberata-scientometrics/blob/main/LICENSE">LICENSE</a> for details.</p>
+</section>
+<section id="citation">
+<h1>Citation<a class="headerlink" href="#citation" title="Link to this heading"></a></h1>
+<p>If you use this package in research, please cite:</p>
+<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@software</span><span class="p">{</span><span class="nl">liberata_scientometrics_2025</span><span class="p">,</span>
+<span class="w">    </span><span class="na">title</span><span class="p">=</span><span class="s">{Liberata Scientometrics: A package for analyzing academic capital flow}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">author</span><span class="p">=</span><span class="s">{Wang, Hanlin and Saha Choudhury, Arjun and Wang, Derek and Sabath, Anshuman and Roongta, Aarsh and Knittel, Clayton}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">year</span><span class="p">=</span><span class="s">{2025}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">url</span><span class="p">=</span><span class="s">{https://github.com/Liberata-Academic-Publishing/liberata-scientometrics}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="questions-or-feedback">
+<h1>Questions or Feedback?<a class="headerlink" href="#questions-or-feedback" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><strong>Issues</strong>: Report bugs or request features on <a class="reference external" href="https://github.com/Liberata-Academic-Publishing/liberata-scientometrics/issues">GitHub Issues</a></p></li>
+<li><p><strong>Discussions</strong>: Ask questions on <a class="reference external" href="https://github.com/Liberata-Academic-Publishing/liberata-scientometrics/discussions">GitHub Discussions</a></p></li>
+<li><p><strong>Email</strong>: Contact the development team</p></li>
+</ul>
+</section>
+<section id="last-updated">
+<h1>Last Updated<a class="headerlink" href="#last-updated" title="Link to this heading"></a></h1>
+<p>Version 0.15.1 (Development)</p>
+<p>See <a class="reference external" href="https://github.com/Liberata-Academic-Publishing/liberata-scientometrics/blob/main/CHANGELOG.md">CHANGELOG</a> for version history.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="liberata_metrics.html" class="btn btn-neutral float-right" title="liberata_metrics package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Liberata.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
