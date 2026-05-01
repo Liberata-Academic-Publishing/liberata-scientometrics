@@ -20,7 +20,8 @@ jobs:
           pip install .
       - name: Generate API Documentation
         run: |
-          sphinx-apidoc -o docs/source/api src/liberata_metrics -f --separate
+          rm -rf docs/source/api/generated
+          sphinx-apidoc -o docs/source/api/generated src/liberata_metrics -f --separate
       - name: Sphinx build
         run: |
           sphinx-build -b html docs/source docs/build/html
