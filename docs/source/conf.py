@@ -9,7 +9,7 @@
 
 project = 'Liberata Scientometrics'
 copyright = '2025, Liberata'
-author = 'Derek Wang, Chuying Huo, Anshuman Sabath, Hanlin Wang, Arjun'
+author = 'Hanlin Wang, Arjun Saha Choudhury, Derek Wang, Anshuman Sabath, Aarsh Roongta, Clayton Knittel'
 
 import os
 import sys

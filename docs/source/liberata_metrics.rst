@@ -209,7 +209,7 @@ If you use this package in research, please cite:
 
     @software{liberata_scientometrics,
         title={Liberata Scientometrics: A package for analyzing academic capital flow},
-        author={Wang, Derek and Huo, Chuying and Sabath, Anshuman and Wang, Hanlin},
+        author={Wang, Hanlin and Saha Choudhury, Arjun and Wang, Derek and Sabath, Anshuman and Roongta, Aarsh and Knittel, Clayton},
         year={2025},
         url={https://github.com/Liberata-Academic-Publishing/liberata-scientometrics}
     }
