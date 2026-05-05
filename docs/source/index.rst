@@ -244,6 +244,37 @@ Common Usage Patterns
     plt.show()
 
 
+Citation
+========
+
+If you use this work in research, please cite the paper and the software:
+
+**Paper:**
+
+.. code-block:: bibtex
+
+    @misc{zhang2026liberatagraphscientometrics,
+          title={Liberata -- Graph Scientometrics for a Share Based System of Academic Publishing}, 
+          author={Han Zhang and Anshuman Sabath and Timothy W. Dunn and L. Catherine Brinson},
+          year={2026},
+          eprint={2605.02128},
+          archivePrefix={arXiv},
+          primaryClass={cs.DL},
+          url={https://arxiv.org/abs/2605.02128}, 
+    }
+
+**Software:**
+
+.. code-block:: bibtex
+
+    @software{liberata_scientometrics_2025,
+        title={Liberata Scientometrics: A package for analyzing academic capital flow},
+        author={Wang, Hanlin and Saha Choudhury, Arjun and Wang, Derek and Sabath, Anshuman and Roongta, Aarsh and Knittel, Clayton},
+        year={2025},
+        url={https://github.com/Liberata-Academic-Publishing/liberata-scientometrics}
+    }
+
+
 .. _modules-section:
 .. _modules-section:
 .. _api-ref:
