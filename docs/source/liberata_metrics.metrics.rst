@@ -30,6 +30,8 @@ Key Submodules
 .. toctree::
    :maxdepth: 2
 
+   liberata_metrics.metrics.contributor
+   liberata_metrics.metrics.manuscript
    liberata_metrics.metrics.portfolio_metrics
    liberata_metrics.metrics.market_metrics
    liberata_metrics.metrics.distribution_metrics

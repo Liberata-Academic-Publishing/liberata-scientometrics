@@ -183,20 +183,20 @@ Install from PyPI:
 
 .. code-block:: bash
 
-    pip install liberata-scientometrics
+    pip install liberata-metrics
 
 Or from GitHub with the latest development version:
 
 .. code-block:: bash
 
-    pip install git+https://github.com/Liberata-Academic-Publishing/liberata-scientometrics
+    pip install git+https://github.com/Liberata-Academic-Publishing/liberata-metrics
 
 For development, clone the repository and install in editable mode:
 
 .. code-block:: bash
 
-    git clone https://github.com/Liberata-Academic-Publishing/liberata-scientometrics
-    cd liberata-scientometrics
+    git clone https://github.com/Liberata-Academic-Publishing/liberata-metrics
+    cd liberata-metrics
     pip install -e .
 
 
@@ -211,7 +211,7 @@ If you use this package in research, please cite:
         title={Liberata Scientometrics: A package for analyzing academic capital flow},
         author={Wang, Hanlin and Saha Choudhury, Arjun and Wang, Derek and Sabath, Anshuman and Roongta, Aarsh and Knittel, Clayton},
         year={2025},
-        url={https://github.com/Liberata-Academic-Publishing/liberata-scientometrics}
+        url={https://github.com/Liberata-Academic-Publishing/liberata-metrics}
     }
 
 

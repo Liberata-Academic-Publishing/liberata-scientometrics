@@ -74,20 +74,20 @@ Installation
 
 .. code-block:: bash
 
-    pip install liberata-scientometrics
+    pip install liberata-metrics
 
 **Option 2: From GitHub (latest development version)**
 
 .. code-block:: bash
 
-    pip install git+https://github.com/Liberata-Academic-Publishing/liberata-scientometrics
+    pip install git+https://github.com/Liberata-Academic-Publishing/liberata-metrics
 
 **Option 3: Local development**
 
 .. code-block:: bash
 
-    git clone https://github.com/Liberata-Academic-Publishing/liberata-scientometrics
-    cd liberata-scientometrics
+    git clone https://github.com/Liberata-Academic-Publishing/liberata-metrics
+    cd liberata-metrics
     pip install -e .
 
 
@@ -271,11 +271,10 @@ If you use this work in research, please cite the paper and the software:
         title={Liberata Scientometrics: A package for analyzing academic capital flow},
         author={Wang, Hanlin and Saha Choudhury, Arjun and Wang, Derek and Sabath, Anshuman and Roongta, Aarsh and Knittel, Clayton},
         year={2025},
-        url={https://github.com/Liberata-Academic-Publishing/liberata-scientometrics}
+        url={https://github.com/Liberata-Academic-Publishing/liberata-metrics}
     }
 
 
-.. _modules-section:
 .. _modules-section:
 .. _api-ref:
 
@@ -307,29 +306,14 @@ License
 =======
 
 Liberata Scientometrics is released under the Apache License 2.0.
-See `LICENSE <https://github.com/Liberata-Academic-Publishing/liberata-scientometrics/blob/main/LICENSE>`_ for details.
-
-
-Citation
-========
-
-If you use this package in research, please cite:
-
-.. code-block:: bibtex
-
-    @software{liberata_scientometrics_2025,
-        title={Liberata Scientometrics: A package for analyzing academic capital flow},
-        author={Wang, Hanlin and Saha Choudhury, Arjun and Wang, Derek and Sabath, Anshuman and Roongta, Aarsh and Knittel, Clayton},
-        year={2025},
-        url={https://github.com/Liberata-Academic-Publishing/liberata-scientometrics}
-    }
+See `LICENSE <https://github.com/Liberata-Academic-Publishing/liberata-metrics/blob/main/LICENSE>`_ for details.
 
 
 Questions or Feedback?
 ======================
 
-- **Issues**: Report bugs or request features on `GitHub Issues <https://github.com/Liberata-Academic-Publishing/liberata-scientometrics/issues>`_
-- **Discussions**: Ask questions on `GitHub Discussions <https://github.com/Liberata-Academic-Publishing/liberata-scientometrics/discussions>`_
+- **Issues**: Report bugs or request features on `GitHub Issues <https://github.com/Liberata-Academic-Publishing/liberata-metrics/issues>`_
+- **Discussions**: Ask questions on `GitHub Discussions <https://github.com/Liberata-Academic-Publishing/liberata-metrics/discussions>`_
 - **Email**: Contact the development team
 
 
@@ -338,4 +322,4 @@ Last Updated
 
 Version 0.15.1 (Development)
 
-See `CHANGELOG <https://github.com/Liberata-Academic-Publishing/liberata-scientometrics/blob/main/CHANGELOG.md>`_ for version history.
+See `CHANGELOG <https://github.com/Liberata-Academic-Publishing/liberata-metrics/blob/main/CHANGELOG.md>`_ for version history.

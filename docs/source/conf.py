@@ -40,7 +40,13 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-# html_theme = 'alabaster'
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'pydata_sphinx_theme'
 html_static_path = ['_static']
+html_css_files = ['custom.css']
 html_baseurl = 'https://www.liberata.info/'
+
+html_theme_options = {
+    "github_url": "https://github.com/Liberata-Academic-Publishing/liberata-metrics",
+    "show_toc_level": 2,
+    "navigation_with_keys": True,
+}
