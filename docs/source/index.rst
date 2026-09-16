@@ -96,7 +96,7 @@ Installation
 Quick Start
 ===========
 
-Generate synthetic data and compute metrics in 30 seconds:
+Generate synthetic data and compute metrics in seconds:
 
 .. code-block:: python
 

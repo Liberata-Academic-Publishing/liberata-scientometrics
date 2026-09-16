@@ -91,5 +91,4 @@ Full API Documentation
    :maxdepth: 2
    :caption: Complete Reference
 
-   modules
-   generated/modules
+   liberata_metrics
