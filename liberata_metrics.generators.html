@@ -1,0 +1,799 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>liberata_metrics.generators package &#8212; Liberata Scientometrics  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9dc5757b" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
+
+    <script src="_static/documentation_options.js?v=8a448e45"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'liberata_metrics.generators';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://www.liberata.info/liberata_metrics.generators.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="liberata_metrics.generators.generate_matrices module" href="liberata_metrics.generators.generate_matrices.html" />
+    <link rel="prev" title="liberata_metrics.metrics.legacy_metric module" href="liberata_metrics.metrics.legacy_metric.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Liberata Scientometrics  documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="index.html">
+    Liberata Scientometrics: Academic Knowledge Graph Analysis
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="liberata_metrics.html">
+    liberata_metrics package
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/index.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Liberata-Academic-Publishing/liberata-metrics" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="index.html">
+    Liberata Scientometrics: Academic Knowledge Graph Analysis
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="liberata_metrics.html">
+    liberata_metrics package
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/index.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Liberata-Academic-Publishing/liberata-metrics" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Core Modules</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="liberata_metrics.metrics.html">liberata_metrics.metrics package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.contributor.html">liberata_metrics.metrics.contributor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.manuscript.html">liberata_metrics.metrics.manuscript module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.portfolio_metrics.html">liberata_metrics.metrics.portfolio_metrics module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.market_metrics.html">liberata_metrics.metrics.market_metrics module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.distribution_metrics.html">liberata_metrics.metrics.distribution_metrics module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.graph.html">liberata_metrics.metrics.graph module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.system_health_metrics.html">liberata_metrics.metrics.system_health_metrics module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.metrics.legacy_metric.html">liberata_metrics.metrics.legacy_metric module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">liberata_metrics.generators package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html">liberata_metrics.generators.generate_matrices module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="liberata_metrics.utils.html">liberata_metrics.utils package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.utils.data_loading.html">liberata_metrics.utils.data_loading module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.utils.data_wrangling.html">liberata_metrics.utils.data_wrangling module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.utils.utils.html">liberata_metrics.utils.utils module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="liberata_metrics.visualizations.html">liberata_metrics.visualizations package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.visualizations.matrix_visuals.html">liberata_metrics.visualizations.matrix_visuals module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.visualizations.time_series_visuals.html">liberata_metrics.visualizations.time_series_visuals module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api/liberata_metrics.integrations.html">liberata_metrics.integrations package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/liberata_metrics.integrations.supabase.html">liberata_metrics.integrations.supabase module</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="liberata_metrics.html" class="nav-link">liberata_metrics package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">liberata_metrics.generators package</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="liberata-metrics-generators-package">
+<h1>liberata_metrics.generators package<a class="headerlink" href="#liberata-metrics-generators-package" title="Link to this heading">#</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>The generators module provides tools for creating synthetic academic knowledge graphs and capital matrices. This is essential for:</p>
+<ul class="simple">
+<li><p><strong>Testing</strong>: Validate metrics computation without relying on real data</p></li>
+<li><p><strong>Benchmarking</strong>: Compare algorithm performance on controlled datasets</p></li>
+<li><p><strong>Experimentation</strong>: Explore “what-if” scenarios with specific properties</p></li>
+<li><p><strong>Education</strong>: Understand how the Liberata system works with transparent synthetic data</p></li>
+</ul>
+</section>
+<section id="data-structures-generated">
+<h2>Data Structures Generated<a class="headerlink" href="#data-structures-generated" title="Link to this heading">#</a></h2>
+<p>The generators create several interconnected data structures:</p>
+<dl class="simple">
+<dt><strong>References Matrix</strong></dt><dd><p>A sparse matrix encoding citation relationships between manuscripts.</p>
+<ul class="simple">
+<li><p>Shape: (num_manuscripts, num_manuscripts)</p></li>
+<li><p>Entries: Number of times manuscript i cites manuscript j</p></li>
+<li><p>Format: COO (coordinate format) for memory efficiency</p></li>
+<li><p>Sparsity: Controlled via <cite>citation_density</cite> parameter</p></li>
+</ul>
+</dd>
+<dt><strong>Capital Matrix</strong></dt><dd><p>Represents how manuscripts generate academic capital that contributors accrue.</p>
+<ul class="simple">
+<li><p>Shape: (num_manuscripts, num_contributors)</p></li>
+<li><p>Entries: Capital accrued by contributor j from manuscript i</p></li>
+<li><p>Format: COO sparse matrix</p></li>
+<li><p>Extended format: May include multiple capital blocks for different capital types</p></li>
+</ul>
+</dd>
+<dt><strong>ID Mappings</strong></dt><dd><p>Dictionaries mapping human-readable IDs to matrix indices:</p>
+<ul class="simple">
+<li><p><cite>manuscript_id_to_index</cite>: Maps manuscript UUIDs to row indices</p></li>
+<li><p><cite>contributor_id_to_index</cite>: Maps contributor UUIDs to column indices</p></li>
+<li><p>Used for linking computed metrics back to real entities</p></li>
+</ul>
+</dd>
+<dt><strong>Metadata</strong></dt><dd><p>Supplementary information about generated entities:</p>
+<ul class="simple">
+<li><p>Manuscript metadata: upload dates, topics, retraction status</p></li>
+<li><p>Contributor metadata: attributes and relationships</p></li>
+<li><p>Topic assignments based on OpenAlex topics</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="key-functions">
+<h2>Key Functions<a class="headerlink" href="#key-functions" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_references_matrix">
+<span class="sig-name descname"><span class="pre">generate_references_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_manuscripts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">citation_density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">date(2020,</span> <span class="pre">1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">date(2024,</span> <span class="pre">1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_references_matrix" title="Link to this definition">#</a></dt>
+<dd><p>Generate a synthetic citation network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_manuscripts</strong> – Number of manuscripts to generate</p></li>
+<li><p><strong>citation_density</strong> – Sparsity of citation relationships (0-1)</p></li>
+<li><p><strong>start_date</strong> – Earliest manuscript publication date</p></li>
+<li><p><strong>end_date</strong> – Latest manuscript publication date</p></li>
+<li><p><strong>seed</strong> – Random seed for reproducibility</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple of (references_matrix, manuscript_ids, id_to_index_map, dates_map, metadata_df, capital_matrix, contributor_matrix)</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">references</span><span class="p">,</span> <span class="n">ms_ids</span><span class="p">,</span> <span class="n">ms_map</span><span class="p">,</span> <span class="n">dates</span><span class="p">,</span> <span class="n">meta</span><span class="p">,</span> <span class="n">capital</span><span class="p">,</span> <span class="n">contribs</span> <span class="o">=</span> \
+    <span class="n">generate_references_matrix</span><span class="p">(</span><span class="n">num_manuscripts</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">citation_density</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">#</a></h2>
+<p>Generators are configured via YAML files. Example <cite>matrix_config.yaml</cite>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Number of manuscripts to generate</span>
+<span class="nt">num_manuscripts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+
+<span class="c1"># Citation network sparsity (0 = no citations, 1 = complete graph)</span>
+<span class="nt">citation_density</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
+
+<span class="c1"># Time range for manuscript generation</span>
+<span class="nt">start_date</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2020-01-01</span>
+<span class="nt">end_date</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2024-12-31</span>
+
+<span class="c1"># Random seed for reproducibility</span>
+<span class="nt">seed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">42</span>
+
+<span class="c1"># Use OpenAlex topics (True) or generic names (False)</span>
+<span class="nt">use_openalex_topics</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+
+<span class="c1"># Output format and location</span>
+<span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./test_scripts/output</span>
+<span class="nt">output_format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">coo</span><span class="w">  </span><span class="c1"># Sparse coordinate format</span>
+</pre></div>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html">liberata_metrics.generators.generate_matrices module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_matrices.Manuscript"><code class="docutils literal notranslate"><span class="pre">Manuscript</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_matrices.build_COO"><code class="docutils literal notranslate"><span class="pre">build_COO()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_matrices.build_capital_matrix"><code class="docutils literal notranslate"><span class="pre">build_capital_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_matrices.generate_capital_time_series"><code class="docutils literal notranslate"><span class="pre">generate_capital_time_series()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_matrices.generate_references_matrix"><code class="docutils literal notranslate"><span class="pre">generate_references_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_matrices.generate_shares_matrix"><code class="docutils literal notranslate"><span class="pre">generate_shares_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_matrices.get_capital_earlier"><code class="docutils literal notranslate"><span class="pre">get_capital_earlier()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_matrices.get_references_earlier"><code class="docutils literal notranslate"><span class="pre">get_references_earlier()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="liberata_metrics.generators.generate_matrices.html#liberata_metrics.generators.generate_matrices.update_retractions_graph"><code class="docutils literal notranslate"><span class="pre">update_retractions_graph()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="common-usage-patterns">
+<h2>Common Usage Patterns<a class="headerlink" href="#common-usage-patterns" title="Link to this heading">#</a></h2>
+<p><strong>Generate test data for unit tests:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.generators</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_references_matrix</span>
+
+<span class="c1"># Create reproducible test data</span>
+<span class="n">refs</span><span class="p">,</span> <span class="n">ms_ids</span><span class="p">,</span> <span class="n">ms_map</span><span class="p">,</span> <span class="n">dates</span><span class="p">,</span> <span class="n">meta</span><span class="p">,</span> <span class="n">cap</span><span class="p">,</span> <span class="n">contribs</span> <span class="o">=</span> \
+    <span class="n">generate_references_matrix</span><span class="p">(</span>
+        <span class="n">num_manuscripts</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">citation_density</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span>
+        <span class="n">seed</span><span class="o">=</span><span class="mi">12345</span>  <span class="c1"># Fixed seed for reproducibility</span>
+    <span class="p">)</span>
+
+<span class="c1"># Use in tests</span>
+<span class="k">assert</span> <span class="n">refs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">100</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">ms_ids</span><span class="p">)</span> <span class="o">==</span> <span class="mi">100</span>
+</pre></div>
+</div>
+<p><strong>Generate data with specific properties:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sparse citation network</span>
+<span class="n">sparse_refs</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">generate_references_matrix</span><span class="p">(</span>
+    <span class="n">num_manuscripts</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">citation_density</span><span class="o">=</span><span class="mf">0.001</span>  <span class="c1"># Very sparse</span>
+<span class="p">)</span>
+
+<span class="c1"># Dense network for comparing algorithms</span>
+<span class="n">dense_refs</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">generate_references_matrix</span><span class="p">(</span>
+    <span class="n">num_manuscripts</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">citation_density</span><span class="o">=</span><span class="mf">0.1</span>  <span class="c1"># Much denser</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Load from configuration file:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">liberata_metrics.generators</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_references_matrix</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;config/matrix_config.yaml&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="n">refs</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">generate_references_matrix</span><span class="p">(</span><span class="o">**</span><span class="n">config</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="module-liberata_metrics.generators">
+<span id="module-contents"></span><h2>Module Contents<a class="headerlink" href="#module-liberata_metrics.generators" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.generators.build_capital_matrix">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.generators.</span></span><span class="sig-name descname"><span class="pre">build_capital_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shares</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">coo_matrix</span></span></span><a class="reference internal" href="_modules/liberata_metrics/generators/generate_matrices.html#build_capital_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.generators.build_capital_matrix" title="Link to this definition">#</a></dt>
+<dd><p>computes capital matrix given shares and reference at current time</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.generators.generate_capital_time_series">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.generators.</span></span><span class="sig-name descname"><span class="pre">generate_capital_time_series</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shares</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscript_index_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upload_dates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">date</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">timedelta</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">object</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/liberata_metrics/generators/generate_matrices.html#generate_capital_time_series"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.generators.generate_capital_time_series" title="Link to this definition">#</a></dt>
+<dd><p>generates time series data for capital matrices at different time snapshots</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.generators.generate_references_matrix">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.generators.</span></span><span class="sig-name descname"><span class="pre">generate_references_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_manuscripts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">citation_density</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.date(2020,</span> <span class="pre">1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.date(2024,</span> <span class="pre">1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">coo_matrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">date</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">coo_matrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">coo_matrix</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/liberata_metrics/generators/generate_matrices.html#generate_references_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.generators.generate_references_matrix" title="Link to this definition">#</a></dt>
+<dd><p>build toy references matrix</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.generators.generate_shares_matrix">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.generators.</span></span><span class="sig-name descname"><span class="pre">generate_shares_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manuscript_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscript_index_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_contributors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avg_contributors_per_man</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_contributors_per_man</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contributor_shares_dist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'dirichlet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pareto_alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">coo_matrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/liberata_metrics/generators/generate_matrices.html#generate_shares_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.generators.generate_shares_matrix" title="Link to this definition">#</a></dt>
+<dd><p>build toy shares matrix</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.generators.get_capital_earlier">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.generators.</span></span><span class="sig-name descname"><span class="pre">get_capital_earlier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shares</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscript_index_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upload_dates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">date</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">spmatrix</span></span></span><a class="reference internal" href="_modules/liberata_metrics/generators/generate_matrices.html#get_capital_earlier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.generators.get_capital_earlier" title="Link to this definition">#</a></dt>
+<dd><p>builds the earlier capital matrix corresponding to given time cutoff</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="liberata_metrics.generators.update_retractions_graph">
+<span class="sig-prename descclassname"><span class="pre">liberata_metrics.generators.</span></span><span class="sig-name descname"><span class="pre">update_retractions_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retractions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spmatrix</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscript_index_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newly_retracted_manuscript_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manuscripts_metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">csr_matrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">csr_matrix</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/liberata_metrics/generators/generate_matrices.html#update_retractions_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#liberata_metrics.generators.update_retractions_graph" title="Link to this definition">#</a></dt>
+<dd><p>This function handles the movement of citation rows from the references graph to the
+retractions graph when manuscripts are newly retracted. It also updates previously
+retracted manuscripts to capture any new citations that occurred after retraction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>references</strong> (<em>sparse.spmatrix</em>) – Sparse matrix where columns represent manuscripts and rows represent cited works.
+Non-zero entries represent citation relationships.</p></li>
+<li><p><strong>retractions</strong> (<em>Union</em><em>[</em><em>sparse.spmatrix</em><em>, </em><em>None</em><em>]</em>) – Sparse matrix of the same shape as references containing previously retracted
+manuscript citations. If None, an empty sparse matrix is initialized.</p></li>
+<li><p><strong>manuscript_index_map</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Mapping from manuscript IDs to their corresponding row indices in the matrices.</p></li>
+<li><p><strong>newly_retracted_manuscript_ids</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – List of manuscript IDs that have been newly retracted in this update.</p></li>
+<li><p><strong>manuscripts_metadata</strong> (<em>Union</em><em>[</em><em>pd.DataFrame</em><em>, </em><em>list</em><em>]</em>) – Metadata associated with manuscripts. If a DataFrame, the retraction_cutoff
+column is updated for newly retracted manuscripts.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>A tuple containing:
+- retractions (sparse.coo_matrix): Updated retractions graph with newly retracted</p>
+<blockquote>
+<div><p>and previously retracted manuscript citations.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>references (sparse.coo_matrix): Updated references graph with retracted manuscript
+rows zeroed out.</p></li>
+<li><p>manuscripts_metadata (Union[pd.DataFrame, list]): Updated metadata with
+retraction information for newly retracted manuscripts.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[sparse.csr_matrix, sparse.csr_matrix, Union[pd.DataFrame, list]]</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Both newly retracted and previously retracted manuscript rows are removed from
+the references graph and consolidated in the retractions graph.</p></li>
+<li><p>If manuscripts_metadata is not a DataFrame, a warning is issued and metadata
+is returned unchanged.</p></li>
+<li><p>Output matrices are converted to COO format for sparse representation efficiency.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="liberata_metrics.metrics.legacy_metric.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">liberata_metrics.metrics.legacy_metric module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="liberata_metrics.generators.generate_matrices.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">liberata_metrics.generators.generate_matrices module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-structures-generated">Data Structures Generated</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-functions">Key Functions</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate_references_matrix"><code class="docutils literal notranslate"><span class="pre">generate_references_matrix()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-usage-patterns">Common Usage Patterns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-liberata_metrics.generators">Module Contents</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#liberata_metrics.generators.build_capital_matrix"><code class="docutils literal notranslate"><span class="pre">build_capital_matrix()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#liberata_metrics.generators.generate_capital_time_series"><code class="docutils literal notranslate"><span class="pre">generate_capital_time_series()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#liberata_metrics.generators.generate_references_matrix"><code class="docutils literal notranslate"><span class="pre">generate_references_matrix()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#liberata_metrics.generators.generate_shares_matrix"><code class="docutils literal notranslate"><span class="pre">generate_shares_matrix()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#liberata_metrics.generators.get_capital_earlier"><code class="docutils literal notranslate"><span class="pre">get_capital_earlier()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#liberata_metrics.generators.update_retractions_graph"><code class="docutils literal notranslate"><span class="pre">update_retractions_graph()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="_sources/liberata_metrics.generators.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Liberata.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.0.4.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.21.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
