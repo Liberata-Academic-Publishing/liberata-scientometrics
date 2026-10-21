@@ -26,24 +26,25 @@ The library is designed for research workflows that need reproducible matrix-bas
 - Visualization helpers for matrix and time-series outputs.
 - Supabase integration paths for production data workflows.
 
-## Installation
+## Setup
 
 We recommend using a dedicated virtual environment (`conda`, `venv`, or `uv`).
 
-### Option 1: Conda environment setup
+### Step 1: Conda environment setup
 
 ```bash
 conda create -n liberata python=3.11
 conda activate liberata
 ```
+### Step 2: Repo Installation
 
-### Option 2: Install from GitHub
+Install from GitHub
 
 ```bash
 pip install git+https://github.com/Liberata-Academic-Publishing/liberata-scientometrics
 ```
 
-### Option 3: Local development install
+or install from local development
 
 ```bash
 git clone https://github.com/Liberata-Academic-Publishing/liberata-scientometrics
@@ -91,6 +92,19 @@ print("Academic capital:", academic_capital(capital, subset))
 print("Portfolio HHI:", portfolio_hhi(capital, subset))
 print("Portfolio Gini:", portfolio_gini(capital, subset))
 ```
+#### OpenAlex topic mapping data
+
+In order to run python quickstart.py successfully, the synthetic-data generator needs an OpenAlex topic mapping CSV.
+
+1. Open the [OpenAlex topic mapping spreadsheet](https://docs.google.com/spreadsheets/d/1v-MAq64x4YjhO7RWcB-yrKV5D_2vOOsxl4u6GBKEXY8/edit?gid=983250122#gid=983250122).
+2. Download the spreadsheet as a CSV
+3. Rename the  file to `OpenAlex_topic_mapping_table.csv`.
+4. Place it in this repository’s `data/` directory:
+
+   ```text
+   data/OpenAlex_topic_mapping_table.csv
+   ```
+
 
 ## Data Model
 
@@ -116,7 +130,7 @@ Core inputs are sparse matrices plus index mappings:
 
 ### Generate toy data
 
-Liberata classifies manuscript topics using OpenAlex topics. You can use the included topic mapping data or configure your own settings in `test_scripts/config/matrix_config.yaml`.
+Liberata classifies manuscript topics using OpenAlex topics. You can obtain the topic mapping data by completing the `OpenAlex topic mapping data` section in Quick Start. You can then configure the simulation settings in `test_scripts/config/matrix_config.yaml` to generate a desired simulation of citations, shares, etc.
 
 ```bash
 python test_scripts/matrix_generators_test.py
@@ -126,7 +140,7 @@ Generated matrices are written to `test_scripts/output/` in COO format.
 
 ### Run metrics tests/scripts
 
-Update `BASE_DIR` in `test_scripts/portfolio_metrics_test.py` to point to a generated output folder, then run:
+Update `BASE_DIR` in `test_scripts/portfolio_metrics_test.py` to point to the generated output folder, then run:
 
 ```bash
 python test_scripts/portfolio_metrics_test.py
