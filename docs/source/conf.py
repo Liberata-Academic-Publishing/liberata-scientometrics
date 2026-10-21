@@ -41,12 +41,32 @@ exclude_patterns = []
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'pydata_sphinx_theme'
+html_sidebars = {
+    "getting_started": [],
+}
 html_static_path = ['_static']
 html_css_files = ['custom.css']
 html_baseurl = 'https://www.liberata.info/'
+html_title = 'Liberata Scientometrics'
+html_short_title = 'Liberata Scientometrics'
+html_logo = '_static/liberata-logo.png'
+html_favicon = '_static/liberata-logo.png'
 
 html_theme_options = {
     "github_url": "https://github.com/Liberata-Academic-Publishing/liberata-metrics",
     "show_toc_level": 2,
     "navigation_with_keys": True,
+    "navbar_align": "left",
+    "show_nav_level": 2,
+    "header_links_before_dropdown": 6,
+    "logo": {
+        "text": "Liberata Scientometrics",
+        "image_dark": "_static/liberata-logo-dark.png",
+        "alt_text": "Liberata Scientometrics",
+    },
+    "navbar_start": ["navbar-logo"],
+    "navbar_center": ["navbar-nav"],
+    "navbar_persistent": ["search-button-field"],
+    "navbar_end": ["theme-switcher", "navbar-icon-links"],
+    "primary_sidebar_end": [],
 }

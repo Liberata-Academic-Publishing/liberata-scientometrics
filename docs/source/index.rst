@@ -6,22 +6,21 @@
 .. toctree::
    :maxdepth: 2
    :hidden:
-   :caption: Main
 
-   self
-   liberata_metrics
-   api/index
+   Home <self>
+   Getting Started <getting_started>
+   API Reference <api/index>
 
-Liberata Scientometrics: Academic Knowledge Graph Analysis
-=========================================================
+Liberata Scientometrics
+=======================
 
-Welcome to the **Liberata Scientometrics** library documentation.
+Welcome to the **Liberata Scientometrics** documentation.
 
 Liberata models academic publishing as a marketplace with contribution shares based credit attribution and provides computational tools to analyze how knowledge and influence flow through citation networks.
 
 .. raw:: html
 
-    <div style="background: #f0f7ff; padding: 15px; margin: 20px 0; border-radius: 5px; border-left: 4px solid #0066cc;">
+    <div class="liberata-callout">
         <strong>What is Liberata?</strong><br/>
         Liberata is an Open Access publishing platform with incentivized quality controls.
         Liberata metrics provide methods for quantifying research impact across all research roles, 
@@ -29,18 +28,6 @@ Liberata models academic publishing as a marketplace with contribution shares ba
         for these academic services where researchers accrue impact from papers in the form of citations in proportion to
         their contributions.
     </div>
-
-
-Getting Started
-===============
-
-**New to Liberata?** Start here:
-
-1. :ref:`What is Liberata Scientometrics? <intro>` — Understand the core concepts
-2. :ref:`Installation <installation>` — Get the package installed
-3. :ref:`Quick Start <quickstart>` — Run your first analysis
-4. :ref:`Key Concepts <concepts>` — Learn the terminology
-5. :ref:`API Reference <api-ref>` — Detailed function documentation
 
 
 .. _intro:
@@ -55,197 +42,42 @@ The Liberata Scientometrics library provides tools for analyzing academic knowle
 - **Citations** are edges showing how capital flows between papers
 - **Metrics** quantify capital concentration, returns, risk, and system health
 
-This package helps you:
+Use cases
+---------
 
-- 📊 Compute portfolio metrics on research collections
-- 🔗 Analyze citation networks and knowledge flow
-- 🧪 Generate synthetic data for testing
-- 📈 Track how capital accumulates over time
-- 💾 Connect to production data via Supabase
-- 📉 Create publication-quality visualizations
+**🔗 Academic research**
 
+- Analyze citation networks and knowledge flow
+- Create publication-quality visualizations
+- Publish studies on how academic capital concentrates in publishing
+- Compare different capital allocation policies
+- Predict impact and influence of new papers
 
-.. _installation:
+**🧪 System design**
 
-Installation
-============
+- Generate synthetic data for testing
+- Connect to production data via Supabase
+- Evaluate policies for allocating research funding
+- Test incentive mechanisms before deployment
+- Benchmark algorithm performance on standard datasets
 
-**Option 1: From PyPI (recommended)**
+**📊 Portfolio analysis**
 
-.. code-block:: bash
+- Compute portfolio metrics on research collections
+- Track how capital accumulates over time
+- Analyze which research areas generate the most impact
+- Identify high-risk/high-reward research directions
+- Optimize resource allocation across a portfolio of projects
 
-    pip install liberata-metrics
+**📚 Education**
 
-**Option 2: From GitHub (latest development version)**
-
-.. code-block:: bash
-
-    pip install git+https://github.com/Liberata-Academic-Publishing/liberata-metrics
-
-**Option 3: Local development**
-
-.. code-block:: bash
-
-    git clone https://github.com/Liberata-Academic-Publishing/liberata-metrics
-    cd liberata-metrics
-    pip install -e .
-
-
-.. _quickstart:
-
-Quick Start
-===========
-
-Generate synthetic data and compute metrics in seconds:
-
-.. code-block:: python
-
-    from liberata_metrics.generators import generate_references_matrix
-    from liberata_metrics.metrics.portfolio_metrics import PortfolioMetrics
-    
-    # Generate test data
-    refs, ms_ids, ms_map, dates, meta, capital, contribs = \
-        generate_references_matrix(num_manuscripts=100, seed=42)
-    
-    # Compute portfolio metrics
-    pm = PortfolioMetrics(capital)
-    print(f"Total capital: {pm.total_capital():.2f}")
-    print(f"Volatility: {pm.compute_volatility():.4f}")
-    
-    # Visualize
-    from liberata_metrics.visualizations import matrix_visuals
-    import matplotlib.pyplot as plt
-    matrix_visuals.plot_sparsity_pattern(refs)
-    plt.show()
-
-**Next steps:**
-
-- Explore :ref:`more examples <examples>`
-- Check :ref:`core modules <modules-section>`
-- Read about :ref:`key concepts <concepts>`
-
-
-.. _concepts:
-
-Key Concepts
-============
-
-**Capital Matrix**
-    A sparse matrix where:
-    
-    - Rows represent manuscripts (papers)
-    - Columns represent contributors (researchers)
-    - Entry [i,j] = capital accrued by researcher j from paper i
-    - Shape: (num_papers, num_researchers)
-
-**References Matrix**
-    Citation relationships:
-    
-    - Both dimensions are papers
-    - Entry [i,j] = number of times paper i cites paper j
-    - Encodes the knowledge graph structure
-    - Shape: (num_papers, num_papers)
-
-**ID Mappings**
-    Dictionaries linking matrix indices to real identifiers:
-    
-    - Connect computed metrics back to papers/researchers
-    - Enable temporal analysis with timestamps
-    - Support subsetting and filtering
-
-**Metrics**
-    Quantitative measures of system behavior:
-    
-    - **Portfolio metrics**: returns, risk, correlations (paper-based)
-    - **Market metrics**: price discovery, efficiency
-    - **Distribution metrics**: concentration, inequality
-    - **System metrics**: overall health and dynamics
-
-
-.. _examples:
-
-Common Usage Patterns
-=====================
-
-**Pattern 1: Analyze a portfolio of papers**
-
-.. code-block:: python
-
-    from liberata_metrics.metrics.portfolio_metrics import PortfolioMetrics
-    
-    # Load or create capital matrix
-    pm = PortfolioMetrics(capital_matrix)
-    
-    # Compute standard metrics
-    returns = pm.compute_returns()
-    volatility = pm.compute_volatility()
-    sharpe = pm.compute_sharpe_ratio(returns)
-    
-    print(f"Sharpe ratio: {sharpe:.2f}")
-
-**Pattern 2: Load real data from Supabase**
-
-.. code-block:: python
-
-    from liberata_metrics.utils import load_supabase_data
-    
-    # Fetch production data
-    references, capital = load_supabase_data.fetch_matrices()
-    
-    # Load specific time period
-    start = '2023-01-01'
-    end = '2024-01-01'
-    refs_yr, cap_yr = load_supabase_data.fetch_matrices_for_period(start, end)
-
-**Pattern 3: Generate controlled test data**
-
-.. code-block:: python
-
-    from liberata_metrics.generators import generate_references_matrix
-    
-    # Sparse network (5 papers cite 2% of other papers on average)
-    sparse_refs, *_ = generate_references_matrix(
-        num_manuscripts=1000,
-        citation_density=0.02,
-        seed=42
-    )
-    
-    # Dense network (for comparison)
-    dense_refs, *_ = generate_references_matrix(
-        num_manuscripts=1000,
-        citation_density=0.1,
-        seed=42
-    )
-
-**Pattern 4: Create visualizations**
-
-.. code-block:: python
-
-    from liberata_metrics.visualizations import matrix_visuals, time_series_visuals
-    import matplotlib.pyplot as plt
-    
-    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-    
-    # Citation network structure
-    matrix_visuals.plot_sparsity_pattern(
-        references,
-        title='Citation Network',
-        ax=axes[0]
-    )
-    
-    # Capital allocation
-    matrix_visuals.plot_matrix_heatmap(
-        capital,
-        title='Capital Allocation',
-        ax=axes[1]
-    )
-    
-    plt.tight_layout()
-    plt.show()
+- Understand network science and scientometrics
+- Learn Python for data science and network analysis
+- Explore graph algorithms and sparse matrix computation
 
 
 Citation
-========
+--------
 
 If you use this work in research, please cite the paper and the software:
 
@@ -278,12 +110,6 @@ If you use this work in research, please cite the paper and the software:
 .. _modules-section:
 .. _api-ref:
 
-Documentation Links
-===================
-
-- :doc:`Package Guide <liberata_metrics>`
-- :doc:`API Reference <api/index>`
-
 Additional Resources
 --------------------
 
@@ -295,7 +121,7 @@ Additional Resources
 
 
 Indices and Tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`
@@ -303,14 +129,14 @@ Indices and Tables
 
 
 License
-=======
+-------
 
 Liberata Scientometrics is released under the Apache License 2.0.
 See `LICENSE <https://github.com/Liberata-Academic-Publishing/liberata-metrics/blob/main/LICENSE>`_ for details.
 
 
 Questions or Feedback?
-======================
+----------------------
 
 - **Issues**: Report bugs or request features on `GitHub Issues <https://github.com/Liberata-Academic-Publishing/liberata-metrics/issues>`_
 - **Discussions**: Ask questions on `GitHub Discussions <https://github.com/Liberata-Academic-Publishing/liberata-metrics/discussions>`_
@@ -318,7 +144,7 @@ Questions or Feedback?
 
 
 Last Updated
-============
+------------
 
 Version 0.15.1 (Development)
 

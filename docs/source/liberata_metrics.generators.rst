@@ -60,42 +60,7 @@ Key Functions
     :param start_date: Earliest manuscript publication date
     :param end_date: Latest manuscript publication date
     :param seed: Random seed for reproducibility
-    :returns: Tuple of (references_matrix, manuscript_ids, id_to_index_map, dates_map, metadata_df, capital_matrix, contributor_matrix)
-    
-    Example:
-    
-    .. code-block:: python
-    
-        references, ms_ids, ms_map, dates, meta, capital, contribs = \
-            generate_references_matrix(num_manuscripts=500, citation_density=0.02)
-
-
-Configuration
--------------
-
-Generators are configured via YAML files. Example `matrix_config.yaml`:
-
-.. code-block:: yaml
-
-    # Number of manuscripts to generate
-    num_manuscripts: 1000
-    
-    # Citation network sparsity (0 = no citations, 1 = complete graph)
-    citation_density: 0.05
-    
-    # Time range for manuscript generation
-    start_date: 2020-01-01
-    end_date: 2024-12-31
-    
-    # Random seed for reproducibility
-    seed: 42
-    
-    # Use OpenAlex topics (True) or generic names (False)
-    use_openalex_topics: True
-    
-    # Output format and location
-    output_dir: ./test_scripts/output
-    output_format: coo  # Sparse coordinate format
+    :returns: Tuple of (references, manuscript_ids, manuscript_index_map, upload_dates, manuscript_meta, primary_memberships, all_memberships, topic_index_map)
 
 
 Submodules
@@ -110,27 +75,11 @@ Submodules
 Common Usage Patterns
 ---------------------
 
-**Generate test data for unit tests:**
+**Generate data with specific properties:**
 
 .. code-block:: python
 
     from liberata_metrics.generators import generate_references_matrix
-    
-    # Create reproducible test data
-    refs, ms_ids, ms_map, dates, meta, cap, contribs = \
-        generate_references_matrix(
-            num_manuscripts=100,
-            citation_density=0.03,
-            seed=12345  # Fixed seed for reproducibility
-        )
-    
-    # Use in tests
-    assert refs.shape[0] == 100
-    assert len(ms_ids) == 100
-
-**Generate data with specific properties:**
-
-.. code-block:: python
 
     # Sparse citation network
     sparse_refs, *_ = generate_references_matrix(
@@ -143,18 +92,6 @@ Common Usage Patterns
         num_manuscripts=1000,
         citation_density=0.1  # Much denser
     )
-
-**Load from configuration file:**
-
-.. code-block:: python
-
-    import yaml
-    from liberata_metrics.generators import generate_references_matrix
-    
-    with open('config/matrix_config.yaml') as f:
-        config = yaml.safe_load(f)
-    
-    refs, *_ = generate_references_matrix(**config)
 
 
 Module Contents

@@ -48,42 +48,6 @@ The library is organized into four main components:
     - Logging and configuration
 
 
-Quick Reference
----------------
-
-Common workflows:
-
-1. **Generate test data**:
-   
-   .. code-block:: python
-   
-       from liberata_metrics.generators import generate_references_matrix
-       
-       matrices = generate_references_matrix(
-           num_manuscripts=100,
-           citation_density=0.05
-       )
-
-2. **Compute portfolio metrics**:
-   
-   .. code-block:: python
-   
-       from liberata_metrics.metrics import PortfolioMetrics
-       
-       pm = PortfolioMetrics(capital_matrix)
-       returns = pm.compute_returns()
-       risk = pm.compute_risk()
-
-3. **Analyze system dynamics**:
-   
-   .. code-block:: python
-   
-       from liberata_metrics.metrics import MarketMetrics
-       
-       mm = MarketMetrics(references, capital)
-       efficiency = mm.compute_efficiency()
-
-
 Full API Documentation
 -----------------------
 

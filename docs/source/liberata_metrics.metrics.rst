@@ -50,22 +50,6 @@ Most metric computation follows this pattern:
 3. **Compute metrics**: Call computation methods to get results
 4. **Analyze results**: Interpret and visualize the output
 
-Example:
-
-.. code-block:: python
-
-    from liberata_metrics.metrics.portfolio_metrics import PortfolioMetrics
-    import numpy as np
-    from scipy import sparse
-    
-    # Create example capital matrix (manuscripts × contributors)
-    capital = sparse.random(100, 50, density=0.1)
-    
-    # Compute metrics
-    pm = PortfolioMetrics(capital)
-    total_capital = pm.total_capital()
-    volatility = pm.compute_volatility()
-
 
 Module Contents
 ---------------

@@ -70,12 +70,3 @@ Internal Modules
    :maxdepth: 2
 
    liberata_metrics.logging
-
-
-Module Contents
----------------
-
-.. automodule:: liberata_metrics
-   :members:
-   :undoc-members:
-   :show-inheritance:

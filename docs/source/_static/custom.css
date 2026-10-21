@@ -1,23 +1,156 @@
-/* Modern blue accent palette for the Liberata Scientometrics docs. */
+@import url("https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap");
 
-html[data-theme="light"] {
-    --pst-color-primary: #1a56db;
-    --pst-color-primary-highlight: #1e40af;
-    --pst-color-primary-bg: #dbeafe;
-    --pst-color-link: #1a56db;
-    --pst-color-link-hover: #1e40af;
-    --pst-color-inline-code-links: #1a56db;
+/* Tokens copied from https://liberata.info (assets stylesheet :root and brand gradient). */
+
+html {
+    --pst-font-family-base: Figtree, sans-serif;
+    --pst-font-family-heading: Figtree, sans-serif;
+    --pst-font-family-monospace: "JetBrains Mono", ui-monospace, monospace;
+    --bs-font-sans-serif: Figtree, sans-serif;
+    --bs-body-font-family: Figtree, sans-serif;
+}
+
+body {
+    font-family: Figtree, sans-serif;
+    letter-spacing: 0.5px;
+}
+
+:root {
+    --liberata-brand: #050599;
+    --liberata-brand-mid: #0c45cc;
+    --liberata-heading: #4f70d8;
+    --liberata-gradient: #567ddb;
+    --liberata-accent: #1384ff;
+    --liberata-accent-soft: #89c2ff;
+    --liberata-neutral-100: #fefefe;
+    --liberata-neutral-300: #f4f6f9;
+    --liberata-neutral-350: #dee4ea;
+    --liberata-neutral-400: #c9d1db;
+    --liberata-neutral-500: #94a4b8;
+    --liberata-neutral-600: #64758b;
+    --liberata-neutral-700: #3f4c67;
+    --liberata-neutral-800: #0e172a;
+}
+
+html[data-theme="light"],
+html:not([data-theme]) {
+    --pst-color-primary: var(--liberata-brand);
+    --pst-color-primary-highlight: var(--liberata-brand-mid);
+    --pst-color-primary-text: var(--liberata-neutral-800);
+    --pst-color-primary-bg: color-mix(in srgb, var(--liberata-heading) 15%, var(--liberata-neutral-100));
+    --pst-color-secondary: var(--liberata-gradient);
+    --pst-color-secondary-bg: color-mix(in srgb, var(--liberata-gradient) 18%, var(--liberata-neutral-100));
+    --pst-color-accent: var(--liberata-accent);
+    --pst-color-accent-bg: color-mix(in srgb, var(--liberata-accent) 16%, var(--liberata-neutral-100));
+    --pst-color-link: var(--liberata-heading);
+    --pst-color-link-hover: var(--liberata-accent);
+    --pst-color-inline-code-links: var(--liberata-heading);
+    --pst-color-background: var(--liberata-neutral-100);
+    --pst-color-on-background: var(--liberata-neutral-300);
+    --pst-color-surface: var(--liberata-neutral-100);
+    --pst-color-on-surface: var(--liberata-neutral-800);
+    --pst-color-text-base: var(--liberata-neutral-800);
+    --pst-color-text-muted: var(--liberata-neutral-700);
+    --pst-color-heading: var(--liberata-neutral-800);
+    --pst-color-border: var(--liberata-neutral-350);
+    --pst-color-border-muted: var(--liberata-neutral-400);
 }
 
 html[data-theme="dark"] {
-    --pst-color-primary: #60a5fa;
-    --pst-color-primary-highlight: #93c5fd;
-    --pst-color-primary-bg: #1e3a5f;
-    --pst-color-link: #60a5fa;
-    --pst-color-link-hover: #93c5fd;
-    --pst-color-inline-code-links: #60a5fa;
+    --pst-color-primary: var(--liberata-accent);
+    --pst-color-primary-highlight: var(--liberata-accent-soft);
+    --pst-color-primary-text: var(--liberata-neutral-100);
+    --pst-color-primary-bg: var(--liberata-brand);
+    --pst-color-secondary: var(--liberata-heading);
+    --pst-color-secondary-bg: var(--liberata-neutral-700);
+    --pst-color-accent: var(--liberata-accent-soft);
+    --pst-color-accent-bg: var(--liberata-brand);
+    --pst-color-link: var(--liberata-accent);
+    --pst-color-link-hover: var(--liberata-accent-soft);
+    --pst-color-inline-code-links: var(--liberata-accent-soft);
+    --pst-color-background: var(--liberata-neutral-800);
+    --pst-color-on-background: var(--liberata-neutral-800);
+    --pst-color-surface: var(--liberata-neutral-700);
+    --pst-color-on-surface: var(--liberata-neutral-100);
+    --pst-color-text-base: var(--liberata-neutral-100);
+    --pst-color-text-muted: var(--liberata-neutral-500);
+    --pst-color-heading: var(--liberata-neutral-100);
+    --pst-color-border: var(--liberata-neutral-700);
+    --pst-color-border-muted: var(--liberata-neutral-600);
 }
 
-.bd-header {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+.bd-header .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--pst-color-text-base);
+}
+
+.bd-header .navbar-brand img {
+    height: 1.85rem;
+    width: auto;
+}
+
+.bd-header .logo__title {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--pst-color-text-base);
+}
+
+@media (min-width: 960px) {
+    .bd-header .navbar-header-items {
+        flex-wrap: nowrap;
+        align-items: center;
+    }
+
+    .bd-header .navbar-header-items__center,
+    .bd-header .navbar-header-items__end,
+    .bd-header ul.navbar-nav {
+        flex-wrap: nowrap;
+        align-items: center;
+    }
+
+    .bd-header .bd-search {
+        width: 13.5rem;
+    }
+}
+
+.bd-main .bd-content .bd-article-container .bd-article :target > :is(h1, h2, h3, h4, h5, h6),
+dt:target,
+.viewcode-block:target,
+aside.footnote:target {
+    background-color: transparent;
+    box-shadow: inset 3px 0 0 var(--pst-color-primary);
+    animation: liberata-target 0.7s ease forwards;
+}
+
+@keyframes liberata-target {
+    0%, 25% {
+        background-color: color-mix(in srgb, var(--pst-color-primary) 16%, transparent);
+    }
+    100% {
+        background-color: transparent;
+        box-shadow: inset 3px 0 0 transparent;
+    }
+}
+
+.bd-header .nav-item.dropdown {
+    position: relative;
+}
+
+.bd-header .nav-item.dropdown > .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1031;
+}
+
+.liberata-callout {
+    background: var(--pst-color-primary-bg);
+    color: var(--pst-color-text-base);
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 5px;
+    border-left: 4px solid var(--pst-color-primary);
 }
