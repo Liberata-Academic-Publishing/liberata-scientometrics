@@ -138,8 +138,7 @@ See `LICENSE <https://github.com/Liberata-Academic-Publishing/liberata-metrics/b
 Questions or Feedback?
 ----------------------
 
-- **Issues**: Report bugs or request features on `GitHub Issues <https://github.com/Liberata-Academic-Publishing/liberata-metrics/issues>`_
-- **Discussions**: Ask questions on `GitHub Discussions <https://github.com/Liberata-Academic-Publishing/liberata-metrics/discussions>`_
+- **Issues**: Report bugs, ask questions, or request features on `GitHub Issues <https://github.com/Liberata-Academic-Publishing/liberata-metrics/issues>`_
 - **Email**: Contact the development team
 
 

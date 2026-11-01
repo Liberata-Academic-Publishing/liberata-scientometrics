@@ -185,4 +185,3 @@ See `LICENSE` for details.
 ## Support
 
 - GitHub Issues: https://github.com/Liberata-Academic-Publishing/liberata-scientometrics/issues
-- GitHub Discussions: https://github.com/Liberata-Academic-Publishing/liberata-scientometrics/discussions
